@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBU Math & Econ | 6-Week Intensive Program</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="logo">
+                    <img src="assets/images/logo.png" alt="CBU Logo">
+                </div>
+                <span class="brand-text">CBU MATH & ECON</span>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link active">HOME</a>
+                <a href="overview.html" class="nav-link">OVERVIEW</a>
+                <a href="schedule.html" class="nav-link">SCHEDULE</a>
+                <a href="team.html" class="nav-link">TEAM</a>
+                <a href="faq.html" class="nav-link">F.A.Q.</a>
+                <a href="#" class="login-btn" id="loginBtn">
+                    <i class="fas fa-user"></i>
+                    <span>LOGIN</span>
+                </a>
+            </div>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <h1>CBU MATH & ECON</h1>
+                <h2>Mathematical Methods 1 & Economics 110</h2>
+                <p class="hero-subtitle">6-Week Intensive Program</p>
+                <p class="hero-description">
+                    An intensive program designed to master mathematical techniques and economic principles 
+                    through practical problem-solving and real-world applications!
+                </p>
+                <div class="hero-buttons">
+                    <a href="overview.html" class="btn btn-primary">View Program Details</a>
+                    <a href="#register" class="btn btn-secondary">Register Now</a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <img src="assets/images/banner.jpg" alt="Mathematics and Economics Illustration">
+            </div>
+        </div>
+    </section>
+
+    <!-- Program Options -->
+    <section class="program-options">
+        <div class="container">
+            <h2 class="section-title">Program Options</h2>
+            <div class="options-grid">
+                <div class="option-card">
+                    <h3>CBU Students Only</h3>
+                    <p>Access to full program with academic credit and certification</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Official Registration</li>
+                        <li><i class="fas fa-check"></i> Academic Credit</li>
+                        <li><i class="fas fa-check"></i> Certificate of Completion</li>
+                        <li><i class="fas fa-check"></i> Faculty Support</li>
+                    </ul>
+                </div>
+                <div class="option-card">
+                    <h3>Open Enrollment</h3>
+                    <p>Public access to all learning materials and resources</p>
+                    <ul>
+                        <li><i class="fas fa-check"></i> Complete Course Materials</li>
+                        <li><i class="fas fa-check"></i> Problem Sets & Solutions</li>
+                        <li><i class="fas fa-check"></i> Video Resources</li>
+                        <li><i class="fas fa-check"></i> Community Access</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Info -->
+    <section class="quick-info">
+        <div class="container">
+            <div class="info-grid">
+                <div class="info-item">
+                    <i class="fas fa-calendar-alt"></i>
+                    <h3>Program Dates</h3>
+                    <p>6 Weeks (Monday - Friday)</p>
+                    <p class="info-detail">120 Contact Hours</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-clock"></i>
+                    <h3>Daily Schedule</h3>
+                    <p>9:00 AM - 4:00 PM</p>
+                    <p class="info-detail">4 Hours Daily Instruction</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-book"></i>
+                    <h3>Course Coverage</h3>
+                    <p>Complete Chapters</p>
+                    <p class="info-detail">Math Methods 1 + Econ 110</p>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-trophy"></i>
+                    <h3>Assessment</h3>
+                    <p>Weekly Tests + Projects</p>
+                    <p class="info-detail">Certificate Awarded</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Section -->
+    <section id="register" class="registration">
+        <div class="container">
+            <h2 class="section-title">Register for the Program</h2>
+            <div class="registration-form">
+                <div class="form-container">
+                    <form id="registrationForm">
+                        <div class="form-group">
+                            <label for="fullName">Full Name</label>
+                            <input type="text" id="fullName" name="fullName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="program">Program Type</label>
+                            <select id="program" name="program" required>
+                                <option value="">Select Program</option>
+                                <option value="cbu">CBU Student (Academic Credit)</option>
+                                <option value="open">Open Enrollment (Self-paced)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="courses">Courses</label>
+                            <div class="checkbox-group">
+                                <label>
+                                    <input type="checkbox" name="courses" value="math"> Mathematical Methods 1
+                                </label>
+                                <label>
+                                    <input type="checkbox" name="courses" value="econ"> Economics 110
+                                </label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Registration</button>
+                    </form>
+                    <div class="form-info">
+                        <h3>Registration Benefits</h3>
+                        <ul>
+                            <li><i class="fas fa-check-circle"></i> Access to all learning materials</li>
+                            <li><i class="fas fa-check-circle"></i> Weekly problem sets with solutions</li>
+                            <li><i class="fas fa-check-circle"></i> Progress tracking dashboard</li>
+                            <li><i class="fas fa-check-circle"></i> Certificate of completion</li>
+                            <li><i class="fas fa-check-circle"></i> Faculty support access</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Login Modal -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Student Login</h2>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="studentId">Student ID / Email</label>
+                    <input type="text" id="studentId" name="studentId" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Login</button>
+            </form>
+            <p class="modal-footer">
+                Need an account? <a href="#register" class="register-link">Register here</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>CBU MATH & ECON</h3>
+                    <p>The Copperbelt University<br>
+                    School of Mathematics and Natural Sciences<br>
+                    Department of Mathematics & Economics</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="overview.html">Program Overview</a></li>
+                        <li><a href="schedule.html">Weekly Schedule</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="team.html">Teaching Team</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p><i class="fas fa-envelope"></i> r.sichomba@cbu.ac.zm</p>
+                    <p><i class="fas fa-phone"></i> +260 XXX XXX XXX</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 CBU Mathematics & Economics Department. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

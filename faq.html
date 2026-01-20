@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Frequently Asked Questions | CBU Math & Econ</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <div class="logo">
+                    <img src="assets/images/logo.png" alt="CBU Logo">
+                </div>
+                <span class="brand-text">CBU MATH & ECON</span>
+            </div>
+            <div class="nav-menu" id="navMenu">
+                <a href="index.html" class="nav-link">HOME</a>
+                <a href="overview.html" class="nav-link">OVERVIEW</a>
+                <a href="schedule.html" class="nav-link">SCHEDULE</a>
+                <a href="team.html" class="nav-link">TEAM</a>
+                <a href="faq.html" class="nav-link active">F.A.Q.</a>
+                <a href="#" class="login-btn" id="loginBtn">
+                    <i class="fas fa-user"></i>
+                    <span>LOGIN</span>
+                </a>
+            </div>
+            <button class="menu-toggle" id="menuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- FAQ Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Frequently Asked Questions</h1>
+            <p>Find answers to common questions about our 6-Week Intensive Program</p>
+        </div>
+    </section>
+
+    <!-- FAQ Content -->
+    <section class="faq-content">
+        <div class="container">
+            <div class="faq-categories">
+                <div class="category-tabs">
+                    <button class="category-tab active" data-category="general">General</button>
+                    <button class="category-tab" data-category="registration">Registration</button>
+                    <button class="category-tab" data-category="academic">Academic</button>
+                    <button class="category-tab" data-category="resources">Resources</button>
+                    <button class="category-tab" data-category="technical">Technical</button>
+                </div>
+
+                <!-- General Questions -->
+                <div class="faq-category active" id="general">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>What is the duration of the program?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>The program runs for 6 weeks, Monday through Friday, with daily sessions from 9:00 AM to 4:00 PM. Sundays are dedicated to comprehensive problem-solving sessions.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Who can register for this program?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>The program is open to:</p>
+                            <ul>
+                                <li>CBU students (for academic credit)</li>
+                                <li>External students and professionals (open enrollment)</li>
+                                <li>Anyone interested in learning mathematical methods and economics</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>What are the prerequisites?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Basic knowledge of high school mathematics (algebra, functions) is recommended. No prior economics knowledge is required - we start from the fundamentals.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Is there a certificate upon completion?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes! All participants who complete the program requirements (attendance, assignments, and final assessment) will receive a Certificate of Completion from the CBU Mathematics & Economics Department.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Registration Questions -->
+                <div class="faq-category" id="registration">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How do I register for the program?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>You can register through the registration form on our homepage. After submission, you'll receive a confirmation email with further instructions.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>What is the registration deadline?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Registration remains open throughout the program, but we recommend registering at least one week before the start date to ensure access to all materials.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Is there a registration fee?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>For CBU students: No fee (covered by tuition)<br>
+                            For external participants: A nominal fee applies for certification and resource access. Contact us for details.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Can I register for only one course?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, you can register for either Mathematical Methods 1 or Economics 110 separately, though we recommend taking both for maximum benefit.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Academic Questions -->
+                <div class="faq-category" id="academic">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How is the program assessed?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Assessment includes:</p>
+                            <ul>
+                                <li>Weekly tests (30%)</li>
+                                <li>Daily assignments (20%)</li>
+                                <li>Capstone project (25%)</li>
+                                <li>Final examination (25%)</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>What support is available for struggling students?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>We provide:</p>
+                            <ul>
+                                <li>Daily office hours with instructors</li>
+                                <li>Peer study groups</li>
+                                <li>Supplementary materials</li>
+                                <li>One-on-one tutoring sessions</li>
+                                <li>Online forum support</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Are there any required textbooks?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>No textbooks are required to purchase. All necessary materials (notes, problems, solutions) are provided through our online platform. Recommended readings will be suggested for those wanting additional resources.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>What happens if I miss classes?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>All lectures and materials are recorded and available online. However, consistent attendance is strongly encouraged for optimal learning. Minimum 80% attendance is required for certification.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resources Questions -->
+                <div class="faq-category" id="resources">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>What resources are provided?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Each registered student receives:</p>
+                            <ul>
+                                <li>Complete lecture notes for all chapters</li>
+                                <li>Practice problem sets with solutions</li>
+                                <li>Video tutorials and explanations</li>
+                                <li>Access to Google Drive with all materials</li>
+                                <li>Interactive problem-solving tools</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>How do I access the learning materials?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>After registration, you'll receive login credentials for our online platform. All materials are organized by week and day, following the program schedule.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Are the materials downloadable?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, all notes and problem sets are available in PDF format for download. Video content can be streamed online.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Can I share the materials with others?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Materials are for personal educational use only. Sharing with registered study groups is permitted, but distribution to non-registered individuals is prohibited.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Technical Questions -->
+                <div class="faq-category" id="technical">
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>What technology do I need?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>You'll need:</p>
+                            <ul>
+                                <li>A computer or tablet with internet access</li>
+                                <li>Basic calculator (scientific calculator recommended)</li>
+                                <li>PDF reader</li>
+                                <li>Video streaming capability</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Is there a mobile app?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Our website is fully mobile-responsive. While we don't have a dedicated app, you can access all features through your mobile browser. You can also add the site to your home screen for app-like access.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>What if I have technical issues?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Contact our technical support team at techsupport@cbu.ac.zm. We typically respond within 24 hours. Common issues and solutions are also documented in our help section.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h3>Do I need special software?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>No special software is required. All materials are in standard formats (PDF, MP4). For mathematical notation, we recommend using a standard web browser with JavaScript enabled.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contact for More Questions -->
+            <div class="contact-faq">
+                <h2>Still Have Questions?</h2>
+                <p>Contact us directly for personalized assistance:</p>
+                <div class="contact-options">
+                    <div class="contact-option">
+                        <i class="fas fa-envelope"></i>
+                        <h3>Email</h3>
+                        <p>r.sichomba@cbu.ac.zm</p>
+                    </div>
+                    <div class="contact-option">
+                        <i class="fas fa-comments"></i>
+                        <h3>Live Chat</h3>
+                        <p>Available during business hours</p>
+                    </div>
+                    <div class="contact-option">
+                        <i class="fas fa-phone"></i>
+                        <h3>Phone</h3>
+                        <p>+260 XXX XXX XXX</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>CBU MATH & ECON</h3>
+                    <p>The Copperbelt University<br>
+                    School of Mathematics and Natural Sciences<br>
+                    Department of Mathematics & Economics</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="overview.html">Program Overview</a></li>
+                        <li><a href="schedule.html">Weekly Schedule</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="team.html">Teaching Team</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p><i class="fas fa-envelope"></i> r.sichomba@cbu.ac.zm</p>
+                    <p><i class="fas fa-phone"></i> +260 XXX XXX XXX</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-github"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 CBU Mathematics & Economics Department. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const icon = question.querySelector('i');
+                
+                answer.classList.toggle('active');
+                icon.classList.toggle('fa-chevron-down');
+                icon.classList.toggle('fa-chevron-up');
+            });
+        });
+
+        // Category Tabs
+        document.querySelectorAll('.category-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remove active class from all tabs and categories
+                document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.faq-category').forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding category
+                tab.classList.add('active');
+                const categoryId = tab.dataset.category;
+                document.getElementById(categoryId).classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>
