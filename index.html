@@ -7,10 +7,9 @@
     
     <!-- PWA Meta -->
     <meta name="theme-color" content="#059669">
-    <link rel="manifest" href="manifest.json">
+    <meta name="description" content="Master Mathematical Methods 1 & Economics 110 in 6 weeks with our intensive program. Interactive learning with Google Drive resources and live sessions.">
     
     <!-- Styles -->
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
@@ -19,195 +18,662 @@
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
     
     <style>
-        /* Additional Styles for Home Page */
+        /* Main Styles */
         :root {
-            --progress: 0%;
+            --primary: #3b82f6;
+            --secondary: #10b981;
+            --accent: #8b5cf6;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --card-bg: rgba(30, 41, 59, 0.8);
+            --border: rgba(255, 255, 255, 0.1);
+            --math: #10b981;
+            --econ: #3b82f6;
         }
-        
-        .learning-progress {
-            position: relative;
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
-            border-radius: 20px;
-            padding: 2.5rem;
-            margin: 2rem 0;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
-        
-        .progress-ring {
-            width: 120px;
-            height: 120px;
-            position: relative;
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
         }
-        
-        .progress-ring-circle {
-            width: 100%;
-            height: 100%;
-            fill: none;
-            stroke-width: 8;
-            stroke: #059669;
-            stroke-linecap: round;
-            transform: rotate(-90deg);
-            transform-origin: 50% 50%;
-            stroke-dasharray: 314;
-            stroke-dashoffset: calc(314 - (314 * var(--progress)) / 100);
-            transition: stroke-dashoffset 1s ease;
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
         }
-        
-        .milestone-tracker {
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
             display: flex;
             justify-content: space-between;
-            margin: 3rem 0;
-            position: relative;
+            align-items: center;
         }
-        
-        .milestone-tracker::before {
-            content: '';
-            position: absolute;
-            top: 30px;
-            left: 50px;
-            right: 50px;
-            height: 4px;
-            background: rgba(255, 255, 255, 0.1);
-            z-index: 1;
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
         }
-        
-        .milestone {
-            text-align: center;
-            position: relative;
-            z-index: 2;
-            flex: 1;
-        }
-        
-        .milestone-dot {
-            width: 60px;
-            height: 60px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 50%;
-            margin: 0 auto 1rem;
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .brand-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
             transition: all 0.3s ease;
-            border: 3px solid transparent;
+            position: relative;
         }
-        
-        .milestone.active .milestone-dot {
-            background: linear-gradient(135deg, #059669, #10b981);
-            border-color: #34d399;
-            box-shadow: 0 0 20px rgba(5, 150, 105, 0.5);
-            transform: scale(1.1);
+
+        .nav-link:hover {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary);
         }
-        
-        .milestone.completed .milestone-dot {
-            background: linear-gradient(135deg, #059669, #10b981);
-            border-color: #34d399;
+
+        .nav-link.active {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--primary);
         }
-        
-        .milestone-content {
-            padding: 1rem;
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
         }
-        
-        .chapter-preview {
+
+        .login-btn {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 8rem 0 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-badge {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+        }
+
+        .badge-primary {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1rem;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            display: block;
+        }
+
+        .hero-subtitle {
+            font-size: 2rem;
+            color: var(--light);
+            opacity: 0.9;
+        }
+
+        .hero-description {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stat {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .btn-lg {
+            padding: 1.25rem 2.5rem;
+            font-size: 1.1rem;
+        }
+
+        .btn-block {
+            width: 100%;
+            justify-content: center;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Section Header */
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        /* Week Schedule */
+        .week-schedule {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 3rem 0;
+            border: 1px solid var(--border);
+        }
+
+        .schedule-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .schedule-header h2 {
+            font-size: 2rem;
+        }
+
+        .week-navigation {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .week-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border);
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .week-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .week-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-color: transparent;
+        }
+
+        .schedule-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .day-card {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .day-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .session-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .session {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .session-time {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .session-subject {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--primary);
+            border-radius: 20px;
+            font-size: 0.875rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .session-subject.math {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--math);
+        }
+
+        .session-content h4 {
+            margin-bottom: 0.5rem;
+        }
+
+        .session-content p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .session-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .resource-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            transition: all 0.3s ease;
+        }
+
+        .resource-link:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .resource-link.drive {
+            background: rgba(66, 133, 244, 0.2);
+            color: #4285f4;
+        }
+
+        .resource-link.video {
+            background: rgba(255, 0, 0, 0.2);
+            color: #ff0000;
+        }
+
+        /* Google Drive Resources */
+        .drive-resources {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 3rem 0;
+            border: 1px solid var(--border);
+        }
+
+        .drive-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .drive-card {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .drive-card:hover {
+            border-color: #4285f4;
+            transform: translateY(-5px);
+        }
+
+        .drive-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(66, 133, 244, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4285f4;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem;
+        }
+
+        /* Quick Access */
+        .quick-access {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 2rem;
             margin: 3rem 0;
         }
-        
-        .chapter-card {
-            background: rgba(30, 41, 59, 0.7);
-            border-radius: 15px;
-            padding: 2rem;
+
+        .access-card {
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.9) 0%, rgba(59, 130, 246, 0.9) 100%);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            text-decoration: none;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            position: relative;
-            overflow: hidden;
         }
-        
-        .chapter-card:hover {
+
+        .access-card:hover {
             transform: translateY(-5px);
-            border-color: #059669;
-            box-shadow: 0 20px 40px rgba(5, 150, 105, 0.2);
+            box-shadow: 0 20px 40px rgba(59, 130, 246, 0.3);
         }
-        
-        .chapter-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #059669, #10b981);
+
+        .access-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
         }
-        
-        .chapter-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1.5rem;
+
+        /* Footer */
+        .footer {
+            background: rgba(15, 23, 42, 0.95);
+            padding: 4rem 0 2rem;
+            margin-top: 6rem;
+            border-top: 1px solid var(--border);
         }
-        
-        .chapter-number {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #059669, #10b981);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-right: 1rem;
-        }
-        
-        .chapter-content {
-            margin-bottom: 1.5rem;
-        }
-        
-        .chapter-meta {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9rem;
-            color: #94a3b8;
-        }
-        
-        .interactive-formula {
-            background: rgba(15, 23, 42, 0.8);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin: 2rem 0;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-        
-        .formula-editor {
+
+        .footer-content {
             display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 1.5rem;
-            margin-top: 1rem;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
         }
-        
-        .formula-input {
-            background: rgba(30, 41, 59, 0.8);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            padding: 1rem;
-            font-family: 'Courier New', monospace;
-            color: white;
-            font-size: 1.1rem;
-            resize: vertical;
-            min-height: 100px;
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
         }
-        
-        .formula-preview {
-            background: rgba(30, 41, 59, 0.8);
-            border-radius: 8px;
-            padding: 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+
+        .footer-section ul {
+            list-style: none;
         }
-        
+
+        .footer-section ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-section a {
+            color: var(--light);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            opacity: 1;
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            opacity: 0.7;
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            .hero-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            
+            .hero-stats {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--dark);
+                padding: 1rem;
+                flex-direction: column;
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .hero-subtitle {
+                font-size: 1.5rem;
+            }
+            
+            .section-header h2 {
+                font-size: 2rem;
+            }
+            
+            .hero-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .week-schedule, .drive-resources {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-buttons {
+                flex-direction: column;
+            }
+            
+            .week-navigation {
+                flex-wrap: wrap;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+        }
+
+        /* Animations */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -218,23 +684,68 @@
                 transform: translateY(0);
             }
         }
-        
+
         .animate-in {
             animation: fadeInUp 0.6s ease forwards;
         }
-        
-        @media (max-width: 768px) {
-            .milestone-tracker {
-                flex-direction: column;
-                gap: 2rem;
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #1e293b;
+            border-left: 4px solid #3b82f6;
+            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            z-index: 10000;
+            animation: slideInRight 0.3s ease;
+            max-width: 400px;
+        }
+
+        .notification-success {
+            border-left-color: #10b981;
+        }
+
+        .notification-error {
+            border-left-color: #ef4444;
+        }
+
+        .notification-warning {
+            border-left-color: #f59e0b;
+        }
+
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex: 1;
+            color: white;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
             }
-            
-            .milestone-tracker::before {
-                display: none;
+            to {
+                transform: translateX(0);
+                opacity: 1;
             }
-            
-            .formula-editor {
-                grid-template-columns: 1fr;
+        }
+
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
             }
         }
     </style>
@@ -243,20 +754,21 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-brand">
+            <a href="index.html" class="nav-brand">
                 <div class="logo">
-                    <i class="fas fa-calculator"></i>
+                    <i class="fas fa-brain"></i>
                 </div>
-                <span class="brand-text">CBU MATH & ECON</span>
-            </div>
+                <span class="brand-text">CBU PREMIUM PROGRAM</span>
+            </a>
             <div class="nav-menu" id="navMenu">
                 <a href="index.html" class="nav-link active"><i class="fas fa-home"></i> HOME</a>
                 <a href="overview.html" class="nav-link"><i class="fas fa-book-open"></i> OVERVIEW</a>
                 <a href="schedule.html" class="nav-link"><i class="fas fa-calendar-alt"></i> SCHEDULE</a>
                 <a href="team.html" class="nav-link"><i class="fas fa-users"></i> TEAM</a>
-                <a href="#" class="login-btn" id="loginBtn">
-                    <i class="fas fa-user"></i>
-                    <span>LOGIN</span>
+                <a href="#resources" class="nav-link"><i class="fas fa-graduation-cap"></i> RESOURCES</a>
+                <a href="https://wa.me/260961234567" target="_blank" class="login-btn" onclick="showEnrollmentModal()">
+                    <i class="fas fa-crown"></i>
+                    <span>ENROLL NOW</span>
                 </a>
             </div>
             <button class="menu-toggle" id="menuToggle">
@@ -299,311 +811,270 @@
                 </div>
                 
                 <div class="hero-buttons">
-                    <a href="#start-learning" class="btn btn-primary btn-lg">
-                        <i class="fas fa-play-circle"></i> Start Learning
+                    <a href="#week1-schedule" class="btn btn-primary btn-lg">
+                        <i class="fas fa-play-circle"></i> Start Learning (Week 1)
                     </a>
                     <a href="overview.html" class="btn btn-secondary btn-lg">
-                        <i class="fas fa-info-circle"></i> Learn More
+                        <i class="fas fa-info-circle"></i> View All 6 Weeks
+                    </a>
+                    <a href="https://drive.google.com/drive/folders/1SAMPLE_MATERIALS" target="_blank" class="btn btn-secondary btn-lg">
+                        <i class="fab fa-google-drive"></i> Sample Materials
                     </a>
                 </div>
             </div>
             <div class="hero-visual">
-                <div class="visual-container">
-                    <div class="math-visual">
-                        <div class="equation">$$ \int_a^b f(x)dx = F(b) - F(a) $$</div>
-                        <div class="graph-preview"></div>
+                <div class="visual-container animate-in">
+                    <!-- Math Visual -->
+                    <div class="visual-card" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(5, 150, 105, 0.4)); border: 1px solid rgba(16, 185, 129, 0.3);">
+                        <h3><i class="fas fa-calculator"></i> Mathematical Methods 1</h3>
+                        <p>Complete coverage of algebra, calculus, and advanced mathematics</p>
+                        <div class="mt-2">
+                            <a href="https://drive.google.com/drive/folders/1MATH_ALL_WEEKS" target="_blank" class="resource-link drive">
+                                <i class="fab fa-google-drive"></i> Access All Math Materials
+                            </a>
+                        </div>
                     </div>
-                    <div class="econ-visual">
-                        <div class="chart-preview"></div>
-                        <div class="formula">$$ P = \frac{\partial Q}{\partial P} $$</div>
+                    
+                    <!-- Econ Visual -->
+                    <div class="visual-card" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(30, 64, 175, 0.4)); border: 1px solid rgba(59, 130, 246, 0.3); margin-top: 2rem;">
+                        <h3><i class="fas fa-chart-line"></i> Economics 110</h3>
+                        <p>Microeconomics fundamentals with real-world applications</p>
+                        <div class="mt-2">
+                            <a href="https://drive.google.com/drive/folders/1ECON_ALL_WEEKS" target="_blank" class="resource-link drive">
+                                <i class="fab fa-google-drive"></i> Access All Econ Materials
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- Progress Wave -->
-        <div class="progress-wave">
-            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25"></path>
-                <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5"></path>
-                <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"></path>
-            </svg>
         </div>
     </section>
 
-    <!-- Progressive Learning Section -->
-    <section id="start-learning" class="learning-section">
-        <div class="container">
-            <div class="section-header">
-                <h2>Your Learning Journey</h2>
-                <p>Track your progress through 6 weeks of intensive learning</p>
-            </div>
-            
-            <!-- Overall Progress -->
-            <div class="learning-progress">
-                <div class="progress-header">
-                    <div class="progress-info">
-                        <h3>Overall Progress</h3>
-                        <div class="progress-stats">
-                            <span class="stat"><i class="fas fa-book"></i> 40 Chapters</span>
-                            <span class="stat"><i class="fas fa-clock"></i> 120 Hours</span>
-                            <span class="stat"><i class="fas fa-trophy"></i> 2 Courses</span>
-                        </div>
-                    </div>
-                    <div class="progress-display">
-                        <div class="progress-ring">
-                            <svg viewBox="0 0 100 100">
-                                <circle cx="50" cy="50" r="45" class="progress-ring-bg"></circle>
-                                <circle cx="50" cy="50" r="45" class="progress-ring-circle"></circle>
-                            </svg>
-                            <div class="progress-percentage">25%</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Milestone Tracker -->
-                <div class="milestone-tracker">
-                    <div class="milestone completed" data-week="1">
-                        <div class="milestone-dot">
-                            <i class="fas fa-check"></i>
-                        </div>
-                        <div class="milestone-content">
-                            <h4>Week 1</h4>
-                            <p>Foundation</p>
-                            <small>Completed</small>
-                        </div>
-                    </div>
-                    
-                    <div class="milestone active" data-week="2">
-                        <div class="milestone-dot">
-                            <i class="fas fa-play"></i>
-                        </div>
-                        <div class="milestone-content">
-                            <h4>Week 2</h4>
-                            <p>Algebra Basics</p>
-                            <small>In Progress</small>
-                        </div>
-                    </div>
-                    
-                    <div class="milestone" data-week="3">
-                        <div class="milestone-dot">
-                            <i class="fas fa-lock"></i>
-                        </div>
-                        <div class="milestone-content">
-                            <h4>Week 3</h4>
-                            <p>Calculus Intro</p>
-                            <small>Upcoming</small>
-                        </div>
-                    </div>
-                    
-                    <div class="milestone" data-week="4">
-                        <div class="milestone-dot">
-                            <i class="fas fa-lock"></i>
-                        </div>
-                        <div class="milestone-content">
-                            <h4>Week 4</h4>
-                            <p>Applications</p>
-                            <small>Upcoming</small>
-                        </div>
-                    </div>
-                    
-                    <div class="milestone" data-week="5">
-                        <div class="milestone-dot">
-                            <i class="fas fa-lock"></i>
-                        </div>
-                        <div class="milestone-content">
-                            <h4>Week 5</h4>
-                            <p>Advanced Topics</p>
-                            <small>Upcoming</small>
-                        </div>
-                    </div>
-                    
-                    <div class="milestone" data-week="6">
-                        <div class="milestone-dot">
-                            <i class="fas fa-lock"></i>
-                        </div>
-                        <div class="milestone-content">
-                            <h4>Week 6</h4>
-                            <p>Review & Exam</p>
-                            <small>Upcoming</small>
-                        </div>
-                    </div>
+    <!-- Week 1 Schedule Section -->
+    <section id="week1-schedule" class="container">
+        <div class="section-header">
+            <h2>Week 1 Learning Schedule</h2>
+            <p>Start your journey with foundational concepts. Live sessions: 12:00-13:45 & 17:00-18:45 daily</p>
+        </div>
+
+        <div class="week-schedule animate-in">
+            <div class="schedule-header">
+                <h2><i class="fas fa-calendar-week"></i> Week 1: Foundation Building</h2>
+                <div class="week-navigation">
+                    <a href="#week1-schedule" class="week-btn active">Week 1</a>
+                    <a href="overview.html#week2" class="week-btn">Week 2</a>
+                    <a href="overview.html#week3" class="week-btn">Week 3</a>
+                    <a href="overview.html" class="week-btn">View All</a>
                 </div>
             </div>
-            
-            <!-- Chapter Preview -->
-            <div class="section-header">
-                <h3>Current Chapter Preview</h3>
-                <p>Continue where you left off</p>
-            </div>
-            
-            <div class="chapter-preview">
-                <div class="chapter-card animate-in">
-                    <div class="chapter-header">
-                        <div class="chapter-number">2.1</div>
-                        <div>
-                            <h4>Mathematical Methods 1</h4>
-                            <p class="chapter-subtitle">Algebraic Equations & Inequalities</p>
-                        </div>
+
+            <div class="schedule-grid">
+                <!-- Monday -->
+                <div class="day-card">
+                    <div class="day-header">
+                        <h3 class="day-title">Monday</h3>
+                        <span class="session-count">2 Sessions</span>
                     </div>
-                    
-                    <div class="chapter-content">
-                        <p>Master the fundamentals of algebraic manipulation, solving equations, and working with inequalities.</p>
-                        
-                        <div class="chapter-progress">
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 65%"></div>
+                    <div class="session-list">
+                        <div class="session">
+                            <div class="session-time">12:00 - 13:45</div>
+                            <span class="session-subject math">Mathematics</span>
+                            <div class="session-content">
+                                <h4>Chapter 5: Linear Equations Review</h4>
+                                <p>Solving techniques, word problems, and applications</p>
+                                <div class="session-links">
+                                    <a href="https://drive.google.com/file/d/1MATH_W1D1_LECTURE" target="_blank" class="resource-link drive">
+                                        <i class="fab fa-google-drive"></i> Lecture Notes
+                                    </a>
+                                    <a href="https://drive.google.com/file/d/1MATH_W1D1_PROBLEMS" target="_blank" class="resource-link drive">
+                                        <i class="fas fa-tasks"></i> Problem Set
+                                    </a>
+                                    <a href="https://youtu.be/math-w1d1" target="_blank" class="resource-link video">
+                                        <i class="fab fa-youtube"></i> Video Tutorial
+                                    </a>
+                                </div>
                             </div>
-                            <span>65% Complete</span>
                         </div>
-                        
-                        <div class="chapter-meta">
-                            <span><i class="fas fa-clock"></i> 4 hours</span>
-                            <span><i class="fas fa-puzzle-piece"></i> 12 exercises</span>
-                            <span><i class="fas fa-video"></i> 3 videos</span>
-                        </div>
-                    </div>
-                    
-                    <button class="btn btn-primary btn-block continue-btn">
-                        <i class="fas fa-play"></i> Continue Learning
-                    </button>
-                </div>
-                
-                <div class="chapter-card animate-in">
-                    <div class="chapter-header">
-                        <div class="chapter-number">2.2</div>
-                        <div>
-                            <h4>Economics 110</h4>
-                            <p class="chapter-subtitle">Market Equilibrium & Elasticity</p>
-                        </div>
-                    </div>
-                    
-                    <div class="chapter-content">
-                        <p>Understand how markets reach equilibrium and analyze price elasticity of demand and supply.</p>
-                        
-                        <div class="chapter-progress">
-                            <div class="progress-bar">
-                                <div class="progress-fill" style="width: 40%"></div>
-                            </div>
-                            <span>40% Complete</span>
-                        </div>
-                        
-                        <div class="chapter-meta">
-                            <span><i class="fas fa-clock"></i> 3 hours</span>
-                            <span><i class="fas fa-puzzle-piece"></i> 8 exercises</span>
-                            <span><i class="fas fa-chart-line"></i> 2 simulations</span>
-                        </div>
-                    </div>
-                    
-                    <button class="btn btn-secondary btn-block continue-btn">
-                        <i class="fas fa-play"></i> Continue Learning
-                    </button>
-                </div>
-            </div>
-            
-            <!-- Interactive Learning -->
-            <div class="section-header">
-                <h3>Interactive Learning Tools</h3>
-                <p>Practice with real-time feedback</p>
-            </div>
-            
-            <div class="interactive-formula animate-in">
-                <h4><i class="fas fa-calculator"></i> Formula Practice</h4>
-                <p>Try solving this quadratic equation. Type your solution in LaTeX format:</p>
-                
-                <div class="formula-problem">
-                    <div class="problem-statement">
-                        <p>Solve for x: $$ 3x^2 - 7x + 2 = 0 $$</p>
-                    </div>
-                    
-                    <div class="formula-editor">
-                        <div>
-                            <label>Your Solution:</label>
-                            <textarea class="formula-input" placeholder="Type your solution in LaTeX (e.g., x = \frac{1}{3})">x = \frac{1}{3}, x = 2</textarea>
-                            <button class="btn btn-primary mt-2">
-                                <i class="fas fa-check"></i> Check Solution
-                            </button>
-                        </div>
-                        
-                        <div>
-                            <label>Preview:</label>
-                            <div class="formula-preview">
-                                <div id="formula-render">$$ x = \frac{1}{3}, x = 2 $$</div>
-                            </div>
-                            <div class="solution-feedback">
-                                <div class="feedback correct">
-                                    <i class="fas fa-check-circle"></i> Correct solution!
+                        <div class="session">
+                            <div class="session-time">17:00 - 18:45</div>
+                            <span class="session-subject">Economics</span>
+                            <div class="session-content">
+                                <h4>Chapter 1.1-1.3: Introduction to Economics</h4>
+                                <p>Defining economics, economic thinking, basic concepts</p>
+                                <div class="session-links">
+                                    <a href="https://drive.google.com/file/d/1ECON_W1D1_NOTES" target="_blank" class="resource-link drive">
+                                        <i class="fab fa-google-drive"></i> Chapter Notes
+                                    </a>
+                                    <a href="https://drive.google.com/file/d/1ECON_W1D1_CASE" target="_blank" class="resource-link drive">
+                                        <i class="fas fa-briefcase"></i> Case Study
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- Tuesday -->
+                <div class="day-card">
+                    <div class="day-header">
+                        <h3 class="day-title">Tuesday</h3>
+                        <span class="session-count">2 Sessions</span>
+                    </div>
+                    <div class="session-list">
+                        <div class="session">
+                            <div class="session-time">12:00 - 13:45</div>
+                            <span class="session-subject">Economics</span>
+                            <div class="session-content">
+                                <h4>Chapter 1.4-1.6: PPF & Opportunity Cost</h4>
+                                <p>Production possibility frontier, scarcity, opportunity cost</p>
+                                <div class="session-links">
+                                    <a href="https://drive.google.com/file/d/1ECON_W1D2_PPF" target="_blank" class="resource-link drive">
+                                        <i class="fab fa-google-drive"></i> PPF Diagrams
+                                    </a>
+                                    <a href="https://drive.google.com/file/d/1ECON_W1D2_QUIZ" target="_blank" class="resource-link drive">
+                                        <i class="fas fa-question-circle"></i> Quiz
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="session">
+                            <div class="session-time">17:00 - 18:45</div>
+                            <span class="session-subject math">Mathematics</span>
+                            <div class="session-content">
+                                <h4>Chapter 6: Quadratic Equations</h4>
+                                <p>Factoring methods, quadratic formula, applications</p>
+                                <div class="session-links">
+                                    <a href="https://drive.google.com/file/d/1MATH_W1D2_GUIDE" target="_blank" class="resource-link drive">
+                                        <i class="fab fa-google-drive"></i> Complete Guide
+                                    </a>
+                                    <a href="https://drive.google.com/file/d/1MATH_W1D2_PROBLEMS" target="_blank" class="resource-link drive">
+                                        <i class="fas fa-tasks"></i> Practice Problems
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Wednesday to Friday would follow similar pattern -->
+            </div>
+
+            <div style="text-align: center; margin-top: 2rem;">
+                <a href="overview.html" class="btn btn-primary">
+                    <i class="fas fa-arrow-right"></i> Continue to Week 2 Overview
+                </a>
             </div>
         </div>
     </section>
 
-    <!-- Quick Stats -->
-    <section class="quick-stats">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-graduation-cap"></i>
+    <!-- Google Drive Resources -->
+    <section id="resources" class="container">
+        <div class="section-header">
+            <h2>Complete Resource Library</h2>
+            <p>Access all learning materials via Google Drive</p>
+        </div>
+
+        <div class="drive-resources animate-in">
+            <div class="drive-grid">
+                <div class="drive-card">
+                    <div class="drive-icon">
+                        <i class="fas fa-calculator"></i>
                     </div>
-                    <div class="stat-content">
-                        <h3>Academic Excellence</h3>
-                        <p>University-level curriculum with certification</p>
+                    <h3>Mathematics Materials</h3>
+                    <p>Complete PDF notes, problem sets, and solutions</p>
+                    <div class="mt-2">
+                        <a href="https://drive.google.com/drive/folders/1MATH_ALL_WEEKS" target="_blank" class="resource-link drive">
+                            <i class="fab fa-google-drive"></i> Access All Math
+                        </a>
                     </div>
                 </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon">
+
+                <div class="drive-card">
+                    <div class="drive-icon">
                         <i class="fas fa-chart-line"></i>
                     </div>
-                    <div class="stat-content">
-                        <h3>Progressive Learning</h3>
-                        <p>Track your progress in real-time</p>
+                    <h3>Economics Materials</h3>
+                    <p>Lecture notes, case studies, and market analysis</p>
+                    <div class="mt-2">
+                        <a href="https://drive.google.com/drive/folders/1ECON_ALL_WEEKS" target="_blank" class="resource-link drive">
+                            <i class="fab fa-google-drive"></i> Access All Econ
+                        </a>
                     </div>
                 </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-hands-helping"></i>
+
+                <div class="drive-card">
+                    <div class="drive-icon">
+                        <i class="fas fa-video"></i>
                     </div>
-                    <div class="stat-content">
-                        <h3>Expert Support</h3>
-                        <p>Access to faculty and teaching assistants</p>
+                    <h3>Video Tutorials</h3>
+                    <p>Recorded lectures and solution walkthroughs</p>
+                    <div class="mt-2">
+                        <a href="https://drive.google.com/drive/folders/1VIDEO_TUTORIALS" target="_blank" class="resource-link drive">
+                            <i class="fab fa-google-drive"></i> Access Videos
+                        </a>
                     </div>
                 </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-laptop-code"></i>
+
+                <div class="drive-card">
+                    <div class="drive-icon">
+                        <i class="fas fa-tasks"></i>
                     </div>
-                    <div class="stat-content">
-                        <h3>Interactive Tools</h3>
-                        <p>Practice with real-time feedback</p>
+                    <h3>Problem Sets</h3>
+                    <p>Weekly assignments with detailed solutions</p>
+                    <div class="mt-2">
+                        <a href="https://drive.google.com/drive/folders/1PROBLEM_SETS" target="_blank" class="resource-link drive">
+                            <i class="fab fa-google-drive"></i> Access Problems
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Registration CTA -->
-    <section class="registration-cta">
-        <div class="container">
-            <div class="cta-content">
-                <h2>Start Your Learning Journey Today</h2>
-                <p>Join hundreds of students mastering mathematics and economics</p>
+    <!-- Quick Access -->
+    <section class="container">
+        <div class="section-header">
+            <h2>Quick Access</h2>
+            <p>Everything you need in one place</p>
+        </div>
+
+        <div class="quick-access">
+            <a href="overview.html" class="access-card">
+                <h3><i class="fas fa-book-open"></i> Complete Program Overview</h3>
+                <p>View all 6 weeks with detailed curriculum</p>
+            </a>
+
+            <a href="schedule.html" class="access-card" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.9), rgba(124, 58, 237, 0.9));">
+                <h3><i class="fas fa-calendar-alt"></i> Interactive Schedule</h3>
+                <p>Daily sessions with resource links</p>
+            </a>
+
+            <a href="https://drive.google.com/drive/folders/1ALL_RESOURCES" target="_blank" class="access-card" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.9), rgba(5, 150, 105, 0.9));">
+                <h3><i class="fab fa-google-drive"></i> All Resources</h3>
+                <p>Complete Google Drive library</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- Enrollment CTA -->
+    <section class="container">
+        <div class="drive-resources" style="background: linear-gradient(135deg, rgba(30, 64, 175, 0.9), rgba(59, 130, 246, 0.9));">
+            <div class="text-center">
+                <h2>Ready to Enroll?</h2>
+                <p>Join our premium program with complete access to all materials and live sessions</p>
                 
-                <div class="cta-buttons">
-                    <a href="overview.html" class="btn btn-primary btn-lg">
-                        <i class="fas fa-book-open"></i> View Full Curriculum
+                <div class="hero-buttons" style="justify-content: center; margin-top: 2rem;">
+                    <a href="https://wa.me/260961234567" target="_blank" class="btn btn-primary btn-lg">
+                        <i class="fas fa-crown"></i> Enroll Now (K 2,500)
                     </a>
-                    <a href="#register" class="btn btn-secondary btn-lg">
-                        <i class="fas fa-user-plus"></i> Register Now
+                    <a href="https://drive.google.com/drive/folders/1SAMPLE_MATERIALS" target="_blank" class="btn btn-secondary btn-lg">
+                        <i class="fab fa-google-drive"></i> Free Sample Materials
                     </a>
                 </div>
+                
+                <p style="margin-top: 1rem; opacity: 0.9;">
+                    <i class="fas fa-check-circle"></i> 95%+ Pass Rate | 24/7 Support | Certificate Included
+                </p>
             </div>
         </div>
     </section>
@@ -613,7 +1084,7 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>CBU MATH & ECON</h3>
+                    <h3>CBU PREMIUM PROGRAM</h3>
                     <p>The Copperbelt University<br>
                     School of Mathematics and Natural Sciences<br>
                     Department of Mathematics & Economics</p>
@@ -621,115 +1092,70 @@
                 <div class="footer-section">
                     <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="overview.html">Program Overview</a></li>
-                        <li><a href="schedule.html">Weekly Schedule</a></li>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="overview.html">Program Overview (All 6 Weeks)</a></li>
+                        <li><a href="schedule.html">Interactive Schedule</a></li>
                         <li><a href="team.html">Teaching Team</a></li>
-                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="#resources">Google Drive Resources</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3>Contact</h3>
-                    <p><i class="fas fa-envelope"></i> r.sichomba@cbu.ac.zm</p>
-                    <p><i class="fas fa-phone"></i> +260 XXX XXX XXX</p>
+                    <h3>Contact & Support</h3>
+                    <p><i class="fas fa-envelope"></i> premium@cbu-mathecon.com</p>
+                    <p><i class="fab fa-whatsapp"></i> +260 96 123 4567</p>
+                    <p><i class="fas fa-phone"></i> +260 211 123456</p>
+                    <p><i class="fab fa-google-drive"></i> <a href="https://drive.google.com/drive/folders/1ALL_RESOURCES" target="_blank">Access All Resources</a></p>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 CBU Mathematics & Economics Department. All rights reserved.</p>
+                <p>&copy; 2024 CBU Premium Academic Services. All rights reserved.</p>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">
+                    Designed for excellence in mathematical and economic education | 
+                    <a href="https://drive.google.com/drive/folders/1TERMS_CONDITIONS" target="_blank" style="color: var(--primary);">Terms & Conditions</a>
+                </p>
             </div>
         </div>
     </footer>
 
     <!-- Back to Top -->
-    <button class="back-to-top" id="backToTop">
+    <button class="back-to-top" id="backToTop" style="position: fixed; bottom: 20px; right: 20px; background: var(--primary); color: white; border: none; width: 50px; height: 50px; border-radius: 50%; font-size: 1.5rem; cursor: pointer; display: none; z-index: 1000;">
         <i class="fas fa-chevron-up"></i>
     </button>
 
-    <script src="script.js"></script>
     <script>
-        // Progressive Learning Features
-        document.addEventListener('DOMContentLoaded', function() {
-            // Update progress based on saved data
-            const savedProgress = localStorage.getItem('cbuLearningProgress');
-            const progress = savedProgress ? JSON.parse(savedProgress) : {
-                overall: 25,
-                week2: 65,
-                week2_econ: 40
-            };
-            
-            // Update overall progress
-            document.documentElement.style.setProperty('--progress', progress.overall + '%');
-            document.querySelector('.progress-percentage').textContent = progress.overall + '%';
-            
-            // Update chapter progress bars
-            document.querySelectorAll('.progress-fill').forEach((bar, index) => {
-                if (index === 0) bar.style.width = progress.week2 + '%';
-                if (index === 1) bar.style.width = progress.week2_econ + '%';
-            });
-            
-            // Interactive formula editor
-            const formulaInput = document.querySelector('.formula-input');
-            const formulaRender = document.getElementById('formula-render');
-            
-            formulaInput.addEventListener('input', function() {
-                formulaRender.innerHTML = `$$ ${this.value} $$`;
-                MathJax.typesetPromise([formulaRender]);
-            });
-            
-            // Continue learning buttons
-            document.querySelectorAll('.continue-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const chapter = this.closest('.chapter-card').querySelector('h4').textContent;
-                    showNotification(`Continuing with ${chapter}...`, 'info');
-                    
-                    // Simulate loading
-                    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
-                    this.disabled = true;
-                    
-                    setTimeout(() => {
-                        showNotification(`Chapter loaded successfully!`, 'success');
-                        this.innerHTML = '<i class="fas fa-play"></i> Continue Learning';
-                        this.disabled = false;
-                    }, 1500);
-                });
-            });
-            
-            // Milestone click events
-            document.querySelectorAll('.milestone').forEach(milestone => {
-                milestone.addEventListener('click', function() {
-                    const week = this.getAttribute('data-week');
-                    if (week <= 2) {
-                        showNotification(`Viewing Week ${week} content`, 'info');
-                    } else {
-                        showNotification(`Week ${week} will unlock as you progress`, 'warning');
-                    }
-                });
-            });
-            
-            // Initialize MathJax
-            if (window.MathJax) {
-                MathJax.typesetPromise();
-            }
-            
-            // Animate elements on scroll
-            const observerOptions = {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
-            };
-            
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('animate-in');
-                    }
-                });
-            }, observerOptions);
-            
-            document.querySelectorAll('.chapter-card, .interactive-formula').forEach(el => {
-                observer.observe(el);
-            });
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
         });
         
-        // Show notification
+        // Close menu when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!navMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+        
+        // Back to top button
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.style.display = 'flex';
+                backToTop.style.alignItems = 'center';
+                backToTop.style.justifyContent = 'center';
+            } else {
+                backToTop.style.display = 'none';
+            }
+        });
+        
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Show notification function
         function showNotification(message, type = 'info') {
             const notification = document.createElement('div');
             notification.className = `notification notification-${type}`;
@@ -738,105 +1164,83 @@
                     <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
                     <span>${message}</span>
                 </div>
-                <button class="notification-close"><i class="fas fa-times"></i></button>
+                <button class="notification-close" onclick="this.parentElement.style.animation='slideOutRight 0.3s ease forwards'; setTimeout(()=>this.parentElement.remove(),300)"><i class="fas fa-times"></i></button>
             `;
             
             document.body.appendChild(notification);
-            
-            // Add styles if not already added
-            if (!document.querySelector('#notification-styles')) {
-                const style = document.createElement('style');
-                style.id = 'notification-styles';
-                style.textContent = `
-                    .notification {
-                        position: fixed;
-                        top: 20px;
-                        right: 20px;
-                        background: #1e293b;
-                        border-left: 4px solid #3b82f6;
-                        border-radius: 8px;
-                        padding: 1rem 1.5rem;
-                        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-                        display: flex;
-                        align-items: center;
-                        gap: 1rem;
-                        z-index: 10000;
-                        animation: slideInRight 0.3s ease;
-                        max-width: 400px;
-                    }
-                    
-                    .notification-success {
-                        border-left-color: #10b981;
-                    }
-                    
-                    .notification-error {
-                        border-left-color: #ef4444;
-                    }
-                    
-                    .notification-warning {
-                        border-left-color: #f59e0b;
-                    }
-                    
-                    .notification-content {
-                        display: flex;
-                        align-items: center;
-                        gap: 0.75rem;
-                        flex: 1;
-                        color: white;
-                    }
-                    
-                    .notification-close {
-                        background: none;
-                        border: none;
-                        color: #94a3b8;
-                        cursor: pointer;
-                        padding: 0.25rem;
-                        border-radius: 4px;
-                    }
-                    
-                    .notification-close:hover {
-                        background: #475569;
-                    }
-                    
-                    @keyframes slideInRight {
-                        from {
-                            transform: translateX(100%);
-                            opacity: 0;
-                        }
-                        to {
-                            transform: translateX(0);
-                            opacity: 1;
-                        }
-                    }
-                `;
-                document.head.appendChild(style);
-            }
             
             // Auto-remove after 5 seconds
             setTimeout(() => {
                 notification.style.animation = 'slideOutRight 0.3s ease forwards';
                 setTimeout(() => notification.remove(), 300);
             }, 5000);
-            
-            // Add slideOutRight animation
-            if (!document.querySelector('#notification-animations')) {
-                const animStyle = document.createElement('style');
-                animStyle.id = 'notification-animations';
-                animStyle.textContent = `
-                    @keyframes slideOutRight {
-                        from {
-                            transform: translateX(0);
-                            opacity: 1;
-                        }
-                        to {
-                            transform: translateX(100%);
-                            opacity: 0;
-                        }
-                    }
-                `;
-                document.head.appendChild(animStyle);
-            }
         }
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href') === '#') return;
+                
+                const targetId = this.getAttribute('href');
+                if (targetId.startsWith('#')) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+        
+        // Animate elements on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+        
+        document.querySelectorAll('.animate-in').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Google Drive link tracking
+        document.querySelectorAll('a[href*="drive.google.com"]').forEach(link => {
+            link.addEventListener('click', function() {
+                const resourceName = this.textContent.trim() || 'Google Drive Resource';
+                showNotification(`Opening ${resourceName}...`, 'info');
+                
+                // You can add analytics tracking here
+                console.log('Google Drive resource accessed:', this.href);
+            });
+        });
+        
+        // Enrollment modal
+        function showEnrollmentModal() {
+            showNotification('Opening WhatsApp for enrollment...', 'info');
+            // WhatsApp will open in new tab
+        }
+        
+        // Initialize MathJax
+        if (window.MathJax) {
+            MathJax.typesetPromise();
+        }
+        
+        // Week navigation highlight
+        const currentWeek = 1; // Default to Week 1
+        const weekButtons = document.querySelectorAll('.week-btn');
+        weekButtons.forEach(btn => {
+            if (btn.textContent.includes('Week ' + currentWeek)) {
+                btn.classList.add('active');
+            }
+        });
     </script>
 </body>
 </html>
