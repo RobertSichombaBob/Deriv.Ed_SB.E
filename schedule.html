@@ -1,11 +1,413 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark-mode">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Program Schedule | CBU Math & Econ</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Schedule Specific Styles */
+        .schedule-hero {
+            background: linear-gradient(135deg, rgba(5, 150, 105, 0.9) 0%, rgba(16, 185, 129, 0.9) 100%);
+            color: white;
+            padding: 6rem 0 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .schedule-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="white"></path><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="white"></path><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="white"></path></svg>');
+            background-size: cover;
+            opacity: 0.1;
+        }
+        
+        .week-selector {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 1000px;
+        }
+        
+        .week-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .week-tab {
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 120px;
+        }
+        
+        .week-tab:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .week-tab.active {
+            background: linear-gradient(135deg, #059669, #10b981);
+            border-color: #34d399;
+            box-shadow: 0 10px 20px rgba(5, 150, 105, 0.3);
+        }
+        
+        .week-tab.completed::after {
+            content: '✓';
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #10b981;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .week-content {
+            max-width: 1200px;
+            margin: 2rem auto;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .week-content.active {
+            display: block;
+        }
+        
+        .week-overview {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .week-progress {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin: 1.5rem 0;
+        }
+        
+        .progress-circle {
+            width: 80px;
+            height: 80px;
+            position: relative;
+        }
+        
+        .progress-circle svg {
+            transform: rotate(-90deg);
+        }
+        
+        .progress-circle-bg {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.1);
+            stroke-width: 8;
+        }
+        
+        .progress-circle-fill {
+            fill: none;
+            stroke: #059669;
+            stroke-width: 8;
+            stroke-linecap: round;
+            stroke-dasharray: 251;
+            stroke-dashoffset: calc(251 - (251 * var(--week-progress)) / 100);
+            transition: stroke-dashoffset 1s ease;
+        }
+        
+        .progress-text {
+            text-align: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: bold;
+            color: white;
+        }
+        
+        .schedule-days {
+            display: grid;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .day-schedule {
+            background: rgba(30, 41, 59, 0.6);
+            border-radius: 12px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .day-schedule:hover {
+            border-color: rgba(5, 150, 105, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .day-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: white;
+        }
+        
+        .day-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .day-status.completed {
+            background: rgba(16, 185, 129, 0.2);
+            color: #34d399;
+        }
+        
+        .day-status.in-progress {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fbbf24;
+        }
+        
+        .day-status.upcoming {
+            background: rgba(100, 116, 139, 0.2);
+            color: #94a3b8;
+        }
+        
+        .schedule-items {
+            display: grid;
+            gap: 1rem;
+        }
+        
+        .schedule-item {
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 10px;
+            padding: 1.25rem;
+            display: grid;
+            grid-template-columns: 100px 1fr 150px;
+            gap: 1.5rem;
+            align-items: center;
+            border-left: 4px solid #059669;
+        }
+        
+        .time-slot {
+            font-weight: 600;
+            color: #059669;
+        }
+        
+        .item-content h4 {
+            margin: 0 0 0.5rem 0;
+            color: white;
+        }
+        
+        .item-content p {
+            margin: 0;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        
+        .item-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .resource-btn {
+            padding: 0.5rem 1rem;
+            background: rgba(5, 150, 105, 0.2);
+            border: 1px solid rgba(5, 150, 105, 0.3);
+            border-radius: 6px;
+            color: #34d399;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .resource-btn:hover {
+            background: rgba(5, 150, 105, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .chapter-breakdown {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 3rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .chapter-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .chapter-item {
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 10px;
+            padding: 1.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .chapter-item:hover {
+            border-color: rgba(5, 150, 105, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .chapter-item-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .chapter-number {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #059669, #10b981);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .chapter-item h4 {
+            margin: 0;
+            color: white;
+        }
+        
+        .chapter-topics {
+            margin: 1rem 0;
+        }
+        
+        .chapter-topic {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        
+        .chapter-topic i {
+            color: #059669;
+            font-size: 0.8rem;
+        }
+        
+        .chapter-actions {
+            display: flex;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+        
+        .action-btn {
+            flex: 1;
+            padding: 0.75rem;
+            border-radius: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .action-btn.primary {
+            background: linear-gradient(135deg, #059669, #10b981);
+            color: white;
+            border: none;
+        }
+        
+        .action-btn.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .week-tabs {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .week-tab {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .schedule-item {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+            
+            .time-slot {
+                order: 1;
+            }
+            
+            .item-content {
+                order: 2;
+            }
+            
+            .item-actions {
+                order: 3;
+                justify-content: flex-start;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -13,16 +415,15 @@
         <div class="nav-container">
             <div class="nav-brand">
                 <div class="logo">
-                    <img src="assets/images/logo.png" alt="CBU Logo">
+                    <i class="fas fa-calculator"></i>
                 </div>
                 <span class="brand-text">CBU MATH & ECON</span>
             </div>
             <div class="nav-menu" id="navMenu">
-                <a href="index.html" class="nav-link">HOME</a>
-                <a href="overview.html" class="nav-link">OVERVIEW</a>
-                <a href="schedule.html" class="nav-link active">SCHEDULE</a>
-                <a href="team.html" class="nav-link">TEAM</a>
-                <a href="faq.html" class="nav-link">F.A.Q.</a>
+                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> HOME</a>
+                <a href="overview.html" class="nav-link"><i class="fas fa-book-open"></i> OVERVIEW</a>
+                <a href="schedule.html" class="nav-link active"><i class="fas fa-calendar-alt"></i> SCHEDULE</a>
+                <a href="team.html" class="nav-link"><i class="fas fa-users"></i> TEAM</a>
                 <a href="#" class="login-btn" id="loginBtn">
                     <i class="fas fa-user"></i>
                     <span>LOGIN</span>
@@ -34,145 +435,272 @@
         </div>
     </nav>
 
-    <!-- Schedule Header -->
-    <section class="page-header">
+    <!-- Schedule Hero -->
+    <section class="schedule-hero">
         <div class="container">
             <h1>6-Week Program Schedule</h1>
-            <p>Complete daily schedule for Mathematical Methods 1 and Economics 110</p>
-        </div>
-    </section>
-
-    <!-- Weekly Navigation -->
-    <section class="week-navigation">
-        <div class="container">
-            <div class="week-tabs" id="weekTabs">
-                <button class="week-tab active" data-week="1">Week 1</button>
-                <button class="week-tab" data-week="2">Week 2</button>
-                <button class="week-tab" data-week="3">Week 3</button>
-                <button class="week-tab" data-week="4">Week 4</button>
-                <button class="week-tab" data-week="5">Week 5</button>
-                <button class="week-tab" data-week="6">Week 6</button>
+            <p class="subtitle">Detailed daily schedule with interactive learning resources</p>
+            
+            <div class="week-selector">
+                <div class="week-tabs">
+                    <div class="week-tab completed active" data-week="1">
+                        <span>Week 1</span>
+                        <small>Foundation</small>
+                    </div>
+                    <div class="week-tab in-progress" data-week="2">
+                        <span>Week 2</span>
+                        <small>Algebra & Markets</small>
+                    </div>
+                    <div class="week-tab" data-week="3">
+                        <span>Week 3</span>
+                        <small>Calculus Intro</small>
+                    </div>
+                    <div class="week-tab" data-week="4">
+                        <span>Week 4</span>
+                        <small>Applications</small>
+                    </div>
+                    <div class="week-tab" data-week="5">
+                        <span>Week 5</span>
+                        <small>Advanced Topics</small>
+                    </div>
+                    <div class="week-tab" data-week="6">
+                        <span>Week 6</span>
+                        <small>Review & Exam</small>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Week 1 Schedule -->
-    <section class="week-schedule active" id="week1">
+    <!-- Week 1 Content -->
+    <div class="week-content active" id="week1">
         <div class="container">
-            <h2 class="week-title">Week 1: Foundation Building</h2>
-            <div class="schedule-table">
-                <div class="schedule-header">
-                    <div class="day-header">Day</div>
-                    <div class="time-header">Time</div>
-                    <div class="math-header">Mathematical Methods 1</div>
-                    <div class="econ-header">Economics 110</div>
-                    <div class="resources-header">Resources</div>
+            <div class="week-overview">
+                <h2>Week 1: Foundation Building</h2>
+                <p>Establish fundamental concepts in mathematics and economics, focusing on set theory, basic algebra, and economic principles.</p>
+                
+                <div class="week-progress">
+                    <div class="progress-circle">
+                        <svg viewBox="0 0 80 80">
+                            <circle cx="40" cy="40" r="35" class="progress-circle-bg"></circle>
+                            <circle cx="40" cy="40" r="35" class="progress-circle-fill" style="--week-progress: 100"></circle>
+                        </svg>
+                        <div class="progress-text">100%</div>
+                    </div>
+                    <div class="progress-details">
+                        <h4>Progress Details</h4>
+                        <div class="progress-stats">
+                            <div class="stat">
+                                <i class="fas fa-check-circle"></i>
+                                <span>5/5 Days Complete</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-book"></i>
+                                <span>8 Chapters Mastered</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-trophy"></i>
+                                <span>Certificate Ready</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Daily Schedule -->
+            <div class="schedule-days">
+                <!-- Monday -->
+                <div class="day-schedule">
+                    <div class="day-header">
+                        <div class="day-title">Monday: Set Theory & Economic Basics</div>
+                        <div class="day-status completed">Completed</div>
+                    </div>
+                    
+                    <div class="schedule-items">
+                        <div class="schedule-item">
+                            <div class="time-slot">9:00 - 11:00</div>
+                            <div class="item-content">
+                                <h4>Ch 5: Equations & Inequalities</h4>
+                                <p>Linear equations review and solving techniques</p>
+                            </div>
+                            <div class="item-actions">
+                                <button class="resource-btn" data-resource="notes">
+                                    <i class="fas fa-file-alt"></i> Notes
+                                </button>
+                                <button class="resource-btn" data-resource="problems">
+                                    <i class="fas fa-tasks"></i> Problems
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="schedule-item">
+                            <div class="time-slot">11:15 - 13:15</div>
+                            <div class="item-content">
+                                <h4>Ch 1.1-1.3: Nature of Economics</h4>
+                                <p>Defining economics and basic concepts</p>
+                            </div>
+                            <div class="item-actions">
+                                <button class="resource-btn" data-resource="video">
+                                    <i class="fas fa-video"></i> Lecture
+                                </button>
+                                <button class="resource-btn" data-resource="quiz">
+                                    <i class="fas fa-question-circle"></i> Quiz
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="schedule-item">
+                            <div class="time-slot">14:00 - 16:00</div>
+                            <div class="item-content">
+                                <h4>Practice Session</h4>
+                                <p>Problem solving with faculty support</p>
+                            </div>
+                            <div class="item-actions">
+                                <button class="resource-btn" data-resource="practice">
+                                    <i class="fas fa-pencil-alt"></i> Practice
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 
-                <!-- Monday -->
-                <div class="schedule-row">
-                    <div class="day-cell">Monday</div>
-                    <div class="time-cell">9:00-11:00</div>
-                    <div class="math-cell">
-                        <h4>Ch 5: Equations & Inequalities</h4>
-                        <p>Linear equations review and solving techniques</p>
-                    </div>
-                    <div class="econ-cell">
-                        <h4>Ch 1.1-1.3: Nature of Economics</h4>
-                        <p>Defining economics and basic concepts</p>
-                    </div>
-                    <div class="resources-cell">
-                        <a href="#" class="resource-link" data-type="notes" data-course="math" data-week="1" data-day="1">
-                            <i class="fas fa-file-alt"></i> Notes
-                        </a>
-                        <a href="#" class="resource-link" data-type="problems" data-course="math" data-week="1" data-day="1">
-                            <i class="fas fa-tasks"></i> Problems
-                        </a>
-                        <a href="#" class="resource-link" data-type="solutions" data-course="math" data-week="1" data-day="1">
-                            <i class="fas fa-check-circle"></i> Solutions
-                        </a>
-                    </div>
-                </div>
-
-                <div class="schedule-row">
-                    <div class="day-cell"></div>
-                    <div class="time-cell">11:15-13:15</div>
-                    <div class="math-cell">
-                        <h4>Ch 6: Quadratic Equations</h4>
-                        <p>Factoring methods and quadratic formula</p>
-                    </div>
-                    <div class="econ-cell">
-                        <h4>Ch 1.4-1.5: Economic Problem</h4>
-                        <p>Scarcity and opportunity cost</p>
-                    </div>
-                    <div class="resources-cell">
-                        <a href="#" class="resource-link" data-type="notes" data-course="econ" data-week="1" data-day="1">
-                            <i class="fas fa-file-alt"></i> Notes
-                        </a>
-                        <a href="#" class="resource-link" data-type="problems" data-course="econ" data-week="1" data-day="1">
-                            <i class="fas fa-tasks"></i> Problems
-                        </a>
-                        <a href="#" class="resource-link" data-type="solutions" data-course="econ" data-week="1" data-day="1">
-                            <i class="fas fa-check-circle"></i> Solutions
-                        </a>
-                    </div>
-                </div>
-
                 <!-- Tuesday -->
-                <div class="schedule-row">
-                    <div class="day-cell">Tuesday</div>
-                    <div class="time-cell">9:00-11:00</div>
-                    <div class="math-cell">
-                        <h4>Ch 7: Inequalities</h4>
-                        <p>Linear and quadratic inequalities</p>
+                <div class="day-schedule">
+                    <div class="day-header">
+                        <div class="day-title">Tuesday: Algebraic Foundations</div>
+                        <div class="day-status completed">Completed</div>
                     </div>
-                    <div class="econ-cell">
-                        <h4>Ch 1.6: PPF Analysis</h4>
-                        <p>Production possibility frontier</p>
-                    </div>
-                    <div class="resources-cell">
-                        <a href="#" class="resource-link" data-type="notes" data-course="math" data-week="1" data-day="2">
-                            <i class="fas fa-file-alt"></i> Notes
-                        </a>
-                        <a href="#" class="resource-link" data-type="problems" data-course="math" data-week="1" data-day="2">
-                            <i class="fas fa-tasks"></i> Problems
-                        </a>
-                        <a href="#" class="resource-link" data-type="solutions" data-course="math" data-week="1" data-day="2">
-                            <i class="fas fa-check-circle"></i> Solutions
-                        </a>
+                    
+                    <div class="schedule-items">
+                        <div class="schedule-item">
+                            <div class="time-slot">9:00 - 11:00</div>
+                            <div class="item-content">
+                                <h4>Ch 6: Quadratic Equations</h4>
+                                <p>Factoring methods and quadratic formula</p>
+                            </div>
+                            <div class="item-actions">
+                                <button class="resource-btn" data-resource="notes">
+                                    <i class="fas fa-file-alt"></i> Notes
+                                </button>
+                                <button class="resource-btn" data-resource="problems">
+                                    <i class="fas fa-tasks"></i> Problems
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="schedule-item">
+                            <div class="time-slot">11:15 - 13:15</div>
+                            <div class="item-content">
+                                <h4>Ch 1.4-1.5: Economic Problem</h4>
+                                <p>Scarcity and opportunity cost</p>
+                            </div>
+                            <div class="item-actions">
+                                <button class="resource-btn" data-resource="video">
+                                    <i class="fas fa-video"></i> Lecture
+                                </button>
+                                <button class="resource-btn" data-resource="simulation">
+                                    <i class="fas fa-chart-line"></i> Simulation
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
+                
                 <!-- Add more days similarly... -->
-
-                <!-- Sunday Problem Solving -->
-                <div class="schedule-row highlight-row">
-                    <div class="day-cell">Sunday</div>
-                    <div class="time-cell">14:00-18:00</div>
-                    <div class="math-cell full-width">
-                        <h4><i class="fas fa-brain"></i> Comprehensive Problem Solving Session</h4>
-                        <p>Integrated practice of Week 1 concepts with faculty support</p>
+            </div>
+            
+            <!-- Chapter Breakdown -->
+            <div class="chapter-breakdown">
+                <h3>Week 1 Chapters</h3>
+                <p>Detailed breakdown of topics covered this week</p>
+                
+                <div class="chapter-list">
+                    <div class="chapter-item">
+                        <div class="chapter-item-header">
+                            <div class="chapter-number">1.1</div>
+                            <h4>Set Theory Basics</h4>
+                        </div>
+                        <div class="chapter-topics">
+                            <div class="chapter-topic">
+                                <i class="fas fa-check"></i> Set operations (union, intersection)
+                            </div>
+                            <div class="chapter-topic">
+                                <i class="fas fa-check"></i> Venn diagrams
+                            </div>
+                            <div class="chapter-topic">
+                                <i class="fas fa-check"></i> De Morgan's laws
+                            </div>
+                        </div>
+                        <div class="chapter-actions">
+                            <button class="action-btn primary review-chapter">
+                                <i class="fas fa-redo"></i> Review
+                            </button>
+                            <button class="action-btn secondary view-resources">
+                                <i class="fas fa-folder-open"></i> Resources
+                            </button>
+                        </div>
                     </div>
-                    <div class="resources-cell">
-                        <a href="#" class="resource-link" data-type="review">
-                            <i class="fas fa-sync-alt"></i> Review
-                        </a>
-                        <a href="#" class="resource-link" data-type="practice">
-                            <i class="fas fa-pencil-alt"></i> Practice
-                        </a>
+                    
+                    <div class="chapter-item">
+                        <div class="chapter-item-header">
+                            <div class="chapter-number">1.2</div>
+                            <h4>Linear Equations</h4>
+                        </div>
+                        <div class="chapter-topics">
+                            <div class="chapter-topic">
+                                <i class="fas fa-check"></i> Solving linear equations
+                            </div>
+                            <div class="chapter-topic">
+                                <i class="fas fa-check"></i> Graphical representation
+                            </div>
+                            <div class="chapter-topic">
+                                <i class="fas fa-check"></i> Word problems
+                            </div>
+                        </div>
+                        <div class="chapter-actions">
+                            <button class="action-btn primary review-chapter">
+                                <i class="fas fa-redo"></i> Review
+                            </button>
+                            <button class="action-btn secondary view-resources">
+                                <i class="fas fa-folder-open"></i> Resources
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="chapter-item">
+                        <div class="chapter-item-header">
+                            <div class="chapter-number">1.3</div>
+                            <h4>Economic Fundamentals</h4>
+                        </div>
+                        <div class="chapter-topics">
+                            <div class="chapter-topic">
+                                <i class="fas fa-check"></i> Scarcity & choice
+                            </div>
+                            <div class="chapter-topic">
+                                <i class="fas fa-check"></i> Opportunity cost
+                            </div>
+                            <div class="chapter-topic">
+                                <i class="fas fa-check"></i> Production possibilities
+                            </div>
+                        </div>
+                        <div class="chapter-actions">
+                            <button class="action-btn primary review-chapter">
+                                <i class="fas fa-redo"></i> Review
+                            </button>
+                            <button class="action-btn secondary view-resources">
+                                <i class="fas fa-folder-open"></i> Resources
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 
-    <!-- Resource Modal -->
-    <div id="resourceModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <div id="resourceContent">
-                <!-- Dynamic content will be loaded here -->
-            </div>
+    <!-- Week 2 Content (Hidden by default) -->
+    <div class="week-content" id="week2">
+        <div class="container">
+            <!-- Similar structure for week 2 -->
         </div>
     </div>
 
@@ -191,19 +719,14 @@
                     <ul>
                         <li><a href="overview.html">Program Overview</a></li>
                         <li><a href="schedule.html">Weekly Schedule</a></li>
-                        <li><a href="faq.html">FAQ</a></li>
                         <li><a href="team.html">Teaching Team</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h3>Contact</h3>
                     <p><i class="fas fa-envelope"></i> r.sichomba@cbu.ac.zm</p>
                     <p><i class="fas fa-phone"></i> +260 XXX XXX XXX</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-github"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                    </div>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -213,5 +736,116 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        // Schedule Page Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            // Week Tab Switching
+            const weekTabs = document.querySelectorAll('.week-tab');
+            const weekContents = document.querySelectorAll('.week-content');
+            
+            weekTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const week = this.getAttribute('data-week');
+                    
+                    // Remove active class from all tabs and contents
+                    weekTabs.forEach(t => t.classList.remove('active'));
+                    weekContents.forEach(c => c.classList.remove('active'));
+                    
+                    // Add active class to clicked tab and corresponding content
+                    this.classList.add('active');
+                    document.getElementById(`week${week}`).classList.add('active');
+                    
+                    // Update URL hash
+                    history.pushState(null, null, `#week${week}`);
+                    
+                    // Show notification
+                    const weekTitle = this.querySelector('span').textContent;
+                    const weekSubtitle = this.querySelector('small').textContent;
+                    showNotification(`Viewing ${weekTitle}: ${weekSubtitle}`, 'info');
+                });
+            });
+            
+            // Check URL hash on load
+            const hash = window.location.hash;
+            if (hash) {
+                const weekTab = document.querySelector(`.week-tab[data-week="${hash.replace('#week', '')}"]`);
+                if (weekTab) {
+                    weekTab.click();
+                }
+            }
+            
+            // Resource Button Actions
+            document.querySelectorAll('.resource-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const resourceType = this.getAttribute('data-resource');
+                    const day = this.closest('.day-schedule').querySelector('.day-title').textContent;
+                    const time = this.closest('.schedule-item').querySelector('.time-slot').textContent;
+                    
+                    const resourceNames = {
+                        'notes': 'Lecture Notes',
+                        'problems': 'Problem Sets',
+                        'video': 'Video Lecture',
+                        'quiz': 'Practice Quiz',
+                        'practice': 'Practice Problems',
+                        'simulation': 'Economic Simulation'
+                    };
+                    
+                    showNotification(`Opening ${resourceNames[resourceType]} for ${time}`, 'info');
+                    
+                    // Simulate opening resource
+                    setTimeout(() => {
+                        showNotification(`${resourceNames[resourceType]} loaded successfully`, 'success');
+                    }, 1000);
+                });
+            });
+            
+            // Chapter Action Buttons
+            document.querySelectorAll('.review-chapter').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const chapter = this.closest('.chapter-item').querySelector('h4').textContent;
+                    showNotification(`Starting review of ${chapter}`, 'info');
+                });
+            });
+            
+            document.querySelectorAll('.view-resources').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const chapter = this.closest('.chapter-item').querySelector('h4').textContent;
+                    showNotification(`Opening resources for ${chapter}`, 'info');
+                });
+            });
+            
+            // Load saved progress
+            const savedProgress = JSON.parse(localStorage.getItem('cbuScheduleProgress') || '{}');
+            if (savedProgress.completedWeeks) {
+                savedProgress.completedWeeks.forEach(week => {
+                    const weekTab = document.querySelector(`.week-tab[data-week="${week}"]`);
+                    if (weekTab && !weekTab.classList.contains('completed')) {
+                        weekTab.classList.add('completed');
+                    }
+                });
+            }
+        });
+        
+        // Show notification
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+                <button class="notification-close"><i class="fas fa-times"></i></button>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Auto-remove after 3 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.3s ease forwards';
+                setTimeout(() => notification.remove(), 300);
+            }, 3000);
+        }
+    </script>
 </body>
 </html>

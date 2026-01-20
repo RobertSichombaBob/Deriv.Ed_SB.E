@@ -1,11 +1,337 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark-mode">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Teaching Team | CBU Math & Econ</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Team Page Styles */
+        .team-hero {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.9) 0%, rgba(168, 85, 247, 0.9) 100%);
+            color: white;
+            padding: 6rem 0 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .team-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="white"></path><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="white"></path><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="white"></path></svg>');
+            background-size: cover;
+            opacity: 0.1;
+        }
+        
+        .team-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+        
+        .team-stat {
+            text-align: center;
+        }
+        
+        .team-stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 0.5rem;
+        }
+        
+        .team-stat-label {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+        
+        .team-section {
+            padding: 4rem 0;
+        }
+        
+        .team-category {
+            margin: 4rem 0;
+        }
+        
+        .category-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .category-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #8b5cf6, #a855f7);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            margin: 0 auto 1.5rem;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 2rem;
+        }
+        
+        .team-card {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 20px;
+            padding: 2.5rem;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .team-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #8b5cf6, #a855f7);
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+        
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(139, 92, 246, 0.2);
+            border-color: rgba(139, 92, 246, 0.3);
+        }
+        
+        .team-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .team-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            background: linear-gradient(135deg, #8b5cf6, #a855f7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            font-weight: bold;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .team-card:hover .team-avatar {
+            transform: scale(1.1);
+            border-color: rgba(139, 92, 246, 0.3);
+        }
+        
+        .team-info h3 {
+            margin: 0.5rem 0;
+            color: white;
+        }
+        
+        .team-role {
+            color: #8b5cf6;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .team-bio {
+            color: #94a3b8;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+        
+        .team-expertise {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+            margin: 1rem 0;
+        }
+        
+        .expertise-tag {
+            background: rgba(139, 92, 246, 0.1);
+            color: #a855f7;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+        
+        .team-contact {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .contact-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .contact-btn:hover {
+            background: #8b5cf6;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
+        }
+        
+        .team-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 2rem;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        .team-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .modal-content {
+            background: rgba(30, 41, 59, 0.95);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 600px;
+            width: 100%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: translateY(30px);
+            transition: transform 0.3s ease;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+        
+        .team-modal.active .modal-content {
+            transform: translateY(0);
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+        
+        .close-modal:hover {
+            color: white;
+        }
+        
+        .support-section {
+            background: linear-gradient(135deg, rgba(5, 150, 105, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+            border-radius: 20px;
+            padding: 4rem;
+            margin: 4rem 0;
+            text-align: center;
+            border: 1px solid rgba(5, 150, 105, 0.2);
+        }
+        
+        .support-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+        
+        .support-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .support-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+        
+        .support-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #059669, #10b981);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 auto 1.5rem;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-card {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        @media (max-width: 768px) {
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .team-stat {
+                flex: 1;
+                min-width: 120px;
+            }
+            
+            .modal-content {
+                padding: 2rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -13,16 +339,15 @@
         <div class="nav-container">
             <div class="nav-brand">
                 <div class="logo">
-                    <img src="assets/images/logo.png" alt="CBU Logo">
+                    <i class="fas fa-calculator"></i>
                 </div>
                 <span class="brand-text">CBU MATH & ECON</span>
             </div>
             <div class="nav-menu" id="navMenu">
-                <a href="index.html" class="nav-link">HOME</a>
-                <a href="overview.html" class="nav-link">OVERVIEW</a>
-                <a href="schedule.html" class="nav-link">SCHEDULE</a>
-                <a href="team.html" class="nav-link active">TEAM</a>
-                <a href="faq.html" class="nav-link">F.A.Q.</a>
+                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> HOME</a>
+                <a href="overview.html" class="nav-link"><i class="fas fa-book-open"></i> OVERVIEW</a>
+                <a href="schedule.html" class="nav-link"><i class="fas fa-calendar-alt"></i> SCHEDULE</a>
+                <a href="team.html" class="nav-link active"><i class="fas fa-users"></i> TEAM</a>
                 <a href="#" class="login-btn" id="loginBtn">
                     <i class="fas fa-user"></i>
                     <span>LOGIN</span>
@@ -34,119 +359,293 @@
         </div>
     </nav>
 
-    <!-- Team Header -->
-    <section class="page-header">
+    <!-- Team Hero -->
+    <section class="team-hero">
         <div class="container">
-            <h1>Teaching Team</h1>
-            <p>Meet the dedicated team behind the 6-Week Intensive Program</p>
+            <h1>Meet Our Teaching Team</h1>
+            <p class="subtitle">Learn from experienced faculty and dedicated teaching assistants</p>
+            
+            <div class="team-stats">
+                <div class="team-stat">
+                    <div class="team-stat-number">8+</div>
+                    <div class="team-stat-label">Expert Faculty</div>
+                </div>
+                <div class="team-stat">
+                    <div class="team-stat-number">15+</div>
+                    <div class="team-stat-label">Teaching Assistants</div>
+                </div>
+                <div class="team-stat">
+                    <div class="team-stat-number">50+</div>
+                    <div class="team-stat-label">Years Experience</div>
+                </div>
+                <div class="team-stat">
+                    <div class="team-stat-number">24/7</div>
+                    <div class="team-stat-label">Support Available</div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Lead Instructor -->
-    <section class="lead-instructor">
+    <!-- Faculty Section -->
+    <section class="team-section">
         <div class="container">
-            <div class="instructor-profile">
-                <div class="instructor-image">
-                    <img src="assets/images/team/sichomba.jpg" alt="R. Sichomba">
-                </div>
-                <div class="instructor-info">
-                    <h2>R. Sichomba</h2>
-                    <p class="instructor-title">Program Director & Lead Instructor</p>
-                    <p class="instructor-department">
-                        Department of Mathematics<br>
-                        The Copperbelt University
-                    </p>
-                    <div class="instructor-bio">
-                        <p>Mr. Sichomba is a passionate mathematics educator with over 10 years of teaching experience at the university level. He specializes in mathematical methods and their applications in economics and engineering.</p>
-                        <p>As the Program Director, he has designed this intensive program to provide students with a comprehensive understanding of both mathematical techniques and economic principles through practical problem-solving.</p>
+            <div class="team-category">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-chalkboard-teacher"></i>
                     </div>
-                    <div class="instructor-contact">
-                        <p><i class="fas fa-envelope"></i> r.sichomba@cbu.ac.zm</p>
-                        <p><i class="fas fa-phone"></i> +260 XXX XXX XXX</p>
+                    <h2>Lead Faculty</h2>
+                    <p class="subtitle">Experienced professors guiding your learning journey</p>
+                </div>
+                
+                <div class="team-grid">
+                    <!-- Faculty Member 1 -->
+                    <div class="team-card animate-card" data-member="1">
+                        <div class="team-avatar">
+                            <span>RS</span>
+                        </div>
+                        <div class="team-info">
+                            <h3>Dr. Richard Sichomba</h3>
+                            <div class="team-role">Program Director & Lead Instructor</div>
+                            <div class="team-bio">
+                                PhD in Applied Mathematics with 15+ years of teaching experience. 
+                                Specializes in mathematical modeling and optimization techniques.
+                            </div>
+                            <div class="team-expertise">
+                                <span class="expertise-tag">Mathematical Modeling</span>
+                                <span class="expertise-tag">Optimization</span>
+                                <span class="expertise-tag">Numerical Analysis</span>
+                            </div>
+                            <div class="team-contact">
+                                <button class="contact-btn" title="Email">
+                                    <i class="fas fa-envelope"></i>
+                                </button>
+                                <button class="contact-btn" title="View Profile">
+                                    <i class="fas fa-user"></i>
+                                </button>
+                                <button class="contact-btn view-more" title="Learn More">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Faculty Member 2 -->
+                    <div class="team-card animate-card" data-member="2">
+                        <div class="team-avatar">
+                            <span>AM</span>
+                        </div>
+                        <div class="team-info">
+                            <h3>Dr. Alice Mwansa</h3>
+                            <div class="team-role">Economics Lead Instructor</div>
+                            <div class="team-bio">
+                                PhD in Economics with specialization in microeconomic theory. 
+                                Published researcher in market analysis and consumer behavior.
+                            </div>
+                            <div class="team-expertise">
+                                <span class="expertise-tag">Microeconomics</span>
+                                <span class="expertise-tag">Market Analysis</span>
+                                <span class="expertise-tag">Consumer Theory</span>
+                            </div>
+                            <div class="team-contact">
+                                <button class="contact-btn" title="Email">
+                                    <i class="fas fa-envelope"></i>
+                                </button>
+                                <button class="contact-btn" title="View Profile">
+                                    <i class="fas fa-user"></i>
+                                </button>
+                                <button class="contact-btn view-more" title="Learn More">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Faculty Member 3 -->
+                    <div class="team-card animate-card" data-member="3">
+                        <div class="team-avatar">
+                            <span>CK</span>
+                        </div>
+                        <div class="team-info">
+                            <h3>Prof. Charles Kapembwa</h3>
+                            <div class="team-role">Mathematics Instructor</div>
+                            <div class="team-bio">
+                                Professor of Mathematics with expertise in calculus and linear algebra. 
+                                Award-winning educator with 12+ years of university teaching.
+                            </div>
+                            <div class="team-expertise">
+                                <span class="expertise-tag">Calculus</span>
+                                <span class="expertise-tag">Linear Algebra</span>
+                                <span class="expertise-tag">Differential Equations</span>
+                            </div>
+                            <div class="team-contact">
+                                <button class="contact-btn" title="Email">
+                                    <i class="fas fa-envelope"></i>
+                                </button>
+                                <button class="contact-btn" title="View Profile">
+                                    <i class="fas fa-user"></i>
+                                </button>
+                                <button class="contact-btn view-more" title="Learn More">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Teaching Assistants Section -->
+            <div class="team-category">
+                <div class="category-header">
+                    <div class="category-icon">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                    <h2>Teaching Assistants</h2>
+                    <p class="subtitle">Dedicated graduate students providing personalized support</p>
+                </div>
+                
+                <div class="team-grid">
+                    <!-- TA 1 -->
+                    <div class="team-card animate-card" data-member="4">
+                        <div class="team-avatar">
+                            <span>JM</span>
+                        </div>
+                        <div class="team-info">
+                            <h3>James Mulenga</h3>
+                            <div class="team-role">Senior Teaching Assistant</div>
+                            <div class="team-bio">
+                                MSc Mathematics student specializing in applied mathematics. 
+                                Provides support in problem-solving sessions and assignments.
+                            </div>
+                            <div class="team-expertise">
+                                <span class="expertise-tag">Problem Solving</span>
+                                <span class="expertise-tag">Tutoring</span>
+                                <span class="expertise-tag">Office Hours</span>
+                            </div>
+                            <div class="team-contact">
+                                <button class="contact-btn" title="Schedule Session">
+                                    <i class="fas fa-calendar"></i>
+                                </button>
+                                <button class="contact-btn view-more" title="Learn More">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- TA 2 -->
+                    <div class="team-card animate-card" data-member="5">
+                        <div class="team-avatar">
+                            <span>SB</span>
+                        </div>
+                        <div class="team-info">
+                            <h3>Sarah Banda</h3>
+                            <div class="team-role">Economics TA</div>
+                            <div class="team-bio">
+                                MSc Economics candidate with focus on quantitative methods. 
+                                Assists with economic modeling and data analysis workshops.
+                            </div>
+                            <div class="team-expertise">
+                                <span class="expertise-tag">Economic Modeling</span>
+                                <span class="expertise-tag">Data Analysis</span>
+                                <span class="expertise-tag">Workshops</span>
+                            </div>
+                            <div class="team-contact">
+                                <button class="contact-btn" title="Schedule Session">
+                                    <i class="fas fa-calendar"></i>
+                                </button>
+                                <button class="contact-btn view-more" title="Learn More">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- TA 3 -->
+                    <div class="team-card animate-card" data-member="6">
+                        <div class="team-avatar">
+                            <span>PK</span>
+                        </div>
+                        <div class="team-info">
+                            <h3>Peter Kabwe</h3>
+                            <div class="team-role">Mathematics TA</div>
+                            <div class="team-bio">
+                                BSc Mathematics graduate assisting with calculus and algebra. 
+                                Leads weekly review sessions and practice problem workshops.
+                            </div>
+                            <div class="team-expertise">
+                                <span class="expertise-tag">Calculus</span>
+                                <span class="expertise-tag">Algebra</span>
+                                <span class="expertise-tag">Review Sessions</span>
+                            </div>
+                            <div class="team-contact">
+                                <button class="contact-btn" title="Schedule Session">
+                                    <i class="fas fa-calendar"></i>
+                                </button>
+                                <button class="contact-btn view-more" title="Learn More">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Teaching Assistants -->
-    <section class="teaching-assistants">
+    <!-- Support System -->
+    <section class="support-section">
         <div class="container">
-            <h2 class="section-title">Teaching Assistants</h2>
-            <div class="ta-grid">
-                <div class="ta-card">
-                    <div class="ta-image">
-                        <img src="assets/images/team/ta1.jpg" alt="Teaching Assistant 1">
+            <h2>Comprehensive Support System</h2>
+            <p class="subtitle">We provide multiple layers of support to ensure your success</p>
+            
+            <div class="support-grid">
+                <div class="support-card">
+                    <div class="support-icon">
+                        <i class="fas fa-comments"></i>
                     </div>
-                    <div class="ta-info">
-                        <h3>John Mwansa</h3>
-                        <p class="ta-title">Senior Teaching Assistant</p>
-                        <p>Mathematics Department</p>
-                        <p class="ta-expertise">Expertise: Algebra & Calculus</p>
-                    </div>
+                    <h4>Office Hours</h4>
+                    <p>Daily scheduled office hours with faculty and TAs for personalized help</p>
                 </div>
-                <div class="ta-card">
-                    <div class="ta-image">
-                        <img src="assets/images/team/ta2.jpg" alt="Teaching Assistant 2">
+                
+                <div class="support-card">
+                    <div class="support-icon">
+                        <i class="fas fa-users"></i>
                     </div>
-                    <div class="ta-info">
-                        <h3>Sarah Chibwe</h3>
-                        <p class="ta-title">Teaching Assistant</p>
-                        <p>Economics Department</p>
-                        <p class="ta-expertise">Expertise: Microeconomics</p>
-                    </div>
+                    <h4>Study Groups</h4>
+                    <p>Organized peer study groups facilitated by teaching assistants</p>
                 </div>
-                <div class="ta-card">
-                    <div class="ta-image">
-                        <img src="assets/images/team/ta3.jpg" alt="Teaching Assistant 3">
+                
+                <div class="support-card">
+                    <div class="support-icon">
+                        <i class="fas fa-question-circle"></i>
                     </div>
-                    <div class="ta-info">
-                        <h3>David Banda</h3>
-                        <p class="ta-title">Teaching Assistant</p>
-                        <p>Mathematics Department</p>
-                        <p class="ta-expertise">Expertise: Statistics</p>
+                    <h4>Q&A Forum</h4>
+                    <p>24/7 online forum for questions and discussion with quick responses</p>
+                </div>
+                
+                <div class="support-card">
+                    <div class="support-icon">
+                        <i class="fas fa-video"></i>
                     </div>
+                    <h4>Video Tutorials</h4>
+                    <p>Recorded video solutions and explanations for all practice problems</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Department Support -->
-    <section class="department-support">
-        <div class="container">
-            <h2 class="section-title">Department Support</h2>
-            <div class="department-grid">
-                <div class="dept-card">
-                    <i class="fas fa-university"></i>
-                    <h3>Mathematics Department</h3>
-                    <p>Providing mathematical expertise and curriculum support for the program.</p>
-                </div>
-                <div class="dept-card">
-                    <i class="fas fa-chart-line"></i>
-                    <h3>Economics Department</h3>
-                    <p>Offering economic analysis and real-world application guidance.</p>
-                </div>
-                <div class="dept-card">
-                    <i class="fas fa-laptop-code"></i>
-                    <h3>Technical Support</h3>
-                    <p>Managing the online platform and resource distribution.</p>
-                </div>
+    <!-- Team Modal -->
+    <div class="team-modal" id="teamModal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">
+                <i class="fas fa-times"></i>
+            </button>
+            <div id="modalContent">
+                <!-- Content loaded dynamically -->
             </div>
         </div>
-    </section>
-
-    <!-- Join Team -->
-    <section class="join-team">
-        <div class="container">
-            <h2 class="section-title">Join Our Team</h2>
-            <div class="join-content">
-                <p>We are always looking for passionate educators and teaching assistants to join our program. If you are interested in contributing to this intensive program, please contact us.</p>
-                <a href="mailto:r.sichomba@cbu.ac.zm" class="btn btn-primary">
-                    <i class="fas fa-envelope"></i> Contact Program Director
-                </a>
-            </div>
-        </div>
-    </section>
+    </div>
 
     <!-- Footer -->
     <footer class="footer">
@@ -163,19 +662,14 @@
                     <ul>
                         <li><a href="overview.html">Program Overview</a></li>
                         <li><a href="schedule.html">Weekly Schedule</a></li>
-                        <li><a href="faq.html">FAQ</a></li>
                         <li><a href="team.html">Teaching Team</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h3>Contact</h3>
                     <p><i class="fas fa-envelope"></i> r.sichomba@cbu.ac.zm</p>
                     <p><i class="fas fa-phone"></i> +260 XXX XXX XXX</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-github"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                    </div>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -185,5 +679,348 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        // Team Page Interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            const teamModal = document.getElementById('teamModal');
+            const modalContent = document.getElementById('modalContent');
+            const closeModal = document.getElementById('closeModal');
+            
+            // Team member data
+            const teamMembers = {
+                1: {
+                    name: "Dr. Richard Sichomba",
+                    role: "Program Director & Lead Instructor",
+                    avatar: "RS",
+                    bio: "Dr. Richard Sichomba holds a PhD in Applied Mathematics from the University of Cambridge and has over 15 years of teaching experience at university level. His research focuses on mathematical modeling of economic systems and optimization techniques.",
+                    education: [
+                        "PhD in Applied Mathematics, University of Cambridge",
+                        "MSc in Mathematics, University of Oxford",
+                        "BSc in Mathematics, University of Zambia"
+                    ],
+                    expertise: [
+                        "Mathematical Modeling",
+                        "Optimization Techniques",
+                        "Numerical Analysis",
+                        "Economic Mathematics"
+                    ],
+                    contact: {
+                        email: "r.sichomba@cbu.ac.zm",
+                        office: "Mathematics Building, Room 305",
+                        hours: "Mon-Wed: 10:00-12:00, Thu: 14:00-16:00"
+                    },
+                    publications: 25,
+                    awards: 3
+                },
+                2: {
+                    name: "Dr. Alice Mwansa",
+                    role: "Economics Lead Instructor",
+                    avatar: "AM",
+                    bio: "Dr. Alice Mwansa specializes in microeconomic theory and applied econometrics. With 12 years of teaching experience, she brings real-world economic analysis to the classroom through case studies and practical applications.",
+                    education: [
+                        "PhD in Economics, London School of Economics",
+                        "MSc in Economic Policy, University of Cape Town",
+                        "BSc in Economics, University of Zambia"
+                    ],
+                    expertise: [
+                        "Microeconomic Theory",
+                        "Market Analysis",
+                        "Consumer Behavior",
+                        "Economic Policy"
+                    ],
+                    contact: {
+                        email: "a.mwansa@cbu.ac.zm",
+                        office: "Economics Building, Room 212",
+                        hours: "Tue-Thu: 9:00-11:00, Fri: 13:00-15:00"
+                    },
+                    publications: 18,
+                    awards: 2
+                },
+                // Add more team members as needed
+            };
+            
+            // View More buttons
+            document.querySelectorAll('.view-more').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const memberId = this.closest('.team-card').getAttribute('data-member');
+                    const member = teamMembers[memberId];
+                    
+                    if (member) {
+                        showMemberModal(member);
+                    }
+                });
+            });
+            
+            // Contact buttons
+            document.querySelectorAll('.contact-btn:not(.view-more)').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const memberCard = this.closest('.team-card');
+                    const memberName = memberCard.querySelector('h3').textContent;
+                    const action = this.getAttribute('title');
+                    
+                    if (action === 'Email') {
+                        showNotification(`Opening email composer for ${memberName}`, 'info');
+                    } else if (action === 'Schedule Session') {
+                        showNotification(`Opening scheduling calendar with ${memberName}`, 'info');
+                    } else if (action === 'View Profile') {
+                        const memberId = memberCard.getAttribute('data-member');
+                        const member = teamMembers[memberId];
+                        if (member) showMemberModal(member);
+                    }
+                });
+            });
+            
+            // Close modal
+            closeModal.addEventListener('click', function() {
+                teamModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Close modal when clicking outside
+            teamModal.addEventListener('click', function(e) {
+                if (e.target === teamModal) {
+                    teamModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Show member modal
+            function showMemberModal(member) {
+                modalContent.innerHTML = `
+                    <div class="modal-header">
+                        <div class="modal-avatar">${member.avatar}</div>
+                        <div>
+                            <h2>${member.name}</h2>
+                            <div class="modal-role">${member.role}</div>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-bio">
+                        <h4>About</h4>
+                        <p>${member.bio}</p>
+                    </div>
+                    
+                    <div class="modal-details">
+                        <div class="detail-section">
+                            <h4><i class="fas fa-graduation-cap"></i> Education</h4>
+                            <ul>
+                                ${member.education.map(item => `<li>${item}</li>`).join('')}
+                            </ul>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4><i class="fas fa-star"></i> Expertise</h4>
+                            <div class="expertise-list">
+                                ${member.expertise.map(item => `<span class="expertise-tag">${item}</span>`).join('')}
+                            </div>
+                        </div>
+                        
+                        <div class="detail-section">
+                            <h4><i class="fas fa-id-card"></i> Contact Information</h4>
+                            <div class="contact-info">
+                                <p><i class="fas fa-envelope"></i> ${member.contact.email}</p>
+                                <p><i class="fas fa-building"></i> ${member.contact.office}</p>
+                                <p><i class="fas fa-clock"></i> ${member.contact.hours}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stats-grid">
+                            <div class="stat">
+                                <div class="stat-number">${member.publications}</div>
+                                <div class="stat-label">Publications</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-number">${member.awards}</div>
+                                <div class="stat-label">Awards</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-number">12+</div>
+                                <div class="stat-label">Years Experience</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="modal-actions">
+                        <button class="btn btn-primary">
+                            <i class="fas fa-envelope"></i> Send Message
+                        </button>
+                        <button class="btn btn-secondary">
+                            <i class="fas fa-calendar"></i> Schedule Meeting
+                        </button>
+                    </div>
+                `;
+                
+                teamModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+                
+                // Add modal styles
+                const style = document.createElement('style');
+                style.textContent = `
+                    .modal-header {
+                        display: flex;
+                        align-items: center;
+                        gap: 2rem;
+                        margin-bottom: 2rem;
+                    }
+                    
+                    .modal-avatar {
+                        width: 100px;
+                        height: 100px;
+                        background: linear-gradient(135deg, #8b5cf6, #a855f7);
+                        border-radius: 50%;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        color: white;
+                        font-size: 2.5rem;
+                        font-weight: bold;
+                        border: 4px solid rgba(255, 255, 255, 0.1);
+                    }
+                    
+                    .modal-role {
+                        color: #8b5cf6;
+                        font-weight: 600;
+                        font-size: 1.1rem;
+                        margin-top: 0.5rem;
+                    }
+                    
+                    .modal-bio {
+                        margin: 2rem 0;
+                        line-height: 1.8;
+                    }
+                    
+                    .modal-details {
+                        display: grid;
+                        gap: 2rem;
+                    }
+                    
+                    .detail-section h4 {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.75rem;
+                        margin-bottom: 1rem;
+                        color: white;
+                    }
+                    
+                    .detail-section ul {
+                        list-style: none;
+                        padding-left: 0;
+                    }
+                    
+                    .detail-section li {
+                        margin: 0.5rem 0;
+                        padding-left: 1.5rem;
+                        position: relative;
+                    }
+                    
+                    .detail-section li::before {
+                        content: '•';
+                        color: #8b5cf6;
+                        position: absolute;
+                        left: 0;
+                    }
+                    
+                    .expertise-list {
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 0.5rem;
+                    }
+                    
+                    .contact-info p {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.75rem;
+                        margin: 0.75rem 0;
+                    }
+                    
+                    .stats-grid {
+                        display: grid;
+                        grid-template-columns: repeat(3, 1fr);
+                        gap: 1.5rem;
+                        margin: 2rem 0;
+                    }
+                    
+                    .stat {
+                        text-align: center;
+                        padding: 1.5rem;
+                        background: rgba(255, 255, 255, 0.05);
+                        border-radius: 10px;
+                    }
+                    
+                    .stat-number {
+                        font-size: 2rem;
+                        font-weight: bold;
+                        color: #8b5cf6;
+                        margin-bottom: 0.5rem;
+                    }
+                    
+                    .modal-actions {
+                        display: flex;
+                        gap: 1rem;
+                        margin-top: 2rem;
+                    }
+                    
+                    @media (max-width: 768px) {
+                        .modal-header {
+                            flex-direction: column;
+                            text-align: center;
+                        }
+                        
+                        .stats-grid {
+                            grid-template-columns: 1fr;
+                        }
+                        
+                        .modal-actions {
+                            flex-direction: column;
+                        }
+                    }
+                `;
+                
+                if (!document.querySelector('#modal-styles')) {
+                    style.id = 'modal-styles';
+                    document.head.appendChild(style);
+                }
+            }
+            
+            // Animate cards on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry, index) => {
+                    if (entry.isIntersecting) {
+                        setTimeout(() => {
+                            entry.target.classList.add('animate-card');
+                        }, index * 100);
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+            
+            document.querySelectorAll('.team-card').forEach(card => {
+                observer.observe(card);
+            });
+            
+            // Show notification
+            function showNotification(message, type = 'info') {
+                const notification = document.createElement('div');
+                notification.className = `notification notification-${type}`;
+                notification.innerHTML = `
+                    <div class="notification-content">
+                        <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                        <span>${message}</span>
+                    </div>
+                    <button class="notification-close"><i class="fas fa-times"></i></button>
+                `;
+                
+                document.body.appendChild(notification);
+                
+                // Auto-remove after 3 seconds
+                setTimeout(() => {
+                    notification.style.animation = 'slideOutRight 0.3s ease forwards';
+                    setTimeout(() => notification.remove(), 300);
+                }, 3000);
+            }
+        });
+    </script>
 </body>
 </html>

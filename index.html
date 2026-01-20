@@ -1,12 +1,243 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark-mode">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CBU Math & Econ | 6-Week Intensive Program</title>
+    
+    <!-- PWA Meta -->
+    <meta name="theme-color" content="#059669">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Styles -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+    <style>
+        /* Additional Styles for Home Page */
+        :root {
+            --progress: 0%;
+        }
+        
+        .learning-progress {
+            position: relative;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .progress-ring {
+            width: 120px;
+            height: 120px;
+            position: relative;
+        }
+        
+        .progress-ring-circle {
+            width: 100%;
+            height: 100%;
+            fill: none;
+            stroke-width: 8;
+            stroke: #059669;
+            stroke-linecap: round;
+            transform: rotate(-90deg);
+            transform-origin: 50% 50%;
+            stroke-dasharray: 314;
+            stroke-dashoffset: calc(314 - (314 * var(--progress)) / 100);
+            transition: stroke-dashoffset 1s ease;
+        }
+        
+        .milestone-tracker {
+            display: flex;
+            justify-content: space-between;
+            margin: 3rem 0;
+            position: relative;
+        }
+        
+        .milestone-tracker::before {
+            content: '';
+            position: absolute;
+            top: 30px;
+            left: 50px;
+            right: 50px;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1;
+        }
+        
+        .milestone {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+        }
+        
+        .milestone-dot {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+        }
+        
+        .milestone.active .milestone-dot {
+            background: linear-gradient(135deg, #059669, #10b981);
+            border-color: #34d399;
+            box-shadow: 0 0 20px rgba(5, 150, 105, 0.5);
+            transform: scale(1.1);
+        }
+        
+        .milestone.completed .milestone-dot {
+            background: linear-gradient(135deg, #059669, #10b981);
+            border-color: #34d399;
+        }
+        
+        .milestone-content {
+            padding: 1rem;
+        }
+        
+        .chapter-preview {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .chapter-card {
+            background: rgba(30, 41, 59, 0.7);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .chapter-card:hover {
+            transform: translateY(-5px);
+            border-color: #059669;
+            box-shadow: 0 20px 40px rgba(5, 150, 105, 0.2);
+        }
+        
+        .chapter-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #059669, #10b981);
+        }
+        
+        .chapter-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .chapter-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #059669, #10b981);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-right: 1rem;
+        }
+        
+        .chapter-content {
+            margin-bottom: 1.5rem;
+        }
+        
+        .chapter-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+        
+        .interactive-formula {
+            background: rgba(15, 23, 42, 0.8);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .formula-editor {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .formula-input {
+            background: rgba(30, 41, 59, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            color: white;
+            font-size: 1.1rem;
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .formula-preview {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 8px;
+            padding: 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .animate-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+        
+        @media (max-width: 768px) {
+            .milestone-tracker {
+                flex-direction: column;
+                gap: 2rem;
+            }
+            
+            .milestone-tracker::before {
+                display: none;
+            }
+            
+            .formula-editor {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
@@ -14,16 +245,15 @@
         <div class="nav-container">
             <div class="nav-brand">
                 <div class="logo">
-                    <img src="assets/images/logo.png" alt="CBU Logo">
+                    <i class="fas fa-calculator"></i>
                 </div>
                 <span class="brand-text">CBU MATH & ECON</span>
             </div>
             <div class="nav-menu" id="navMenu">
-                <a href="index.html" class="nav-link active">HOME</a>
-                <a href="overview.html" class="nav-link">OVERVIEW</a>
-                <a href="schedule.html" class="nav-link">SCHEDULE</a>
-                <a href="team.html" class="nav-link">TEAM</a>
-                <a href="faq.html" class="nav-link">F.A.Q.</a>
+                <a href="index.html" class="nav-link active"><i class="fas fa-home"></i> HOME</a>
+                <a href="overview.html" class="nav-link"><i class="fas fa-book-open"></i> OVERVIEW</a>
+                <a href="schedule.html" class="nav-link"><i class="fas fa-calendar-alt"></i> SCHEDULE</a>
+                <a href="team.html" class="nav-link"><i class="fas fa-users"></i> TEAM</a>
                 <a href="#" class="login-btn" id="loginBtn">
                     <i class="fas fa-user"></i>
                     <span>LOGIN</span>
@@ -39,157 +269,344 @@
     <section class="hero">
         <div class="hero-container">
             <div class="hero-content">
-                <h1>CBU MATH & ECON</h1>
-                <h2>Mathematical Methods 1 & Economics 110</h2>
-                <p class="hero-subtitle">6-Week Intensive Program</p>
+                <div class="hero-badge">
+                    <span class="badge">6-WEEK INTENSIVE</span>
+                    <span class="badge badge-primary"><i class="fas fa-fire"></i> PROGRESSIVE LEARNING</span>
+                </div>
+                <h1 class="hero-title">
+                    <span class="gradient-text">Mathematical Methods 1</span>
+                    <span class="hero-subtitle">+ Economics 110</span>
+                </h1>
                 <p class="hero-description">
-                    An intensive program designed to master mathematical techniques and economic principles 
-                    through practical problem-solving and real-world applications!
+                    Master university-level mathematics and economics through our structured 6-week intensive program. 
+                    Experience progressive learning with interactive chapters, real-time progress tracking, and expert guidance.
                 </p>
+                
+                <!-- Quick Stats -->
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">120+</div>
+                        <div class="stat-label">Learning Hours</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">40+</div>
+                        <div class="stat-label">Chapters</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Interactive</div>
+                    </div>
+                </div>
+                
                 <div class="hero-buttons">
-                    <a href="overview.html" class="btn btn-primary">View Program Details</a>
-                    <a href="#register" class="btn btn-secondary">Register Now</a>
+                    <a href="#start-learning" class="btn btn-primary btn-lg">
+                        <i class="fas fa-play-circle"></i> Start Learning
+                    </a>
+                    <a href="overview.html" class="btn btn-secondary btn-lg">
+                        <i class="fas fa-info-circle"></i> Learn More
+                    </a>
                 </div>
             </div>
-            <div class="hero-image">
-                <img src="assets/images/banner.jpg" alt="Mathematics and Economics Illustration">
-            </div>
-        </div>
-    </section>
-
-    <!-- Program Options -->
-    <section class="program-options">
-        <div class="container">
-            <h2 class="section-title">Program Options</h2>
-            <div class="options-grid">
-                <div class="option-card">
-                    <h3>CBU Students Only</h3>
-                    <p>Access to full program with academic credit and certification</p>
-                    <ul>
-                        <li><i class="fas fa-check"></i> Official Registration</li>
-                        <li><i class="fas fa-check"></i> Academic Credit</li>
-                        <li><i class="fas fa-check"></i> Certificate of Completion</li>
-                        <li><i class="fas fa-check"></i> Faculty Support</li>
-                    </ul>
-                </div>
-                <div class="option-card">
-                    <h3>Open Enrollment</h3>
-                    <p>Public access to all learning materials and resources</p>
-                    <ul>
-                        <li><i class="fas fa-check"></i> Complete Course Materials</li>
-                        <li><i class="fas fa-check"></i> Problem Sets & Solutions</li>
-                        <li><i class="fas fa-check"></i> Video Resources</li>
-                        <li><i class="fas fa-check"></i> Community Access</li>
-                    </ul>
+            <div class="hero-visual">
+                <div class="visual-container">
+                    <div class="math-visual">
+                        <div class="equation">$$ \int_a^b f(x)dx = F(b) - F(a) $$</div>
+                        <div class="graph-preview"></div>
+                    </div>
+                    <div class="econ-visual">
+                        <div class="chart-preview"></div>
+                        <div class="formula">$$ P = \frac{\partial Q}{\partial P} $$</div>
+                    </div>
                 </div>
             </div>
         </div>
-    </section>
-
-    <!-- Quick Info -->
-    <section class="quick-info">
-        <div class="container">
-            <div class="info-grid">
-                <div class="info-item">
-                    <i class="fas fa-calendar-alt"></i>
-                    <h3>Program Dates</h3>
-                    <p>6 Weeks (Monday - Friday)</p>
-                    <p class="info-detail">120 Contact Hours</p>
-                </div>
-                <div class="info-item">
-                    <i class="fas fa-clock"></i>
-                    <h3>Daily Schedule</h3>
-                    <p>9:00 AM - 4:00 PM</p>
-                    <p class="info-detail">4 Hours Daily Instruction</p>
-                </div>
-                <div class="info-item">
-                    <i class="fas fa-book"></i>
-                    <h3>Course Coverage</h3>
-                    <p>Complete Chapters</p>
-                    <p class="info-detail">Math Methods 1 + Econ 110</p>
-                </div>
-                <div class="info-item">
-                    <i class="fas fa-trophy"></i>
-                    <h3>Assessment</h3>
-                    <p>Weekly Tests + Projects</p>
-                    <p class="info-detail">Certificate Awarded</p>
-                </div>
-            </div>
+        
+        <!-- Progress Wave -->
+        <div class="progress-wave">
+            <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                <path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25"></path>
+                <path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5"></path>
+                <path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z"></path>
+            </svg>
         </div>
     </section>
 
-    <!-- Registration Section -->
-    <section id="register" class="registration">
+    <!-- Progressive Learning Section -->
+    <section id="start-learning" class="learning-section">
         <div class="container">
-            <h2 class="section-title">Register for the Program</h2>
-            <div class="registration-form">
-                <div class="form-container">
-                    <form id="registrationForm">
-                        <div class="form-group">
-                            <label for="fullName">Full Name</label>
-                            <input type="text" id="fullName" name="fullName" required>
+            <div class="section-header">
+                <h2>Your Learning Journey</h2>
+                <p>Track your progress through 6 weeks of intensive learning</p>
+            </div>
+            
+            <!-- Overall Progress -->
+            <div class="learning-progress">
+                <div class="progress-header">
+                    <div class="progress-info">
+                        <h3>Overall Progress</h3>
+                        <div class="progress-stats">
+                            <span class="stat"><i class="fas fa-book"></i> 40 Chapters</span>
+                            <span class="stat"><i class="fas fa-clock"></i> 120 Hours</span>
+                            <span class="stat"><i class="fas fa-trophy"></i> 2 Courses</span>
                         </div>
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="progress-display">
+                        <div class="progress-ring">
+                            <svg viewBox="0 0 100 100">
+                                <circle cx="50" cy="50" r="45" class="progress-ring-bg"></circle>
+                                <circle cx="50" cy="50" r="45" class="progress-ring-circle"></circle>
+                            </svg>
+                            <div class="progress-percentage">25%</div>
                         </div>
-                        <div class="form-group">
-                            <label for="program">Program Type</label>
-                            <select id="program" name="program" required>
-                                <option value="">Select Program</option>
-                                <option value="cbu">CBU Student (Academic Credit)</option>
-                                <option value="open">Open Enrollment (Self-paced)</option>
-                            </select>
+                    </div>
+                </div>
+                
+                <!-- Milestone Tracker -->
+                <div class="milestone-tracker">
+                    <div class="milestone completed" data-week="1">
+                        <div class="milestone-dot">
+                            <i class="fas fa-check"></i>
                         </div>
-                        <div class="form-group">
-                            <label for="courses">Courses</label>
-                            <div class="checkbox-group">
-                                <label>
-                                    <input type="checkbox" name="courses" value="math"> Mathematical Methods 1
-                                </label>
-                                <label>
-                                    <input type="checkbox" name="courses" value="econ"> Economics 110
-                                </label>
+                        <div class="milestone-content">
+                            <h4>Week 1</h4>
+                            <p>Foundation</p>
+                            <small>Completed</small>
+                        </div>
+                    </div>
+                    
+                    <div class="milestone active" data-week="2">
+                        <div class="milestone-dot">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="milestone-content">
+                            <h4>Week 2</h4>
+                            <p>Algebra Basics</p>
+                            <small>In Progress</small>
+                        </div>
+                    </div>
+                    
+                    <div class="milestone" data-week="3">
+                        <div class="milestone-dot">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="milestone-content">
+                            <h4>Week 3</h4>
+                            <p>Calculus Intro</p>
+                            <small>Upcoming</small>
+                        </div>
+                    </div>
+                    
+                    <div class="milestone" data-week="4">
+                        <div class="milestone-dot">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="milestone-content">
+                            <h4>Week 4</h4>
+                            <p>Applications</p>
+                            <small>Upcoming</small>
+                        </div>
+                    </div>
+                    
+                    <div class="milestone" data-week="5">
+                        <div class="milestone-dot">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="milestone-content">
+                            <h4>Week 5</h4>
+                            <p>Advanced Topics</p>
+                            <small>Upcoming</small>
+                        </div>
+                    </div>
+                    
+                    <div class="milestone" data-week="6">
+                        <div class="milestone-dot">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="milestone-content">
+                            <h4>Week 6</h4>
+                            <p>Review & Exam</p>
+                            <small>Upcoming</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Chapter Preview -->
+            <div class="section-header">
+                <h3>Current Chapter Preview</h3>
+                <p>Continue where you left off</p>
+            </div>
+            
+            <div class="chapter-preview">
+                <div class="chapter-card animate-in">
+                    <div class="chapter-header">
+                        <div class="chapter-number">2.1</div>
+                        <div>
+                            <h4>Mathematical Methods 1</h4>
+                            <p class="chapter-subtitle">Algebraic Equations & Inequalities</p>
+                        </div>
+                    </div>
+                    
+                    <div class="chapter-content">
+                        <p>Master the fundamentals of algebraic manipulation, solving equations, and working with inequalities.</p>
+                        
+                        <div class="chapter-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 65%"></div>
+                            </div>
+                            <span>65% Complete</span>
+                        </div>
+                        
+                        <div class="chapter-meta">
+                            <span><i class="fas fa-clock"></i> 4 hours</span>
+                            <span><i class="fas fa-puzzle-piece"></i> 12 exercises</span>
+                            <span><i class="fas fa-video"></i> 3 videos</span>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary btn-block continue-btn">
+                        <i class="fas fa-play"></i> Continue Learning
+                    </button>
+                </div>
+                
+                <div class="chapter-card animate-in">
+                    <div class="chapter-header">
+                        <div class="chapter-number">2.2</div>
+                        <div>
+                            <h4>Economics 110</h4>
+                            <p class="chapter-subtitle">Market Equilibrium & Elasticity</p>
+                        </div>
+                    </div>
+                    
+                    <div class="chapter-content">
+                        <p>Understand how markets reach equilibrium and analyze price elasticity of demand and supply.</p>
+                        
+                        <div class="chapter-progress">
+                            <div class="progress-bar">
+                                <div class="progress-fill" style="width: 40%"></div>
+                            </div>
+                            <span>40% Complete</span>
+                        </div>
+                        
+                        <div class="chapter-meta">
+                            <span><i class="fas fa-clock"></i> 3 hours</span>
+                            <span><i class="fas fa-puzzle-piece"></i> 8 exercises</span>
+                            <span><i class="fas fa-chart-line"></i> 2 simulations</span>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-secondary btn-block continue-btn">
+                        <i class="fas fa-play"></i> Continue Learning
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Interactive Learning -->
+            <div class="section-header">
+                <h3>Interactive Learning Tools</h3>
+                <p>Practice with real-time feedback</p>
+            </div>
+            
+            <div class="interactive-formula animate-in">
+                <h4><i class="fas fa-calculator"></i> Formula Practice</h4>
+                <p>Try solving this quadratic equation. Type your solution in LaTeX format:</p>
+                
+                <div class="formula-problem">
+                    <div class="problem-statement">
+                        <p>Solve for x: $$ 3x^2 - 7x + 2 = 0 $$</p>
+                    </div>
+                    
+                    <div class="formula-editor">
+                        <div>
+                            <label>Your Solution:</label>
+                            <textarea class="formula-input" placeholder="Type your solution in LaTeX (e.g., x = \frac{1}{3})">x = \frac{1}{3}, x = 2</textarea>
+                            <button class="btn btn-primary mt-2">
+                                <i class="fas fa-check"></i> Check Solution
+                            </button>
+                        </div>
+                        
+                        <div>
+                            <label>Preview:</label>
+                            <div class="formula-preview">
+                                <div id="formula-render">$$ x = \frac{1}{3}, x = 2 $$</div>
+                            </div>
+                            <div class="solution-feedback">
+                                <div class="feedback correct">
+                                    <i class="fas fa-check-circle"></i> Correct solution!
+                                </div>
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit Registration</button>
-                    </form>
-                    <div class="form-info">
-                        <h3>Registration Benefits</h3>
-                        <ul>
-                            <li><i class="fas fa-check-circle"></i> Access to all learning materials</li>
-                            <li><i class="fas fa-check-circle"></i> Weekly problem sets with solutions</li>
-                            <li><i class="fas fa-check-circle"></i> Progress tracking dashboard</li>
-                            <li><i class="fas fa-check-circle"></i> Certificate of completion</li>
-                            <li><i class="fas fa-check-circle"></i> Faculty support access</li>
-                        </ul>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Login Modal -->
-    <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2>Student Login</h2>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="studentId">Student ID / Email</label>
-                    <input type="text" id="studentId" name="studentId" required>
+    <!-- Quick Stats -->
+    <section class="quick-stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Academic Excellence</h3>
+                        <p>University-level curriculum with certification</p>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Progressive Learning</h3>
+                        <p>Track your progress in real-time</p>
+                    </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Login</button>
-            </form>
-            <p class="modal-footer">
-                Need an account? <a href="#register" class="register-link">Register here</a>
-            </p>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-hands-helping"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Expert Support</h3>
+                        <p>Access to faculty and teaching assistants</p>
+                    </div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3>Interactive Tools</h3>
+                        <p>Practice with real-time feedback</p>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Registration CTA -->
+    <section class="registration-cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Start Your Learning Journey Today</h2>
+                <p>Join hundreds of students mastering mathematics and economics</p>
+                
+                <div class="cta-buttons">
+                    <a href="overview.html" class="btn btn-primary btn-lg">
+                        <i class="fas fa-book-open"></i> View Full Curriculum
+                    </a>
+                    <a href="#register" class="btn btn-secondary btn-lg">
+                        <i class="fas fa-user-plus"></i> Register Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="footer">
@@ -206,19 +623,14 @@
                     <ul>
                         <li><a href="overview.html">Program Overview</a></li>
                         <li><a href="schedule.html">Weekly Schedule</a></li>
-                        <li><a href="faq.html">FAQ</a></li>
                         <li><a href="team.html">Teaching Team</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h3>Contact</h3>
                     <p><i class="fas fa-envelope"></i> r.sichomba@cbu.ac.zm</p>
                     <p><i class="fas fa-phone"></i> +260 XXX XXX XXX</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-github"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                    </div>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -227,6 +639,204 @@
         </div>
     </footer>
 
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
     <script src="script.js"></script>
+    <script>
+        // Progressive Learning Features
+        document.addEventListener('DOMContentLoaded', function() {
+            // Update progress based on saved data
+            const savedProgress = localStorage.getItem('cbuLearningProgress');
+            const progress = savedProgress ? JSON.parse(savedProgress) : {
+                overall: 25,
+                week2: 65,
+                week2_econ: 40
+            };
+            
+            // Update overall progress
+            document.documentElement.style.setProperty('--progress', progress.overall + '%');
+            document.querySelector('.progress-percentage').textContent = progress.overall + '%';
+            
+            // Update chapter progress bars
+            document.querySelectorAll('.progress-fill').forEach((bar, index) => {
+                if (index === 0) bar.style.width = progress.week2 + '%';
+                if (index === 1) bar.style.width = progress.week2_econ + '%';
+            });
+            
+            // Interactive formula editor
+            const formulaInput = document.querySelector('.formula-input');
+            const formulaRender = document.getElementById('formula-render');
+            
+            formulaInput.addEventListener('input', function() {
+                formulaRender.innerHTML = `$$ ${this.value} $$`;
+                MathJax.typesetPromise([formulaRender]);
+            });
+            
+            // Continue learning buttons
+            document.querySelectorAll('.continue-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const chapter = this.closest('.chapter-card').querySelector('h4').textContent;
+                    showNotification(`Continuing with ${chapter}...`, 'info');
+                    
+                    // Simulate loading
+                    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+                    this.disabled = true;
+                    
+                    setTimeout(() => {
+                        showNotification(`Chapter loaded successfully!`, 'success');
+                        this.innerHTML = '<i class="fas fa-play"></i> Continue Learning';
+                        this.disabled = false;
+                    }, 1500);
+                });
+            });
+            
+            // Milestone click events
+            document.querySelectorAll('.milestone').forEach(milestone => {
+                milestone.addEventListener('click', function() {
+                    const week = this.getAttribute('data-week');
+                    if (week <= 2) {
+                        showNotification(`Viewing Week ${week} content`, 'info');
+                    } else {
+                        showNotification(`Week ${week} will unlock as you progress`, 'warning');
+                    }
+                });
+            });
+            
+            // Initialize MathJax
+            if (window.MathJax) {
+                MathJax.typesetPromise();
+            }
+            
+            // Animate elements on scroll
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animate-in');
+                    }
+                });
+            }, observerOptions);
+            
+            document.querySelectorAll('.chapter-card, .interactive-formula').forEach(el => {
+                observer.observe(el);
+            });
+        });
+        
+        // Show notification
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+                <button class="notification-close"><i class="fas fa-times"></i></button>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Add styles if not already added
+            if (!document.querySelector('#notification-styles')) {
+                const style = document.createElement('style');
+                style.id = 'notification-styles';
+                style.textContent = `
+                    .notification {
+                        position: fixed;
+                        top: 20px;
+                        right: 20px;
+                        background: #1e293b;
+                        border-left: 4px solid #3b82f6;
+                        border-radius: 8px;
+                        padding: 1rem 1.5rem;
+                        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+                        display: flex;
+                        align-items: center;
+                        gap: 1rem;
+                        z-index: 10000;
+                        animation: slideInRight 0.3s ease;
+                        max-width: 400px;
+                    }
+                    
+                    .notification-success {
+                        border-left-color: #10b981;
+                    }
+                    
+                    .notification-error {
+                        border-left-color: #ef4444;
+                    }
+                    
+                    .notification-warning {
+                        border-left-color: #f59e0b;
+                    }
+                    
+                    .notification-content {
+                        display: flex;
+                        align-items: center;
+                        gap: 0.75rem;
+                        flex: 1;
+                        color: white;
+                    }
+                    
+                    .notification-close {
+                        background: none;
+                        border: none;
+                        color: #94a3b8;
+                        cursor: pointer;
+                        padding: 0.25rem;
+                        border-radius: 4px;
+                    }
+                    
+                    .notification-close:hover {
+                        background: #475569;
+                    }
+                    
+                    @keyframes slideInRight {
+                        from {
+                            transform: translateX(100%);
+                            opacity: 0;
+                        }
+                        to {
+                            transform: translateX(0);
+                            opacity: 1;
+                        }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.3s ease forwards';
+                setTimeout(() => notification.remove(), 300);
+            }, 5000);
+            
+            // Add slideOutRight animation
+            if (!document.querySelector('#notification-animations')) {
+                const animStyle = document.createElement('style');
+                animStyle.id = 'notification-animations';
+                animStyle.textContent = `
+                    @keyframes slideOutRight {
+                        from {
+                            transform: translateX(0);
+                            opacity: 1;
+                        }
+                        to {
+                            transform: translateX(100%);
+                            opacity: 0;
+                        }
+                    }
+                `;
+                document.head.appendChild(animStyle);
+            }
+        }
+    </script>
 </body>
 </html>

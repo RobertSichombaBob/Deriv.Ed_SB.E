@@ -1,28 +1,329 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark-mode">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Program Overview | CBU Math & Econ</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Overview Specific Styles */
+        .overview-hero {
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.9) 0%, rgba(59, 130, 246, 0.9) 100%);
+            color: white;
+            padding: 6rem 0 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .overview-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="white"></path><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="white"></path><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="white"></path></svg>');
+            background-size: cover;
+            opacity: 0.1;
+        }
+        
+        .learning-path {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 3rem auto;
+            max-width: 1200px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .path-timeline {
+            position: relative;
+            margin: 3rem 0;
+        }
+        
+        .path-timeline::before {
+            content: '';
+            position: absolute;
+            left: 50px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, #059669, #3b82f6);
+            border-radius: 2px;
+        }
+        
+        .timeline-item {
+            display: flex;
+            margin: 3rem 0;
+            position: relative;
+        }
+        
+        .timeline-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #059669, #10b981);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+            margin-right: 2rem;
+            z-index: 2;
+            flex-shrink: 0;
+        }
+        
+        .timeline-content {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 15px;
+            padding: 2rem;
+            flex: 1;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-content:hover {
+            border-color: rgba(5, 150, 105, 0.3);
+            transform: translateX(10px);
+        }
+        
+        .timeline-content h3 {
+            margin-top: 0;
+            color: white;
+        }
+        
+        .timeline-topics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin: 1rem 0;
+        }
+        
+        .topic-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 0.75rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .topic-item i {
+            color: #059669;
+        }
+        
+        .curriculum-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .course-card {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 15px;
+            padding: 2.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .course-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #059669, #10b981);
+        }
+        
+        .course-card.math::before {
+            background: linear-gradient(90deg, #059669, #10b981);
+        }
+        
+        .course-card.econ::before {
+            background: linear-gradient(90deg, #3b82f6, #6366f1);
+        }
+        
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .course-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .course-icon.math {
+            background: rgba(5, 150, 105, 0.2);
+            color: #34d399;
+        }
+        
+        .course-icon.econ {
+            background: rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+        }
+        
+        .chapter-list {
+            margin: 1.5rem 0;
+        }
+        
+        .chapter-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin: 0.75rem 0;
+            padding: 0.5rem;
+            border-radius: 6px;
+            transition: background 0.3s ease;
+        }
+        
+        .chapter-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .chapter-number {
+            width: 30px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+        
+        .learning-outcomes {
+            background: linear-gradient(135deg, rgba(5, 150, 105, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
+            border-radius: 15px;
+            padding: 3rem;
+            margin: 3rem 0;
+            border: 1px solid rgba(5, 150, 105, 0.2);
+        }
+        
+        .outcomes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .outcome-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .outcome-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-5px);
+        }
+        
+        .outcome-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #059669, #10b981);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+            margin: 0 auto 1rem;
+        }
+        
+        .assessment-structure {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 15px;
+            padding: 3rem;
+            margin: 3rem 0;
+        }
+        
+        .assessment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .assessment-item {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .assessment-percentage {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #059669;
+            margin-bottom: 0.5rem;
+        }
+        
+        @media (max-width: 768px) {
+            .path-timeline::before {
+                left: 40px;
+            }
+            
+            .timeline-item {
+                flex-direction: column;
+            }
+            
+            .timeline-icon {
+                margin-right: 0;
+                margin-bottom: 1rem;
+                width: 80px;
+                height: 80px;
+            }
+            
+            .timeline-content:hover {
+                transform: translateY(-5px);
+            }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+    </style>
 </head>
 <body>
-    <!-- Navigation (same as index.html) -->
+    <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-brand">
                 <div class="logo">
-                    <img src="assets/images/logo.png" alt="CBU Logo">
+                    <i class="fas fa-calculator"></i>
                 </div>
                 <span class="brand-text">CBU MATH & ECON</span>
             </div>
             <div class="nav-menu" id="navMenu">
-                <a href="index.html" class="nav-link">HOME</a>
-                <a href="overview.html" class="nav-link active">OVERVIEW</a>
-                <a href="schedule.html" class="nav-link">SCHEDULE</a>
-                <a href="team.html" class="nav-link">TEAM</a>
-                <a href="faq.html" class="nav-link">F.A.Q.</a>
+                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> HOME</a>
+                <a href="overview.html" class="nav-link active"><i class="fas fa-book-open"></i> OVERVIEW</a>
+                <a href="schedule.html" class="nav-link"><i class="fas fa-calendar-alt"></i> SCHEDULE</a>
+                <a href="team.html" class="nav-link"><i class="fas fa-users"></i> TEAM</a>
                 <a href="#" class="login-btn" id="loginBtn">
                     <i class="fas fa-user"></i>
                     <span>LOGIN</span>
@@ -34,274 +335,364 @@
         </div>
     </nav>
 
-    <!-- Overview Header -->
-    <section class="page-header">
+    <!-- Overview Hero -->
+    <section class="overview-hero">
         <div class="container">
             <h1>Program Overview</h1>
-            <p>Complete coverage of Mathematical Methods 1 and Economics 110</p>
+            <p class="subtitle">Comprehensive 6-week intensive program in Mathematical Methods 1 & Economics 110</p>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number">6</div>
+                    <div class="stat-label">Weeks</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">40+</div>
+                    <div class="stat-label">Chapters</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">120+</div>
+                    <div class="stat-label">Hours</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number">2</div>
+                    <div class="stat-label">Courses</div>
+                </div>
+            </div>
         </div>
     </section>
 
-    <!-- Course Details -->
-    <section class="course-details">
+    <!-- Program Description -->
+    <section class="program-description">
         <div class="container">
-            <div class="course-grid">
-                <!-- Mathematical Methods 1 -->
-                <div class="course-card math-course">
-                    <div class="course-header">
-                        <i class="fas fa-calculator"></i>
-                        <h2>Mathematical Methods 1</h2>
+            <div class="description-content">
+                <h2>About the Program</h2>
+                <p>The CBU 6-Week Intensive Program in Mathematical Methods 1 and Economics 110 is designed to provide students with a comprehensive understanding of fundamental mathematical techniques and economic principles through an accelerated, immersive learning experience.</p>
+                
+                <div class="features-grid">
+                    <div class="feature">
+                        <i class="fas fa-bolt"></i>
+                        <h4>Accelerated Learning</h4>
+                        <p>Complete two university-level courses in just 6 weeks through intensive daily sessions.</p>
                     </div>
-                    <div class="course-content">
-                        <h3>Chapters Covered:</h3>
-                        <div class="chapters-list">
-                            <div class="chapter-item">
-                                <span class="chapter-number">Ch 5</span>
-                                <span class="chapter-title">Equations, Inequalities, and Problem Solving</span>
-                            </div>
-                            <div class="chapter-item">
-                                <span class="chapter-number">Ch 6</span>
-                                <span class="chapter-title">Quadratic Equations</span>
-                            </div>
-                            <div class="chapter-item">
-                                <span class="chapter-number">Ch 7</span>
-                                <span class="chapter-title">Inequalities Equations</span>
-                            </div>
-                            <div class="chapter-item">
-                                <span class="chapter-number">Ch 9</span>
-                                <span class="chapter-title">Quadratic Functions</span>
-                            </div>
-                            <div class="chapter-item">
-                                <span class="chapter-number">Ch 10</span>
-                                <span class="chapter-title">Polynomial Functions and Equations</span>
-                            </div>
-                            <div class="chapter-item">
-                                <span class="chapter-number">Ch 12</span>
-                                <span class="chapter-title">Arithmetic and Geometric Sequences</span>
-                            </div>
-                            <div class="chapter-item">
-                                <span class="chapter-number">Ch 14</span>
-                                <span class="chapter-title">Partial Fractions</span>
-                            </div>
-                            <div class="chapter-item">
-                                <span class="chapter-number">Ch 15</span>
-                                <span class="chapter-title">Combination, Permutation and Binomial Expansions</span>
-                            </div>
-                            <div class="chapter-item">
-                                <span class="chapter-number">Ch 16</span>
-                                <span class="chapter-title">Matrices</span>
-                            </div>
-                            <div class="chapter-item">
-                                <span class="chapter-number">Ch 17</span>
-                                <span class="chapter-title">Exponential and Logarithmic Functions</span>
-                            </div>
-                        </div>
-                        
-                        <h3>Learning Objectives:</h3>
-                        <ul class="objectives-list">
-                            <li>Master algebraic techniques and problem-solving strategies</li>
-                            <li>Understand function analysis and graphing</li>
-                            <li>Solve complex equations and inequalities</li>
-                            <li>Apply mathematical concepts to real-world problems</li>
-                            <li>Develop proficiency in matrix operations</li>
-                            <li>Understand sequences, series, and mathematical induction</li>
-                        </ul>
-
-                        <div class="resources-preview">
-                            <h3>Resources Provided:</h3>
-                            <div class="resources-grid">
-                                <div class="resource-item">
-                                    <i class="fas fa-file-alt"></i>
-                                    <span>Detailed Notes</span>
-                                </div>
-                                <div class="resource-item">
-                                    <i class="fas fa-tasks"></i>
-                                    <span>Practice Problems</span>
-                                </div>
-                                <div class="resource-item">
-                                    <i class="fas fa-check-circle"></i>
-                                    <span>Solution Guides</span>
-                                </div>
-                                <div class="resource-item">
-                                    <i class="fas fa-video"></i>
-                                    <span>Video Tutorials</span>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="feature">
+                        <i class="fas fa-hands-helping"></i>
+                        <h4>Expert Guidance</h4>
+                        <p>Learn from experienced faculty and teaching assistants with personalized support.</p>
                     </div>
-                </div>
-
-                <!-- Economics 110 -->
-                <div class="course-card econ-course">
-                    <div class="course-header">
+                    <div class="feature">
                         <i class="fas fa-chart-line"></i>
-                        <h2>Economics 110</h2>
+                        <h4>Practical Application</h4>
+                        <p>Apply mathematical concepts to real-world economic problems and scenarios.</p>
                     </div>
-                    <div class="course-content">
-                        <h3>Chapters Covered:</h3>
-                        <div class="chapters-list">
-                            <div class="chapter-item">
-                                <span class="chapter-number">Ch 1</span>
-                                <span class="chapter-title">The Nature of Economics</span>
-                            </div>
-                            <div class="chapter-item">
-                                <span class="chapter-number">Ch 2</span>
-                                <span class="chapter-title">Demand, Supply and Market Equilibrium</span>
-                            </div>
-                            <div class="chapter-item">
-                                <span class="chapter-number">Ch 3</span>
-                                <span class="chapter-title">Elasticity</span>
-                            </div>
-                            <div class="chapter-item">
-                                <span class="chapter-number">Ch 4</span>
-                                <span class="chapter-title">Consumer Theory</span>
-                            </div>
-                            <div class="chapter-item">
-                                <span class="chapter-number">Ch 5</span>
-                                <span class="chapter-title">Production and Costs</span>
-                            </div>
-                        </div>
-
-                        <h3>Learning Objectives:</h3>
-                        <ul class="objectives-list">
-                            <li>Understand economic principles and systems</li>
-                            <li>Analyze market forces of demand and supply</li>
-                            <li>Calculate and interpret various elasticities</li>
-                            <li>Understand consumer behavior and utility maximization</li>
-                            <li>Analyze production functions and cost structures</li>
-                            <li>Apply economic concepts to real-world scenarios</li>
-                        </ul>
-
-                        <h3>Topics Include:</h3>
-                        <div class="topics-grid">
-                            <span class="topic-tag">Opportunity Cost</span>
-                            <span class="topic-tag">PPF Analysis</span>
-                            <span class="topic-tag">Market Equilibrium</span>
-                            <span class="topic-tag">Price Elasticity</span>
-                            <span class="topic-tag">Utility Theory</span>
-                            <span class="topic-tag">Cost Curves</span>
-                            <span class="topic-tag">Economies of Scale</span>
-                            <span class="topic-tag">Market Structures</span>
-                        </div>
-
-                        <div class="resources-preview">
-                            <h3>Resources Provided:</h3>
-                            <div class="resources-grid">
-                                <div class="resource-item">
-                                    <i class="fas fa-file-alt"></i>
-                                    <span>Comprehensive Notes</span>
-                                </div>
-                                <div class="resource-item">
-                                    <i class="fas fa-chart-bar"></i>
-                                    <span>Case Studies</span>
-                                </div>
-                                <div class="resource-item">
-                                    <i class="fas fa-calculator"></i>
-                                    <span>Economic Models</span>
-                                </div>
-                                <div class="resource-item">
-                                    <i class="fas fa-book"></i>
-                                    <span>Reading Materials</span>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="feature">
+                        <i class="fas fa-trophy"></i>
+                        <h4>Certification</h4>
+                        <p>Earn a certificate of completion from The Copperbelt University.</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Program Structure -->
-    <section class="program-structure">
+    <!-- Learning Path -->
+    <section class="learning-path">
         <div class="container">
-            <h2 class="section-title">Program Structure</h2>
-            <div class="structure-timeline">
-                <div class="timeline-item">
+            <h2>Learning Path Structure</h2>
+            <p class="subtitle">Progressive journey through 6 weeks of intensive learning</p>
+            
+            <div class="path-timeline">
+                <div class="timeline-item floating">
+                    <div class="timeline-icon">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
                     <div class="timeline-content">
                         <h3>Week 1-2: Foundation Building</h3>
-                        <p>Basic concepts and core principles</p>
+                        <p>Establish core concepts in algebra, set theory, and basic economic principles.</p>
+                        <div class="timeline-topics">
+                            <div class="topic-item">
+                                <i class="fas fa-calculator"></i>
+                                <span>Algebraic Equations</span>
+                            </div>
+                            <div class="topic-item">
+                                <i class="fas fa-project-diagram"></i>
+                                <span>Set Theory</span>
+                            </div>
+                            <div class="topic-item">
+                                <i class="fas fa-chart-bar"></i>
+                                <span>Economic Basics</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="timeline-item">
+                
+                <div class="timeline-item floating" style="animation-delay: 0.5s;">
+                    <div class="timeline-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
                     <div class="timeline-content">
-                        <h3>Week 3-4: Advanced Concepts</h3>
-                        <p>Complex topics and applications</p>
+                        <h3>Week 3-4: Core Techniques</h3>
+                        <p>Master calculus fundamentals and their application to economic analysis.</p>
+                        <div class="timeline-topics">
+                            <div class="topic-item">
+                                <i class="fas fa-infinity"></i>
+                                <span>Differential Calculus</span>
+                            </div>
+                            <div class="topic-item">
+                                <i class="fas fa-sum"></i>
+                                <span>Integral Calculus</span>
+                            </div>
+                            <div class="topic-item">
+                                <i class="fas fa-balance-scale"></i>
+                                <span>Market Analysis</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-content">
-                        <h3>Week 5: Integration</h3>
-                        <p>Cross-disciplinary applications</p>
+                
+                <div class="timeline-item floating" style="animation-delay: 1s;">
+                    <div class="timeline-icon">
+                        <i class="fas fa-rocket"></i>
                     </div>
-                </div>
-                <div class="timeline-item">
                     <div class="timeline-content">
-                        <h3>Week 6: Mastery & Assessment</h3>
-                        <p>Review and final evaluation</p>
+                        <h3>Week 5-6: Application & Review</h3>
+                        <p>Apply learned concepts to complex problems and prepare for final assessment.</p>
+                        <div class="timeline-topics">
+                            <div class="topic-item">
+                                <i class="fas fa-puzzle-piece"></i>
+                                <span>Problem Solving</span>
+                            </div>
+                            <div class="topic-item">
+                                <i class="fas fa-chart-line"></i>
+                                <span>Economic Modeling</span>
+                            </div>
+                            <div class="topic-item">
+                                <i class="fas fa-tasks"></i>
+                                <span>Comprehensive Review</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Assessment Framework -->
-    <section class="assessment-framework">
+    <!-- Course Curriculum -->
+    <section class="curriculum">
         <div class="container">
-            <h2 class="section-title">Assessment Framework</h2>
-            <div class="assessment-grid">
-                <div class="assessment-card">
-                    <div class="assessment-icon">
-                        <i class="fas fa-clipboard-check"></i>
+            <h2>Course Curriculum</h2>
+            <p class="subtitle">Detailed breakdown of Mathematical Methods 1 and Economics 110</p>
+            
+            <div class="curriculum-grid">
+                <div class="course-card math">
+                    <div class="course-icon math">
+                        <i class="fas fa-square-root-alt"></i>
                     </div>
-                    <h3>Weekly Tests</h3>
-                    <p>30% of total grade</p>
-                    <ul>
-                        <li>End-of-week comprehensive tests</li>
-                        <li>Immediate feedback</li>
-                        <li>Progress tracking</li>
-                    </ul>
-                </div>
-                <div class="assessment-card">
-                    <div class="assessment-icon">
-                        <i class="fas fa-tasks"></i>
+                    <h3>Mathematical Methods 1</h3>
+                    <p>Comprehensive coverage of university-level mathematics fundamentals.</p>
+                    
+                    <div class="chapter-list">
+                        <div class="chapter-item">
+                            <div class="chapter-number">1-4</div>
+                            <div>
+                                <h5>Algebra & Equations</h5>
+                                <small>Linear, quadratic, and polynomial equations</small>
+                            </div>
+                        </div>
+                        <div class="chapter-item">
+                            <div class="chapter-number">5-8</div>
+                            <div>
+                                <h5>Functions & Graphs</h5>
+                                <small>Function properties and graphical analysis</small>
+                            </div>
+                        </div>
+                        <div class="chapter-item">
+                            <div class="chapter-number">9-12</div>
+                            <div>
+                                <h5>Differential Calculus</h5>
+                                <small>Derivatives and their applications</small>
+                            </div>
+                        </div>
+                        <div class="chapter-item">
+                            <div class="chapter-number">13-16</div>
+                            <div>
+                                <h5>Integral Calculus</h5>
+                                <small>Integration techniques and applications</small>
+                            </div>
+                        </div>
                     </div>
-                    <h3>Assignments</h3>
-                    <p>20% of total grade</p>
-                    <ul>
-                        <li>Daily problem sets</li>
-                        <li>Step-by-step solutions</li>
-                        <li>Practice exercises</li>
-                    </ul>
+                    
+                    <button class="btn btn-primary btn-block">
+                        <i class="fas fa-book"></i> View Full Syllabus
+                    </button>
                 </div>
-                <div class="assessment-card">
-                    <div class="assessment-icon">
+                
+                <div class="course-card econ">
+                    <div class="course-icon econ">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3>Economics 110</h3>
+                    <p>Introduction to microeconomic principles and market analysis.</p>
+                    
+                    <div class="chapter-list">
+                        <div class="chapter-item">
+                            <div class="chapter-number">1-3</div>
+                            <div>
+                                <h5>Economic Fundamentals</h5>
+                                <small>Scarcity, choice, and opportunity cost</small>
+                            </div>
+                        </div>
+                        <div class="chapter-item">
+                            <div class="chapter-number">4-7</div>
+                            <div>
+                                <h5>Market Analysis</h5>
+                                <small>Supply, demand, and equilibrium</small>
+                            </div>
+                        </div>
+                        <div class="chapter-item">
+                            <div class="chapter-number">8-11</div>
+                            <div>
+                                <h5>Consumer Behavior</h5>
+                                <small>Utility theory and consumer choice</small>
+                            </div>
+                        </div>
+                        <div class="chapter-item">
+                            <div class="chapter-number">12-15</div>
+                            <div>
+                                <h5>Production & Cost</h5>
+                                <small>Firm behavior and market structures</small>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn btn-primary btn-block">
+                        <i class="fas fa-book"></i> View Full Syllabus
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Learning Outcomes -->
+    <section class="learning-outcomes">
+        <div class="container">
+            <h2>Learning Outcomes</h2>
+            <p class="subtitle">What you'll achieve by completing this program</p>
+            
+            <div class="outcomes-grid">
+                <div class="outcome-card">
+                    <div class="outcome-icon">
+                        <i class="fas fa-calculator"></i>
+                    </div>
+                    <h4>Mathematical Proficiency</h4>
+                    <p>Solve complex mathematical problems using appropriate techniques</p>
+                </div>
+                
+                <div class="outcome-card">
+                    <div class="outcome-icon">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h4>Economic Analysis</h4>
+                    <p>Analyze economic scenarios using fundamental principles</p>
+                </div>
+                
+                <div class="outcome-card">
+                    <div class="outcome-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h4>Critical Thinking</h4>
+                    <p>Apply logical reasoning to solve real-world problems</p>
+                </div>
+                
+                <div class="outcome-card">
+                    <div class="outcome-icon">
                         <i class="fas fa-project-diagram"></i>
                     </div>
-                    <h3>Capstone Project</h3>
-                    <p>25% of total grade</p>
-                    <ul>
-                        <li>Integrated research project</li>
-                        <li>Real-world application</li>
-                        <li>Presentation component</li>
-                    </ul>
-                </div>
-                <div class="assessment-card">
-                    <div class="assessment-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <h3>Final Examination</h3>
-                    <p>25% of total grade</p>
-                    <ul>
-                        <li>Comprehensive program exam</li>
-                        <li>All topics covered</li>
-                        <li>Certificate requirement</li>
-                    </ul>
+                    <h4>Model Building</h4>
+                    <p>Construct and interpret mathematical and economic models</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer (same as index.html) -->
+    <!-- Assessment Structure -->
+    <section class="assessment-structure">
+        <div class="container">
+            <h2>Assessment Structure</h2>
+            <p class="subtitle">Comprehensive evaluation throughout the program</p>
+            
+            <div class="assessment-grid">
+                <div class="assessment-item">
+                    <div class="assessment-percentage">40%</div>
+                    <h4>Weekly Tests</h4>
+                    <p>8 tests assessing weekly progress</p>
+                </div>
+                
+                <div class="assessment-item">
+                    <div class="assessment-percentage">30%</div>
+                    <h4>Assignments</h4>
+                    <p>Regular problem sets and projects</p>
+                </div>
+                
+                <div class="assessment-item">
+                    <div class="assessment-percentage">20%</div>
+                    <h4>Final Examination</h4>
+                    <p>Comprehensive end-of-program exam</p>
+                </div>
+                
+                <div class="assessment-item">
+                    <div class="assessment-percentage">10%</div>
+                    <h4>Participation</h4>
+                    <p>Class participation and engagement</p>
+                </div>
+            </div>
+            
+            <div class="grading-scale">
+                <h4>Grading Scale</h4>
+                <div class="scale-grid">
+                    <div class="scale-item">
+                        <span class="grade">A+</span>
+                        <span class="range">90-100%</span>
+                        <span class="description">Outstanding</span>
+                    </div>
+                    <div class="scale-item">
+                        <span class="grade">A</span>
+                        <span class="range">80-89%</span>
+                        <span class="description">Excellent</span>
+                    </div>
+                    <div class="scale-item">
+                        <span class="grade">B+</span>
+                        <span class="range">70-79%</span>
+                        <span class="description">Very Good</span>
+                    </div>
+                    <div class="scale-item">
+                        <span class="grade">B</span>
+                        <span class="range">60-69%</span>
+                        <span class="description">Good</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Start Your Journey?</h2>
+                <p>Join our intensive program and transform your understanding of mathematics and economics</p>
+                <div class="cta-buttons">
+                    <a href="schedule.html" class="btn btn-primary btn-lg">
+                        <i class="fas fa-calendar-alt"></i> View Schedule
+                    </a>
+                    <a href="index.html#register" class="btn btn-secondary btn-lg">
+                        <i class="fas fa-user-plus"></i> Register Now
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -316,19 +707,14 @@
                     <ul>
                         <li><a href="overview.html">Program Overview</a></li>
                         <li><a href="schedule.html">Weekly Schedule</a></li>
-                        <li><a href="faq.html">FAQ</a></li>
                         <li><a href="team.html">Teaching Team</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h3>Contact</h3>
                     <p><i class="fas fa-envelope"></i> r.sichomba@cbu.ac.zm</p>
                     <p><i class="fas fa-phone"></i> +260 XXX XXX XXX</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-github"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                    </div>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -338,5 +724,110 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+        // Overview Page Interactivity
+        document.addEventListener('DOMContentLoaded', function() {
+            // View Syllabus Buttons
+            document.querySelectorAll('.btn-primary').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    if (this.textContent.includes('Syllabus')) {
+                        e.preventDefault();
+                        const course = this.closest('.course-card').querySelector('h3').textContent;
+                        showNotification(`Opening full syllabus for ${course}`, 'info');
+                        
+                        // Simulate loading
+                        const originalText = this.innerHTML;
+                        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
+                        
+                        setTimeout(() => {
+                            this.innerHTML = originalText;
+                            showNotification(`${course} syllabus loaded successfully`, 'success');
+                        }, 1500);
+                    }
+                });
+            });
+            
+            // Animate timeline items on scroll
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('floating');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            
+            document.querySelectorAll('.timeline-item').forEach(item => {
+                observer.observe(item);
+            });
+            
+            // Course card hover effects
+            document.querySelectorAll('.course-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px)';
+                    this.style.boxShadow = '0 25px 50px rgba(0, 0, 0, 0.4)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.3)';
+                });
+            });
+            
+            // Interactive grading scale
+            document.querySelectorAll('.scale-item').forEach(item => {
+                item.addEventListener('mouseenter', function() {
+                    const grade = this.querySelector('.grade').textContent;
+                    const description = this.querySelector('.description').textContent;
+                    showTooltip(this, `${grade}: ${description}`);
+                });
+                
+                item.addEventListener('mouseleave', function() {
+                    hideTooltip();
+                });
+            });
+            
+            // Show notification
+            function showNotification(message, type = 'info') {
+                const notification = document.createElement('div');
+                notification.className = `notification notification-${type}`;
+                notification.innerHTML = `
+                    <div class="notification-content">
+                        <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                        <span>${message}</span>
+                    </div>
+                    <button class="notification-close"><i class="fas fa-times"></i></button>
+                `;
+                
+                document.body.appendChild(notification);
+                
+                // Auto-remove after 3 seconds
+                setTimeout(() => {
+                    notification.style.animation = 'slideOutRight 0.3s ease forwards';
+                    setTimeout(() => notification.remove(), 300);
+                }, 3000);
+            }
+            
+            // Tooltip functions
+            function showTooltip(element, text) {
+                const tooltip = document.createElement('div');
+                tooltip.className = 'tooltip';
+                tooltip.textContent = text;
+                document.body.appendChild(tooltip);
+                
+                const rect = element.getBoundingClientRect();
+                tooltip.style.left = rect.left + rect.width / 2 - tooltip.offsetWidth / 2 + 'px';
+                tooltip.style.top = rect.top - tooltip.offsetHeight - 10 + 'px';
+                
+                element._tooltip = tooltip;
+            }
+            
+            function hideTooltip() {
+                const tooltips = document.querySelectorAll('.tooltip');
+                tooltips.forEach(tooltip => tooltip.remove());
+            }
+        });
+    </script>
 </body>
 </html>
