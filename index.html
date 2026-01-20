@@ -3,32 +3,85 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CBU Math & Econ | 6-Week Intensive Program</title>
+    <title>Math & Economics Mastery | Premium 6-Week Intensive Program</title>
+    <meta name="description" content="Master Mathematical Methods 1 & Economics 110 in just 6 weeks. World-class instruction, comprehensive materials, and guaranteed results.">
+    
+    <!-- Open Graph Tags -->
+    <meta property="og:title" content="Math & Economics Mastery Program">
+    <meta property="og:description" content="Transform your understanding of mathematics and economics with our intensive program.">
+    <meta property="og:image" content="assets/images/social-preview.jpg">
+    <meta property="og:url" content="https://yourdomain.com">
+    
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/icons/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/icons/favicon-16x16.png">
+    
+    <!-- Styles -->
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Source+Code+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0066cc">
+    
+    <!-- Trust Signals -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Course",
+        "name": "Mathematical Methods 1 & Economics 110 Intensive Program",
+        "description": "6-week intensive program covering complete syllabus with expert instruction",
+        "provider": {
+            "@type": "Organization",
+            "name": "CBU Mathematics Department",
+            "sameAs": "https://www.cbu.ac.zm"
+        },
+        "hasCourseInstance": {
+            "@type": "CourseInstance",
+            "courseMode": "online",
+            "duration": "P6W",
+            "instructor": {
+                "@type": "Person",
+                "name": "R. Sichomba",
+                "jobTitle": "Program Director"
+            }
+        }
+    }
+    </script>
 </head>
 <body>
+    <!-- Trust Badges Bar -->
+    <div class="trust-bar">
+        <div class="container">
+            <div class="trust-items">
+                <span><i class="fas fa-shield-alt"></i> 100% Satisfaction Guarantee</span>
+                <span><i class="fas fa-certificate"></i> Accredited Certificate</span>
+                <span><i class="fas fa-clock"></i> Lifetime Access</span>
+                <span><i class="fas fa-headset"></i> Direct Instructor Support</span>
+            </div>
+        </div>
+    </div>
+
     <!-- Navigation -->
     <nav class="navbar">
-        <div class="nav-container">
-            <div class="nav-brand">
-                <div class="logo">
-                    <img src="assets/images/logo.png" alt="CBU Logo">
-                </div>
-                <span class="brand-text">CBU MATH & ECON</span>
-            </div>
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">M&E</div>
+                <span class="logo-text">MathEcon<span class="logo-highlight">Mastery</span></span>
+            </a>
+            
             <div class="nav-menu" id="navMenu">
-                <a href="index.html" class="nav-link active">HOME</a>
-                <a href="overview.html" class="nav-link">OVERVIEW</a>
-                <a href="schedule.html" class="nav-link">SCHEDULE</a>
-                <a href="team.html" class="nav-link">TEAM</a>
-                <a href="faq.html" class="nav-link">F.A.Q.</a>
-                <a href="#" class="login-btn" id="loginBtn">
-                    <i class="fas fa-user"></i>
-                    <span>LOGIN</span>
-                </a>
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="courses.html" class="nav-link">Courses</a>
+                <a href="#curriculum" class="nav-link">Curriculum</a>
+                <a href="#testimonials" class="nav-link">Results</a>
+                <a href="#pricing" class="nav-link">Pricing</a>
+                <a href="dashboard.html" class="nav-link"><i class="fas fa-user"></i> Dashboard</a>
+                <a href="courses.html#enroll" class="btn btn-primary">Enroll Now</a>
             </div>
+            
             <button class="menu-toggle" id="menuToggle">
                 <i class="fas fa-bars"></i>
             </button>
@@ -37,196 +90,423 @@
 
     <!-- Hero Section -->
     <section class="hero">
-        <div class="hero-container">
+        <div class="container hero-container">
             <div class="hero-content">
-                <h1>CBU MATH & ECON</h1>
-                <h2>Mathematical Methods 1 & Economics 110</h2>
-                <p class="hero-subtitle">6-Week Intensive Program</p>
-                <p class="hero-description">
-                    An intensive program designed to master mathematical techniques and economic principles 
-                    through practical problem-solving and real-world applications!
-                </p>
-                <div class="hero-buttons">
-                    <a href="overview.html" class="btn btn-primary">View Program Details</a>
-                    <a href="#register" class="btn btn-secondary">Register Now</a>
+                <div class="hero-badge">
+                    <span class="badge"><i class="fas fa-star"></i> Rated 4.9/5 by 250+ Students</span>
+                </div>
+                <h1 class="hero-title">Master Mathematical Methods & Economics in <span class="highlight">6 Weeks</span></h1>
+                <p class="hero-subtitle">Go from confused to confident with our structured, intensive program designed for university-level mastery.</p>
+                
+                <div class="hero-features">
+                    <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Complete Chapters 1-17 Coverage</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>120+ Hours of Instruction</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>300+ Practice Problems with Solutions</span>
+                    </div>
+                    <div class="feature">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Direct WhatsApp Support</span>
+                    </div>
+                </div>
+                
+                <div class="hero-cta">
+                    <a href="courses.html#enroll" class="btn btn-primary btn-lg">
+                        <i class="fas fa-rocket"></i> Start Learning Now - $97
+                    </a>
+                    <a href="#preview" class="btn btn-outline">
+                        <i class="fas fa-play-circle"></i> Watch Free Preview
+                    </a>
+                </div>
+                
+                <div class="hero-stats">
+                    <div class="stat">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Pass Rate</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Students Enrolled</div>
+                    </div>
+                    <div class="stat">
+                        <div class="stat-number">120h</div>
+                        <div class="stat-label">Video Content</div>
+                    </div>
                 </div>
             </div>
-            <div class="hero-image">
-                <img src="assets/images/banner.jpg" alt="Mathematics and Economics Illustration">
-            </div>
-        </div>
-    </section>
-
-    <!-- Program Options -->
-    <section class="program-options">
-        <div class="container">
-            <h2 class="section-title">Program Options</h2>
-            <div class="options-grid">
-                <div class="option-card">
-                    <h3>CBU Students Only</h3>
-                    <p>Access to full program with academic credit and certification</p>
-                    <ul>
-                        <li><i class="fas fa-check"></i> Official Registration</li>
-                        <li><i class="fas fa-check"></i> Academic Credit</li>
-                        <li><i class="fas fa-check"></i> Certificate of Completion</li>
-                        <li><i class="fas fa-check"></i> Faculty Support</li>
-                    </ul>
-                </div>
-                <div class="option-card">
-                    <h3>Open Enrollment</h3>
-                    <p>Public access to all learning materials and resources</p>
-                    <ul>
-                        <li><i class="fas fa-check"></i> Complete Course Materials</li>
-                        <li><i class="fas fa-check"></i> Problem Sets & Solutions</li>
-                        <li><i class="fas fa-check"></i> Video Resources</li>
-                        <li><i class="fas fa-check"></i> Community Access</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Quick Info -->
-    <section class="quick-info">
-        <div class="container">
-            <div class="info-grid">
-                <div class="info-item">
-                    <i class="fas fa-calendar-alt"></i>
-                    <h3>Program Dates</h3>
-                    <p>6 Weeks (Monday - Friday)</p>
-                    <p class="info-detail">120 Contact Hours</p>
-                </div>
-                <div class="info-item">
-                    <i class="fas fa-clock"></i>
-                    <h3>Daily Schedule</h3>
-                    <p>9:00 AM - 4:00 PM</p>
-                    <p class="info-detail">4 Hours Daily Instruction</p>
-                </div>
-                <div class="info-item">
-                    <i class="fas fa-book"></i>
-                    <h3>Course Coverage</h3>
-                    <p>Complete Chapters</p>
-                    <p class="info-detail">Math Methods 1 + Econ 110</p>
-                </div>
-                <div class="info-item">
-                    <i class="fas fa-trophy"></i>
-                    <h3>Assessment</h3>
-                    <p>Weekly Tests + Projects</p>
-                    <p class="info-detail">Certificate Awarded</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Registration Section -->
-    <section id="register" class="registration">
-        <div class="container">
-            <h2 class="section-title">Register for the Program</h2>
-            <div class="registration-form">
-                <div class="form-container">
-                    <form id="registrationForm">
-                        <div class="form-group">
-                            <label for="fullName">Full Name</label>
-                            <input type="text" id="fullName" name="fullName" required>
+            
+            <div class="hero-visual">
+                <div class="hero-card">
+                    <div class="card-header">
+                        <h3>Limited Time Offer</h3>
+                        <div class="price">
+                            <span class="original">$297</span>
+                            <span class="current">$97</span>
                         </div>
-                        <div class="form-group">
-                            <label for="email">Email Address</label>
-                            <input type="email" id="email" name="email" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="program">Program Type</label>
-                            <select id="program" name="program" required>
-                                <option value="">Select Program</option>
-                                <option value="cbu">CBU Student (Academic Credit)</option>
-                                <option value="open">Open Enrollment (Self-paced)</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="courses">Courses</label>
-                            <div class="checkbox-group">
-                                <label>
-                                    <input type="checkbox" name="courses" value="math"> Mathematical Methods 1
-                                </label>
-                                <label>
-                                    <input type="checkbox" name="courses" value="econ"> Economics 110
-                                </label>
-                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Submit Registration</button>
-                    </form>
-                    <div class="form-info">
-                        <h3>Registration Benefits</h3>
-                        <ul>
-                            <li><i class="fas fa-check-circle"></i> Access to all learning materials</li>
-                            <li><i class="fas fa-check-circle"></i> Weekly problem sets with solutions</li>
-                            <li><i class="fas fa-check-circle"></i> Progress tracking dashboard</li>
-                            <li><i class="fas fa-check-circle"></i> Certificate of completion</li>
-                            <li><i class="fas fa-check-circle"></i> Faculty support access</li>
+                        <div class="discount-badge">67% OFF</div>
+                    </div>
+                    <div class="card-content">
+                        <ul class="offer-list">
+                            <li><i class="fas fa-check"></i> Complete Course Access</li>
+                            <li><i class="fas fa-check"></i> Downloadable Materials</li>
+                            <li><i class="fas fa-check"></i> Certificate of Completion</li>
+                            <li><i class="fas fa-check"></i> WhatsApp Group Access</li>
+                            <li><i class="fas fa-check"></i> Weekly Q&A Sessions</li>
                         </ul>
+                        <a href="courses.html#enroll" class="btn btn-primary btn-block">
+                            <i class="fas fa-lock"></i> Secure Enrollment
+                        </a>
+                        <div class="payment-methods">
+                            <img src="assets/images/visa.svg" alt="Visa">
+                            <img src="assets/images/mastercard.svg" alt="Mastercard">
+                            <img src="assets/images/paypal.svg" alt="PayPal">
+                            <img src="assets/images/stripe.svg" alt="Stripe">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Login Modal -->
-    <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <span class="close-modal">&times;</span>
-            <h2>Student Login</h2>
-            <form id="loginForm">
-                <div class="form-group">
-                    <label for="studentId">Student ID / Email</label>
-                    <input type="text" id="studentId" name="studentId" required>
-                </div>
-                <div class="form-group">
-                    <label for="password">Password</label>
-                    <input type="password" id="password" name="password" required>
-                </div>
-                <button type="submit" class="btn btn-primary">Login</button>
-            </form>
-            <p class="modal-footer">
-                Need an account? <a href="#register" class="register-link">Register here</a>
-            </p>
+    <!-- Trust Indicators -->
+    <section class="trust-section">
+        <div class="container">
+            <h2 class="section-title">Trusted By Students From</h2>
+            <div class="institutions-grid">
+                <div class="institution">The Copperbelt University</div>
+                <div class="institution">University of Zambia</div>
+                <div class="institution">Mulungushi University</div>
+                <div class="institution">Zambia Open University</div>
+                <div class="institution">University of Lusaka</div>
+            </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Instructor Section -->
+    <section class="instructor-section">
+        <div class="container">
+            <div class="instructor-card">
+                <div class="instructor-image">
+                    <img src="assets/images/instructor.jpg" alt="R. Sichomba">
+                    <div class="instructor-badge">
+                        <i class="fas fa-award"></i> 10+ Years Experience
+                    </div>
+                </div>
+                <div class="instructor-info">
+                    <h2>Meet Your Instructor</h2>
+                    <h3>R. Sichomba</h3>
+                    <p class="instructor-title">Mathematics Lecturer & Program Director</p>
+                    
+                    <div class="instructor-credentials">
+                        <div class="credential">
+                            <i class="fas fa-graduation-cap"></i>
+                            <div>
+                                <strong>MSc Mathematics</strong>
+                                <span>University of Zambia</span>
+                            </div>
+                        </div>
+                        <div class="credential">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <div>
+                                <strong>10+ Years Teaching</strong>
+                                <span>CBU Mathematics Department</span>
+                            </div>
+                        </div>
+                        <div class="credential">
+                            <i class="fas fa-users"></i>
+                            <div>
+                                <strong>500+ Students</strong>
+                                <span>Successfully Taught</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <p class="instructor-bio">
+                        With over a decade of teaching experience at The Copperbelt University, I've perfected the art of simplifying complex mathematical and economic concepts. My students consistently achieve top grades through my structured approach and personalized support.
+                    </p>
+                    
+                    <div class="instructor-social">
+                        <a href="https://wa.me/260XXXXXXXXX" class="social-link whatsapp" target="_blank">
+                            <i class="fab fa-whatsapp"></i> Chat on WhatsApp
+                        </a>
+                        <a href="https://linkedin.com/in/rsichomba" class="social-link linkedin" target="_blank">
+                            <i class="fab fa-linkedin"></i> Connect on LinkedIn
+                        </a>
+                        <a href="mailto:r.sichomba@cbu.ac.zm" class="social-link email">
+                            <i class="fas fa-envelope"></i> Email Me
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Curriculum Preview -->
+    <section id="curriculum" class="curriculum-section">
+        <div class="container">
+            <h2 class="section-title">Complete 6-Week Curriculum</h2>
+            <p class="section-subtitle">Structured learning path designed for maximum retention</p>
+            
+            <div class="week-tabs">
+                <button class="week-tab active" data-week="1">Week 1: Foundation</button>
+                <button class="week-tab" data-week="2">Week 2: Core Concepts</button>
+                <button class="week-tab" data-week="3">Week 3: Advanced Topics</button>
+                <button class="week-tab" data-week="4">Week 4: Integration</button>
+                <button class="week-tab" data-week="5">Week 5: Application</button>
+                <button class="week-tab" data-week="6">Week 6: Mastery</button>
+            </div>
+            
+            <div class="week-content active" id="week1-content">
+                <div class="day-schedule">
+                    <div class="day">
+                        <h3>Monday: Equations & Economics Fundamentals</h3>
+                        <ul class="topics">
+                            <li><i class="fas fa-play-circle"></i> Linear Equations Mastery</li>
+                            <li><i class="fas fa-file-alt"></i> Notes: Economic Thinking</li>
+                            <li><i class="fas fa-tasks"></i> Practice Set 1.1</li>
+                            <li><i class="fas fa-video"></i> Video: Solving Real-World Problems</li>
+                        </ul>
+                    </div>
+                    <div class="day">
+                        <h3>Tuesday: Quadratic Equations & PPF Analysis</h3>
+                        <ul class="topics">
+                            <li><i class="fas fa-play-circle"></i> Factoring Methods</li>
+                            <li><i class="fas fa-file-alt"></i> Notes: Production Possibility Frontier</li>
+                            <li><i class="fas fa-tasks"></i> Practice Set 1.2</li>
+                            <li><i class="fas fa-chart-line"></i> Interactive PPF Simulator</li>
+                        </ul>
+                    </div>
+                    <!-- Add more days -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sample Lesson -->
+    <section id="preview" class="preview-section">
+        <div class="container">
+            <h2 class="section-title">Experience a Sample Lesson</h2>
+            <div class="video-player">
+                <div class="video-container">
+                    <video id="sampleVideo" controls poster="assets/images/video-thumbnail.jpg">
+                        <source src="assets/videos/sample-lesson.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+                <div class="video-details">
+                    <h3>Solving Quadratic Equations - Free Preview</h3>
+                    <p>Get a taste of our teaching methodology with this complete lesson.</p>
+                    <div class="video-resources">
+                        <a href="assets/downloads/sample-notes.pdf" class="resource-btn">
+                            <i class="fas fa-file-pdf"></i> Download Sample Notes
+                        </a>
+                        <a href="assets/downloads/sample-problems.pdf" class="resource-btn">
+                            <i class="fas fa-tasks"></i> Try Practice Problems
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section id="testimonials" class="testimonials-section">
+        <div class="container">
+            <h2 class="section-title">What Our Students Say</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-rating">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p>"This program transformed my understanding of economics. The structured approach made complex concepts easy to grasp."</p>
+                    <div class="testimonial-author">
+                        <img src="assets/images/students/student1.jpg" alt="Student">
+                        <div>
+                            <strong>Chloe M.</strong>
+                            <span>Achieved 92% in Finals</span>
+                        </div>
+                    </div>
+                </div>
+                <!-- Add more testimonials -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing -->
+    <section id="pricing" class="pricing-section">
+        <div class="container">
+            <h2 class="section-title">Choose Your Learning Path</h2>
+            
+            <div class="pricing-cards">
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>Self-Paced</h3>
+                        <div class="price">$67</div>
+                        <p>Lifetime access to all materials</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Complete Course Videos</li>
+                        <li><i class="fas fa-check"></i> Downloadable Notes</li>
+                        <li><i class="fas fa-check"></i> Practice Problems</li>
+                        <li><i class="fas fa-check"></i> Solutions Manual</li>
+                        <li><i class="fas fa-times"></i> No Live Support</li>
+                        <li><i class="fas fa-times"></i> No Certificate</li>
+                    </ul>
+                    <a href="#enroll" class="btn btn-outline">Get Started</a>
+                </div>
+                
+                <div class="pricing-card featured">
+                    <div class="popular-badge">MOST POPULAR</div>
+                    <div class="pricing-header">
+                        <h3>Premium</h3>
+                        <div class="price">$97</div>
+                        <p>Complete program with support</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Everything in Self-Paced</li>
+                        <li><i class="fas fa-check"></i> Official Certificate</li>
+                        <li><i class="fas fa-check"></i> WhatsApp Support Group</li>
+                        <li><i class="fas fa-check"></i> Weekly Q&A Sessions</li>
+                        <li><i class="fas fa-check"></i> Priority Email Support</li>
+                        <li><i class="fas fa-check"></i> Graded Assignments</li>
+                    </ul>
+                    <a href="courses.html#enroll" class="btn btn-primary">Enroll Now</a>
+                </div>
+                
+                <div class="pricing-card">
+                    <div class="pricing-header">
+                        <h3>VIP Mentorship</h3>
+                        <div class="price">$197</div>
+                        <p>One-on-one coaching</p>
+                    </div>
+                    <ul class="pricing-features">
+                        <li><i class="fas fa-check"></i> Everything in Premium</li>
+                        <li><i class="fas fa-check"></i> 4 Private Tutoring Sessions</li>
+                        <li><i class="fas fa-check"></i> Personalized Study Plan</li>
+                        <li><i class="fas fa-check"></i> Direct WhatsApp with Instructor</li>
+                        <li><i class="fas fa-check"></i> Project Review & Feedback</li>
+                        <li><i class="fas fa-check"></i> Career Guidance</li>
+                    </ul>
+                    <a href="#enroll" class="btn btn-outline">Book Consultation</a>
+                </div>
+            </div>
+            
+            <div class="guarantee">
+                <i class="fas fa-shield-check"></i>
+                <h3>30-Day Money-Back Guarantee</h3>
+                <p>If you're not satisfied with the program within 30 days, we'll refund your payment in full. No questions asked.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3>How long do I have access to the course?</h3>
+                    <p>You get lifetime access! All materials, updates, and future additions are included.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>What if I fall behind the 6-week schedule?</h3>
+                    <p>The program is self-paced. You can take longer if needed while still receiving support.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>Is there a payment plan available?</h3>
+                    <p>Yes! You can pay in 2 installments of $49 each for the Premium plan.</p>
+                </div>
+                <div class="faq-item">
+                    <h3>How do I receive my certificate?</h3>
+                    <p>Upon completion, you'll receive a digital certificate. Physical certificates available for additional $20.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-card">
+                <h2>Ready to Master Math & Economics?</h2>
+                <p>Join 500+ successful students who transformed their understanding and grades.</p>
+                <div class="cta-buttons">
+                    <a href="courses.html#enroll" class="btn btn-primary btn-xl">
+                        <i class="fas fa-rocket"></i> Enroll Now - $97
+                    </a>
+                    <a href="https://wa.me/260XXXXXXXXX" class="btn btn-whatsapp">
+                        <i class="fab fa-whatsapp"></i> Questions? Chat Now
+                    </a>
+                </div>
+                <p class="cta-note"><i class="fas fa-lock"></i> Secure payment · 30-day guarantee · Lifetime access</p>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>CBU MATH & ECON</h3>
-                    <p>The Copperbelt University<br>
-                    School of Mathematics and Natural Sciences<br>
-                    Department of Mathematics & Economics</p>
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <div class="logo">MathEcon<span>Mastery</span></div>
+                    <p>World-class mathematics and economics education for ambitious students.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-whatsapp"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
                 </div>
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
+                <div class="footer-col">
+                    <h4>Program</h4>
                     <ul>
-                        <li><a href="overview.html">Program Overview</a></li>
-                        <li><a href="schedule.html">Weekly Schedule</a></li>
-                        <li><a href="faq.html">FAQ</a></li>
-                        <li><a href="team.html">Teaching Team</a></li>
+                        <li><a href="courses.html">Courses</a></li>
+                        <li><a href="#curriculum">Curriculum</a></li>
+                        <li><a href="#testimonials">Success Stories</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
                     </ul>
                 </div>
-                <div class="footer-section">
-                    <h3>Contact</h3>
+                <div class="footer-col">
+                    <h4>Support</h4>
+                    <ul>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="#">WhatsApp Support</a></li>
+                        <li><a href="#">Refund Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
                     <p><i class="fas fa-envelope"></i> r.sichomba@cbu.ac.zm</p>
                     <p><i class="fas fa-phone"></i> +260 XXX XXX XXX</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-github"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                    </div>
+                    <p><i class="fas fa-map-marker-alt"></i> The Copperbelt University</p>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 CBU Mathematics & Economics Department. All rights reserved.</p>
+                <p>&copy; 2024 MathEcon Mastery. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
             </div>
         </div>
     </footer>
 
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/260XXXXXXXXX" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+        <span>Chat with Instructor</span>
+    </a>
+
+    <!-- Scripts -->
     <script src="script.js"></script>
 </body>
 </html>
