@@ -1,31 +1,742 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark-mode">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Frequently Asked Questions | CBU Math & Econ</title>
-    <link rel="stylesheet" href="style.css">
+    <title>FAQ & Exam Problems | CBU Math & Econ</title>
+    
+    <!-- PWA Meta -->
+    <meta name="theme-color" content="#10b981">
+    <meta name="description" content="Frequently asked questions and chapter-wise exam problems for Mathematical Methods 1 & Economics 110.">
+    
+    <!-- Styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
+    <style>
+        /* Main Styles - Same as index.html */
+        :root {
+            --primary: #3b82f6;
+            --secondary: #10b981;
+            --accent: #8b5cf6;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --card-bg: rgba(30, 41, 59, 0.8);
+            --border: rgba(255, 255, 255, 0.1);
+            --math: #10b981;
+            --econ: #3b82f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Navigation - Same as index.html */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .brand-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background: rgba(16, 185, 129, 0.1);
+            color: var(--secondary);
+        }
+
+        .nav-link.active {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--secondary);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 3px;
+            background: var(--secondary);
+            border-radius: 2px;
+        }
+
+        .login-btn {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* FAQ Hero */
+        .faq-hero {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.9), rgba(5, 150, 105, 0.9));
+            color: white;
+            padding: 8rem 0 4rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 4rem;
+        }
+
+        .faq-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="white"></path><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="white"></path><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="white"></path></svg>');
+            background-size: cover;
+            opacity: 0.1;
+        }
+
+        .faq-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .faq-hero .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* FAQ Navigation */
+        .faq-nav {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem auto 4rem;
+            border: 1px solid var(--border);
+        }
+
+        .faq-tabs {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .faq-tab {
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid transparent;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .faq-tab:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .faq-tab.active {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* FAQ Content */
+        .faq-content {
+            display: none;
+        }
+
+        .faq-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* FAQ Sections */
+        .faq-section {
+            margin-bottom: 4rem;
+        }
+
+        .faq-category {
+            margin-bottom: 3rem;
+        }
+
+        .faq-category h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--secondary);
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .faq-item {
+            background: var(--card-bg);
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .faq-question:hover {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .faq-question h4 {
+            font-size: 1.1rem;
+            margin: 0;
+            flex: 1;
+        }
+
+        .faq-icon {
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-icon {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 1.5rem 1.5rem;
+            max-height: 1000px;
+        }
+
+        /* Exam Problems */
+        .exam-problems {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(16, 185, 129, 0.1));
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 3rem 0;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+        }
+
+        .chapter-selector {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .chapter-btn {
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .chapter-btn:hover {
+            background: rgba(59, 130, 246, 0.2);
+            border-color: var(--primary);
+        }
+
+        .chapter-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-color: transparent;
+        }
+
+        .chapter-content {
+            display: none;
+            margin-top: 2rem;
+        }
+
+        .chapter-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .problem-list {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .problem-item {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 12px;
+            padding: 2rem;
+            border-left: 4px solid var(--primary);
+        }
+
+        .problem-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .problem-type {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .problem-type.math {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--secondary);
+        }
+
+        .problem-type.econ {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--primary);
+        }
+
+        .problem-difficulty {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .problem-statement {
+            margin: 1.5rem 0;
+            font-size: 1.1rem;
+            line-height: 1.8;
+        }
+
+        .problem-statement p {
+            margin-bottom: 1rem;
+        }
+
+        .problem-solution {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+            border: 1px solid var(--border);
+        }
+
+        .solution-toggle {
+            background: none;
+            border: none;
+            color: var(--secondary);
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .solution-content {
+            display: none;
+        }
+
+        .solution-content.show {
+            display: block;
+        }
+
+        /* Mathematical Content */
+        .math-content {
+            font-family: 'Cambria Math', serif;
+            font-size: 1.1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+
+        /* Download Section */
+        .download-section {
+            text-align: center;
+            margin: 4rem 0;
+        }
+
+        .download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem 2.5rem;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+        .download-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(16, 185, 129, 0.3);
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 4rem 0;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .contact-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .contact-option {
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-option:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-3px);
+        }
+
+        .contact-option i {
+            font-size: 2.5rem;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(15, 23, 42, 0.95);
+            padding: 4rem 0 2rem;
+            margin-top: 6rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-section a {
+            color: var(--light);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            opacity: 1;
+            color: var(--secondary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            opacity: 0.7;
+        }
+
+        /* Back to Top */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: none;
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.3);
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #1e293b;
+            border-left: 4px solid var(--secondary);
+            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            z-index: 10000;
+            animation: slideInRight 0.3s ease;
+            max-width: 400px;
+        }
+
+        .notification-success {
+            border-left-color: #10b981;
+        }
+
+        .notification-error {
+            border-left-color: #ef4444;
+        }
+
+        .notification-warning {
+            border-left-color: #f59e0b;
+        }
+
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex: 1;
+            color: white;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--dark);
+                padding: 1rem;
+                flex-direction: column;
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .faq-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .faq-tabs {
+                flex-direction: column;
+            }
+            
+            .faq-tab {
+                justify-content: center;
+            }
+            
+            .chapter-selector {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .contact-options {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .chapter-selector {
+                grid-template-columns: 1fr;
+            }
+            
+            .problem-meta {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+            }
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-brand">
+            <a href="index.html" class="nav-brand">
                 <div class="logo">
-                    <img src="assets/images/logo.png" alt="CBU Logo">
+                    <i class="fas fa-brain"></i>
                 </div>
-                <span class="brand-text">CBU MATH & ECON</span>
-            </div>
+                <span class="brand-text">CBU PREMIUM PROGRAM</span>
+            </a>
             <div class="nav-menu" id="navMenu">
-                <a href="index.html" class="nav-link">HOME</a>
-                <a href="overview.html" class="nav-link">OVERVIEW</a>
-                <a href="schedule.html" class="nav-link">SCHEDULE</a>
-                <a href="team.html" class="nav-link">TEAM</a>
-                <a href="faq.html" class="nav-link active">F.A.Q.</a>
-                <a href="#" class="login-btn" id="loginBtn">
-                    <i class="fas fa-user"></i>
-                    <span>LOGIN</span>
+                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> HOME</a>
+                <a href="overview.html" class="nav-link"><i class="fas fa-book-open"></i> OVERVIEW</a>
+                <a href="schedule.html" class="nav-link"><i class="fas fa-calendar-alt"></i> SCHEDULE</a>
+                <a href="team.html" class="nav-link"><i class="fas fa-users"></i> OUR WORK</a>
+                <a href="faq.html" class="nav-link active"><i class="fas fa-question-circle"></i> FAQ</a>
+                <a href="https://wa.me/260961234567" target="_blank" class="login-btn" onclick="showEnrollmentModal()">
+                    <i class="fas fa-crown"></i>
+                    <span>ENROLL NOW</span>
                 </a>
             </div>
             <button class="menu-toggle" id="menuToggle">
@@ -34,294 +745,415 @@
         </div>
     </nav>
 
-    <!-- FAQ Header -->
-    <section class="page-header">
+    <!-- FAQ Hero -->
+    <section class="faq-hero">
         <div class="container">
-            <h1>Frequently Asked Questions</h1>
-            <p>Find answers to common questions about our 6-Week Intensive Program</p>
+            <h1>FAQ & Exam Problems</h1>
+            <p class="subtitle">Find answers to common questions and practice with chapter-wise exam problems</p>
         </div>
     </section>
 
-    <!-- FAQ Content -->
-    <section class="faq-content">
-        <div class="container">
-            <div class="faq-categories">
-                <div class="category-tabs">
-                    <button class="category-tab active" data-category="general">General</button>
-                    <button class="category-tab" data-category="registration">Registration</button>
-                    <button class="category-tab" data-category="academic">Academic</button>
-                    <button class="category-tab" data-category="resources">Resources</button>
-                    <button class="category-tab" data-category="technical">Technical</button>
+    <!-- FAQ Navigation -->
+    <section class="container">
+        <div class="faq-nav">
+            <div class="faq-tabs">
+                <div class="faq-tab active" data-tab="faq">
+                    <i class="fas fa-question-circle"></i>
+                    <span>General FAQ</span>
                 </div>
+                <div class="faq-tab" data-tab="math-problems">
+                    <i class="fas fa-calculator"></i>
+                    <span>Math Exam Problems</span>
+                </div>
+                <div class="faq-tab" data-tab="econ-problems">
+                    <i class="fas fa-chart-line"></i>
+                    <span>Economics Exam Problems</span>
+                </div>
+                <div class="faq-tab" data-tab="downloads">
+                    <i class="fas fa-download"></i>
+                    <span>Download Resources</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <!-- General FAQ Content -->
+    <div class="faq-content active" id="faq">
+        <div class="container">
+            <div class="faq-section">
+                <h2 style="text-align: center; margin-bottom: 2rem; color: var(--secondary);">Frequently Asked Questions</h2>
+                
                 <!-- General Questions -->
-                <div class="faq-category active" id="general">
+                <div class="faq-category">
+                    <h3>General Questions</h3>
+                    
                     <div class="faq-item">
                         <div class="faq-question">
-                            <h3>What is the duration of the program?</h3>
-                            <i class="fas fa-chevron-down"></i>
+                            <h4>What is the duration of the 6-week program?</h4>
+                            <i class="fas fa-chevron-down faq-icon"></i>
                         </div>
                         <div class="faq-answer">
-                            <p>The program runs for 6 weeks, Monday through Friday, with daily sessions from 9:00 AM to 4:00 PM. Sundays are dedicated to comprehensive problem-solving sessions.</p>
+                            <p>The program runs for exactly 6 weeks, Monday through Friday, with two daily sessions: 12:00-13:45 and 17:00-18:45. Sunday problem-solving sessions are available for extra practice.</p>
                         </div>
                     </div>
-
+                    
                     <div class="faq-item">
                         <div class="faq-question">
-                            <h3>Who can register for this program?</h3>
-                            <i class="fas fa-chevron-down"></i>
+                            <h4>Who can register for this program?</h4>
+                            <i class="fas fa-chevron-down faq-icon"></i>
                         </div>
                         <div class="faq-answer">
                             <p>The program is open to:</p>
-                            <ul>
-                                <li>CBU students (for academic credit)</li>
-                                <li>External students and professionals (open enrollment)</li>
-                                <li>Anyone interested in learning mathematical methods and economics</li>
+                            <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                                <li>CBU students seeking credit for Mathematical Methods 1 and/or Economics 110</li>
+                                <li>External university students looking for intensive preparation</li>
+                                <li>Professionals wanting to refresh their mathematical and economic skills</li>
+                                <li>Anyone interested in mastering university-level mathematics and economics</li>
                             </ul>
                         </div>
                     </div>
-
+                    
                     <div class="faq-item">
                         <div class="faq-question">
-                            <h3>What are the prerequisites?</h3>
-                            <i class="fas fa-chevron-down"></i>
+                            <h4>What are the prerequisites for the program?</h4>
+                            <i class="fas fa-chevron-down faq-icon"></i>
                         </div>
                         <div class="faq-answer">
-                            <p>Basic knowledge of high school mathematics (algebra, functions) is recommended. No prior economics knowledge is required - we start from the fundamentals.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <h3>Is there a certificate upon completion?</h3>
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Yes! All participants who complete the program requirements (attendance, assignments, and final assessment) will receive a Certificate of Completion from the CBU Mathematics & Economics Department.</p>
+                            <p>For Mathematics: Basic algebra knowledge (high school level)<br>
+                            For Economics: No prerequisites required - we start from fundamentals<br>
+                            Recommended: Familiarity with basic mathematical concepts and willingness to learn.</p>
                         </div>
                     </div>
                 </div>
-
+                
                 <!-- Registration Questions -->
-                <div class="faq-category" id="registration">
+                <div class="faq-category">
+                    <h3>Registration & Fees</h3>
+                    
                     <div class="faq-item">
                         <div class="faq-question">
-                            <h3>How do I register for the program?</h3>
-                            <i class="fas fa-chevron-down"></i>
+                            <h4>How do I register for the program?</h4>
+                            <i class="fas fa-chevron-down faq-icon"></i>
                         </div>
                         <div class="faq-answer">
-                            <p>You can register through the registration form on our homepage. After submission, you'll receive a confirmation email with further instructions.</p>
+                            <p>Registration is done through WhatsApp: <a href="https://wa.me/260961234567" style="color: var(--secondary);">+260 96 123 4567</a><br>
+                            Send a message with your name, student ID (if applicable), and the courses you want to register for.</p>
                         </div>
                     </div>
-
+                    
                     <div class="faq-item">
                         <div class="faq-question">
-                            <h3>What is the registration deadline?</h3>
-                            <i class="fas fa-chevron-down"></i>
+                            <h4>What is the program fee?</h4>
+                            <i class="fas fa-chevron-down faq-icon"></i>
                         </div>
                         <div class="faq-answer">
-                            <p>Registration remains open throughout the program, but we recommend registering at least one week before the start date to ensure access to all materials.</p>
+                            <p>Complete 6-week program: K 2,500<br>
+                            Individual course (Math or Econ only): K 1,500<br>
+                            Includes: All materials, live sessions, recordings, and certificate.</p>
                         </div>
                     </div>
-
+                    
                     <div class="faq-item">
                         <div class="faq-question">
-                            <h3>Is there a registration fee?</h3>
-                            <i class="fas fa-chevron-down"></i>
+                            <h4>Is there a deadline for registration?</h4>
+                            <i class="fas fa-chevron-down faq-icon"></i>
                         </div>
                         <div class="faq-answer">
-                            <p>For CBU students: No fee (covered by tuition)<br>
-                            For external participants: A nominal fee applies for certification and resource access. Contact us for details.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <h3>Can I register for only one course?</h3>
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Yes, you can register for either Mathematical Methods 1 or Economics 110 separately, though we recommend taking both for maximum benefit.</p>
+                            <p>Registration remains open throughout the program, but we recommend registering at least one week before the start date to ensure you receive all materials and can attend orientation.</p>
                         </div>
                     </div>
                 </div>
-
+                
                 <!-- Academic Questions -->
-                <div class="faq-category" id="academic">
+                <div class="faq-category">
+                    <h3>Academic & Assessment</h3>
+                    
                     <div class="faq-item">
                         <div class="faq-question">
-                            <h3>How is the program assessed?</h3>
-                            <i class="fas fa-chevron-down"></i>
+                            <h4>How is the program assessed?</h4>
+                            <i class="fas fa-chevron-down faq-icon"></i>
                         </div>
                         <div class="faq-answer">
                             <p>Assessment includes:</p>
-                            <ul>
-                                <li>Weekly tests (30%)</li>
-                                <li>Daily assignments (20%)</li>
-                                <li>Capstone project (25%)</li>
-                                <li>Final examination (25%)</li>
+                            <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
+                                <li>Weekly quizzes (20%)</li>
+                                <li>Daily assignments (30%)</li>
+                                <li>Mid-program project (20%)</li>
+                                <li>Final examination (30%)</li>
+                                <li>Certificate requires minimum 70% overall</li>
                             </ul>
                         </div>
                     </div>
-
+                    
                     <div class="faq-item">
                         <div class="faq-question">
-                            <h3>What support is available for struggling students?</h3>
-                            <i class="fas fa-chevron-down"></i>
+                            <h4>What happens if I miss a live session?</h4>
+                            <i class="fas fa-chevron-down faq-icon"></i>
                         </div>
                         <div class="faq-answer">
-                            <p>We provide:</p>
-                            <ul>
+                            <p>All live sessions are recorded and uploaded to Google Drive within 2 hours. You can access them through the resources section. However, live attendance is strongly recommended for interactive learning.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question">
+                            <h4>Is there support for struggling students?</h4>
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes! We provide:</p>
+                            <ul style="margin-left: 1.5rem; margin-top: 0.5rem;">
                                 <li>Daily office hours with instructors</li>
-                                <li>Peer study groups</li>
-                                <li>Supplementary materials</li>
-                                <li>One-on-one tutoring sessions</li>
-                                <li>Online forum support</li>
+                                <li>Sunday problem-solving sessions</li>
+                                <li>WhatsApp support group for quick questions</li>
+                                <li>One-on-one tutoring sessions (additional fee)</li>
+                                <li>Extra practice problems with solutions</li>
                             </ul>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <h3>Are there any required textbooks?</h3>
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="faq-answer">
-                            <p>No textbooks are required to purchase. All necessary materials (notes, problems, solutions) are provided through our online platform. Recommended readings will be suggested for those wanting additional resources.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <h3>What happens if I miss classes?</h3>
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="faq-answer">
-                            <p>All lectures and materials are recorded and available online. However, consistent attendance is strongly encouraged for optimal learning. Minimum 80% attendance is required for certification.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Resources Questions -->
-                <div class="faq-category" id="resources">
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <h3>What resources are provided?</h3>
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Each registered student receives:</p>
-                            <ul>
-                                <li>Complete lecture notes for all chapters</li>
-                                <li>Practice problem sets with solutions</li>
-                                <li>Video tutorials and explanations</li>
-                                <li>Access to Google Drive with all materials</li>
-                                <li>Interactive problem-solving tools</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <h3>How do I access the learning materials?</h3>
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="faq-answer">
-                            <p>After registration, you'll receive login credentials for our online platform. All materials are organized by week and day, following the program schedule.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <h3>Are the materials downloadable?</h3>
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Yes, all notes and problem sets are available in PDF format for download. Video content can be streamed online.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <h3>Can I share the materials with others?</h3>
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Materials are for personal educational use only. Sharing with registered study groups is permitted, but distribution to non-registered individuals is prohibited.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Technical Questions -->
-                <div class="faq-category" id="technical">
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <h3>What technology do I need?</h3>
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="faq-answer">
-                            <p>You'll need:</p>
-                            <ul>
-                                <li>A computer or tablet with internet access</li>
-                                <li>Basic calculator (scientific calculator recommended)</li>
-                                <li>PDF reader</li>
-                                <li>Video streaming capability</li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <h3>Is there a mobile app?</h3>
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Our website is fully mobile-responsive. While we don't have a dedicated app, you can access all features through your mobile browser. You can also add the site to your home screen for app-like access.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <h3>What if I have technical issues?</h3>
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="faq-answer">
-                            <p>Contact our technical support team at techsupport@cbu.ac.zm. We typically respond within 24 hours. Common issues and solutions are also documented in our help section.</p>
-                        </div>
-                    </div>
-
-                    <div class="faq-item">
-                        <div class="faq-question">
-                            <h3>Do I need special software?</h3>
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="faq-answer">
-                            <p>No special software is required. All materials are in standard formats (PDF, MP4). For mathematical notation, we recommend using a standard web browser with JavaScript enabled.</p>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <!-- Contact for More Questions -->
-            <div class="contact-faq">
-                <h2>Still Have Questions?</h2>
-                <p>Contact us directly for personalized assistance:</p>
-                <div class="contact-options">
-                    <div class="contact-option">
-                        <i class="fas fa-envelope"></i>
-                        <h3>Email</h3>
-                        <p>r.sichomba@cbu.ac.zm</p>
+    <!-- Math Exam Problems -->
+    <div class="faq-content" id="math-problems">
+        <div class="container">
+            <div class="exam-problems">
+                <div class="section-header">
+                    <h2>Mathematical Methods 1 - Exam Problems</h2>
+                    <p>Practice with chapter-wise exam problems and solutions</p>
+                </div>
+                
+                <div class="chapter-selector">
+                    <div class="chapter-btn active" data-chapter="math-5">Chapter 5: Equations</div>
+                    <div class="chapter-btn" data-chapter="math-6">Chapter 6: Quadratics</div>
+                    <div class="chapter-btn" data-chapter="math-7">Chapter 7: Functions</div>
+                    <div class="chapter-btn" data-chapter="math-8">Chapter 8: Calculus</div>
+                    <div class="chapter-btn" data-chapter="math-9">Chapter 9: Applications</div>
+                </div>
+                
+                <!-- Chapter 5 Problems -->
+                <div class="chapter-content active" id="math-5">
+                    <h3 style="margin-bottom: 1.5rem; color: var(--secondary);">Chapter 5: Linear Equations & Inequalities</h3>
+                    
+                    <div class="problem-list">
+                        <div class="problem-item">
+                            <div class="problem-meta">
+                                <span class="problem-type math">Mathematics</span>
+                                <span class="problem-difficulty">Medium Difficulty</span>
+                            </div>
+                            <div class="problem-statement">
+                                <h4>Problem 1: Solving Linear Equations</h4>
+                                <p>Solve for x: \( 3(2x - 5) + 4 = 7x - 2(x + 1) \)</p>
+                                <div class="math-content">
+                                    $$3(2x - 5) + 4 = 7x - 2(x + 1)$$
+                                </div>
+                            </div>
+                            <div class="problem-solution">
+                                <button class="solution-toggle">
+                                    <i class="fas fa-eye"></i>
+                                    Show Solution
+                                </button>
+                                <div class="solution-content">
+                                    <p><strong>Solution:</strong></p>
+                                    <div class="math-content">
+                                        $$\begin{aligned}
+                                        3(2x - 5) + 4 &= 7x - 2(x + 1) \\
+                                        6x - 15 + 4 &= 7x - 2x - 2 \\
+                                        6x - 11 &= 5x - 2 \\
+                                        6x - 5x &= -2 + 11 \\
+                                        x &= 9
+                                        \end{aligned}$$
+                                    </div>
+                                    <p><strong>Answer:</strong> \( x = 9 \)</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="problem-item">
+                            <div class="problem-meta">
+                                <span class="problem-type math">Mathematics</span>
+                                <span class="problem-difficulty">Hard Difficulty</span>
+                            </div>
+                            <div class="problem-statement">
+                                <h4>Problem 2: Word Problem</h4>
+                                <p>A company produces two products. Product A requires 2 hours of labor and 3 units of material, while Product B requires 3 hours of labor and 2 units of material. If the company has 120 hours of labor and 150 units of material available, and they want to maximize production given that they must produce at least 10 units of Product A, how many units of each should they produce?</p>
+                            </div>
+                            <div class="problem-solution">
+                                <button class="solution-toggle">
+                                    <i class="fas fa-eye"></i>
+                                    Show Solution
+                                </button>
+                                <div class="solution-content">
+                                    <p><strong>Solution:</strong> This is a linear programming problem. Let \( x \) = units of Product A, \( y \) = units of Product B.</p>
+                                    <div class="math-content">
+                                        $$\begin{aligned}
+                                        \text{Constraints:} & \\
+                                        2x + 3y &\leq 120 \quad \text{(Labor)} \\
+                                        3x + 2y &\leq 150 \quad \text{(Material)} \\
+                                        x &\geq 10 \\
+                                        x, y &\geq 0 \\
+                                        \text{Objective:} & \quad \text{Maximize } P = x + y
+                                        \end{aligned}$$
+                                    </div>
+                                    <p>Solve graphically or using corner point method.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="contact-option">
-                        <i class="fas fa-comments"></i>
-                        <h3>Live Chat</h3>
-                        <p>Available during business hours</p>
+                </div>
+                
+                <!-- Chapter 6 Problems (hidden by default) -->
+                <div class="chapter-content" id="math-6">
+                    <h3 style="margin-bottom: 1.5rem; color: var(--secondary);">Chapter 6: Quadratic Equations</h3>
+                    <div class="problem-list">
+                        <!-- Similar structure for quadratic problems -->
                     </div>
-                    <div class="contact-option">
-                        <i class="fas fa-phone"></i>
-                        <h3>Phone</h3>
-                        <p>+260 XXX XXX XXX</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Economics Exam Problems -->
+    <div class="faq-content" id="econ-problems">
+        <div class="container">
+            <div class="exam-problems">
+                <div class="section-header">
+                    <h2>Economics 110 - Exam Problems</h2>
+                    <p>Practice with chapter-wise economics problems and solutions</p>
+                </div>
+                
+                <div class="chapter-selector">
+                    <div class="chapter-btn active" data-chapter="econ-1">Chapter 1: Basics</div>
+                    <div class="chapter-btn" data-chapter="econ-2">Chapter 2: Demand/Supply</div>
+                    <div class="chapter-btn" data-chapter="econ-3">Chapter 3: Elasticity</div>
+                    <div class="chapter-btn" data-chapter="econ-4">Chapter 4: Market Structures</div>
+                    <div class="chapter-btn" data-chapter="econ-5">Chapter 5: Macroeconomics</div>
+                </div>
+                
+                <!-- Chapter 1 Problems -->
+                <div class="chapter-content active" id="econ-1">
+                    <h3 style="margin-bottom: 1.5rem; color: var(--primary);">Chapter 1: Economic Fundamentals</h3>
+                    
+                    <div class="problem-list">
+                        <div class="problem-item">
+                            <div class="problem-meta">
+                                <span class="problem-type econ">Economics</span>
+                                <span class="problem-difficulty">Easy Difficulty</span>
+                            </div>
+                            <div class="problem-statement">
+                                <h4>Problem 1: Production Possibility Frontier</h4>
+                                <p>An economy can produce either 100 units of food or 50 units of clothing. Draw the PPF. What is the opportunity cost of 1 unit of clothing? If the economy is currently producing 60 units of food, how much clothing can it produce?</p>
+                            </div>
+                            <div class="problem-solution">
+                                <button class="solution-toggle">
+                                    <i class="fas fa-eye"></i>
+                                    Show Solution
+                                </button>
+                                <div class="solution-content">
+                                    <p><strong>Solution:</strong></p>
+                                    <p>1. PPF: Vertical intercept = 100 units of food, Horizontal intercept = 50 units of clothing</p>
+                                    <p>2. Opportunity cost of 1 clothing = \( \frac{100}{50} = 2 \) units of food</p>
+                                    <p>3. At 60 food: \( \frac{60}{100} = 0.6 \) of resources used for food, remaining \( 0.4 \) for clothing: \( 0.4 \times 50 = 20 \) units of clothing</p>
+                                    <p><strong>Answer:</strong> Opportunity cost = 2 food per clothing; At 60 food, can produce 20 clothing</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="problem-item">
+                            <div class="problem-meta">
+                                <span class="problem-type econ">Economics</span>
+                                <span class="problem-difficulty">Medium Difficulty</span>
+                            </div>
+                            <div class="problem-statement">
+                                <h4>Problem 2: Comparative Advantage</h4>
+                                <p>Country A can produce 10 tons of wheat or 5 tons of corn per worker. Country B can produce 8 tons of wheat or 4 tons of corn per worker. Which country has comparative advantage in wheat production? Should they trade?</p>
+                            </div>
+                            <div class="problem-solution">
+                                <button class="solution-toggle">
+                                    <i class="fas fa-eye"></i>
+                                    Show Solution
+                                </button>
+                                <div class="solution-content">
+                                    <p><strong>Solution:</strong></p>
+                                    <p>Country A opportunity cost: 1 wheat = \( \frac{5}{10} = 0.5 \) corn; 1 corn = \( \frac{10}{5} = 2 \) wheat</p>
+                                    <p>Country B opportunity cost: 1 wheat = \( \frac{4}{8} = 0.5 \) corn; 1 corn = \( \frac{8}{4} = 2 \) wheat</p>
+                                    <p>Both have same opportunity costs, so no comparative advantage exists. Trade wouldn't benefit either country based on these numbers.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Downloads Content -->
+    <div class="faq-content" id="downloads">
+        <div class="container">
+            <div class="download-section">
+                <h2 style="text-align: center; margin-bottom: 2rem; color: var(--secondary);">Download Resources</h2>
+                <p style="text-align: center; margin-bottom: 3rem; font-size: 1.2rem;">Access all exam problems, solutions, and practice materials</p>
+                
+                <div class="contact-options" style="margin-bottom: 4rem;">
+                    <div class="contact-option">
+                        <i class="fas fa-file-pdf"></i>
+                        <h3>Complete Problem Sets</h3>
+                        <p>All chapters with solutions</p>
+                        <a href="https://drive.google.com/drive/folders/1ALL_PROBLEM_SETS" target="_blank" class="project-link primary" style="display: block; margin-top: 1rem;">
+                            Download PDF
+                        </a>
+                    </div>
+                    
+                    <div class="contact-option">
+                        <i class="fas fa-video"></i>
+                        <h3>Video Solutions</h3>
+                        <p>Step-by-step explanations</p>
+                        <a href="https://drive.google.com/drive/folders/1VIDEO_SOLUTIONS" target="_blank" class="project-link primary" style="display: block; margin-top: 1rem;">
+                            Access Videos
+                        </a>
+                    </div>
+                    
+                    <div class="contact-option">
+                        <i class="fas fa-tasks"></i>
+                        <h3>Practice Exams</h3>
+                        <p>Timed practice tests</p>
+                        <a href="https://drive.google.com/drive/folders/1PRACTICE_EXAMS" target="_blank" class="project-link primary" style="display: block; margin-top: 1rem;">
+                            Download Exams
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <section class="container">
+        <div class="contact-section">
+            <h2>Need More Help?</h2>
+            <p style="margin: 1rem 0 2rem;">Contact us directly for personalized assistance</p>
+            
+            <div class="contact-options">
+                <div class="contact-option">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email Support</h3>
+                    <p>premium@cbu-mathecon.com</p>
+                    <p>Response within 24 hours</p>
+                </div>
+                
+                <div class="contact-option">
+                    <i class="fab fa-whatsapp"></i>
+                    <h3>WhatsApp Group</h3>
+                    <p>Join student support group</p>
+                    <p>Instant peer support</p>
+                </div>
+                
+                <div class="contact-option">
+                    <i class="fas fa-calendar"></i>
+                    <h3>Office Hours</h3>
+                    <p>Mon-Fri: 10:00-12:00</p>
+                    <p>Live Q&A sessions</p>
                 </div>
             </div>
         </div>
@@ -332,62 +1164,207 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>CBU MATH & ECON</h3>
+                    <h3>CBU PREMIUM PROGRAM</h3>
                     <p>The Copperbelt University<br>
                     School of Mathematics and Natural Sciences<br>
                     Department of Mathematics & Economics</p>
                 </div>
                 <div class="footer-section">
-                    <h3>Quick Links</h3>
+                    <h3>Exam Resources</h3>
                     <ul>
-                        <li><a href="overview.html">Program Overview</a></li>
-                        <li><a href="schedule.html">Weekly Schedule</a></li>
-                        <li><a href="faq.html">FAQ</a></li>
-                        <li><a href="team.html">Teaching Team</a></li>
+                        <li><a href="#math-problems">Math Problems</a></li>
+                        <li><a href="#econ-problems">Economics Problems</a></li>
+                        <li><a href="#downloads">Download Materials</a></li>
+                        <li><a href="https://drive.google.com/drive/folders/1ALL_EXAM_RESOURCES" target="_blank">All Exam Resources</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3>Contact</h3>
-                    <p><i class="fas fa-envelope"></i> r.sichomba@cbu.ac.zm</p>
-                    <p><i class="fas fa-phone"></i> +260 XXX XXX XXX</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-github"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                    </div>
+                    <h3>Quick Support</h3>
+                    <p><i class="fas fa-envelope"></i> premium@cbu-mathecon.com</p>
+                    <p><i class="fab fa-whatsapp"></i> +260 96 123 4567</p>
+                    <p><i class="fas fa-phone"></i> +260 211 123456</p>
+                    <p><i class="fab fa-google-drive"></i> <a href="https://drive.google.com/drive/folders/1FAQ_RESOURCES" target="_blank">FAQ Resources</a></p>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 CBU Mathematics & Economics Department. All rights reserved.</p>
+                <p>&copy; 2024 CBU Premium Academic Services. All rights reserved.</p>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">
+                    Comprehensive FAQ and exam preparation resources | 
+                    <a href="https://drive.google.com/drive/folders/1EXAM_POLICY" target="_blank" style="color: var(--secondary);">Exam Policy</a>
+                </p>
             </div>
         </div>
     </footer>
 
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
     <script>
-        // FAQ Accordion
-        document.querySelectorAll('.faq-question').forEach(question => {
-            question.addEventListener('click', () => {
-                const answer = question.nextElementSibling;
-                const icon = question.querySelector('i');
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+        
+        document.addEventListener('click', (event) => {
+            if (!navMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+        
+        // Back to top button
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.style.display = 'flex';
+            } else {
+                backToTop.style.display = 'none';
+            }
+        });
+        
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Show notification function
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+                <button class="notification-close" onclick="this.parentElement.style.animation='slideOutRight 0.3s ease forwards'; setTimeout(()=>this.parentElement.remove(),300)"><i class="fas fa-times"></i></button>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.3s ease forwards';
+                setTimeout(() => notification.remove(), 300);
+            }, 5000);
+        }
+        
+        // FAQ Tabs
+        const faqTabs = document.querySelectorAll('.faq-tab');
+        const faqContents = document.querySelectorAll('.faq-content');
+        
+        faqTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
                 
-                answer.classList.toggle('active');
-                icon.classList.toggle('fa-chevron-down');
-                icon.classList.toggle('fa-chevron-up');
+                // Remove active class from all tabs and contents
+                faqTabs.forEach(t => t.classList.remove('active'));
+                faqContents.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                this.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+                
+                // Update URL hash
+                history.pushState(null, null, `#${tabId}`);
             });
         });
-
-        // Category Tabs
-        document.querySelectorAll('.category-tab').forEach(tab => {
-            tab.addEventListener('click', () => {
-                // Remove active class from all tabs and categories
-                document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
-                document.querySelectorAll('.faq-category').forEach(c => c.classList.remove('active'));
-                
-                // Add active class to clicked tab and corresponding category
-                tab.classList.add('active');
-                const categoryId = tab.dataset.category;
-                document.getElementById(categoryId).classList.add('active');
+        
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', function() {
+                const item = this.parentElement;
+                item.classList.toggle('active');
             });
+        });
+        
+        // Chapter Selector
+        const chapterBtns = document.querySelectorAll('.chapter-btn');
+        const chapterContents = document.querySelectorAll('.chapter-content');
+        
+        chapterBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const chapterId = this.getAttribute('data-chapter');
+                
+                // Remove active class from all buttons and contents
+                chapterBtns.forEach(b => b.classList.remove('active'));
+                chapterContents.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked button and corresponding content
+                this.classList.add('active');
+                document.getElementById(chapterId).classList.add('active');
+            });
+        });
+        
+        // Solution Toggle
+        document.querySelectorAll('.solution-toggle').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const solutionContent = this.nextElementSibling;
+                solutionContent.classList.toggle('show');
+                
+                if (solutionContent.classList.contains('show')) {
+                    this.innerHTML = '<i class="fas fa-eye-slash"></i> Hide Solution';
+                } else {
+                    this.innerHTML = '<i class="fas fa-eye"></i> Show Solution';
+                }
+            });
+        });
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href') === '#') return;
+                
+                const targetId = this.getAttribute('href');
+                if (targetId.startsWith('#')) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+        
+        // Google Drive link tracking
+        document.querySelectorAll('a[href*="drive.google.com"]').forEach(link => {
+            link.addEventListener('click', function() {
+                const resourceName = this.textContent.trim() || 'Google Drive Resource';
+                showNotification(`Opening ${resourceName}...`, 'info');
+            });
+        });
+        
+        // Enrollment modal
+        function showEnrollmentModal() {
+            showNotification('Opening WhatsApp for enrollment...', 'info');
+        }
+        
+        // Initialize MathJax
+        if (window.MathJax) {
+            MathJax.typesetPromise();
+        }
+        
+        // Check URL hash on load
+        const hash = window.location.hash;
+        if (hash && hash.startsWith('#')) {
+            const tabId = hash.replace('#', '');
+            const tab = document.querySelector(`.faq-tab[data-tab="${tabId}"]`);
+            if (tab) {
+                tab.click();
+            }
+        }
+        
+        // Auto-expand first FAQ item in each category
+        document.querySelectorAll('.faq-category').forEach(category => {
+            const firstItem = category.querySelector('.faq-item');
+            if (firstItem) {
+                firstItem.classList.add('active');
+            }
         });
     </script>
 </body>

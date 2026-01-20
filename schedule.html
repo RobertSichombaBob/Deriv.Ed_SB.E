@@ -3,22 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Program Schedule | CBU Math & Econ</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Interactive Schedule | CBU Math & Econ</title>
+    
+    <!-- PWA Meta -->
+    <meta name="theme-color" content="#059669">
+    <meta name="description" content="Interactive 6-week schedule for Mathematical Methods 1 & Economics 110. Track your progress and access daily resources.">
+    
+    <!-- Styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
     <style>
-        /* Schedule Specific Styles */
-        .schedule-hero {
-            background: linear-gradient(135deg, rgba(5, 150, 105, 0.9) 0%, rgba(16, 185, 129, 0.9) 100%);
+        /* Main Styles - Same as index.html */
+        :root {
+            --primary: #3b82f6;
+            --secondary: #10b981;
+            --accent: #8b5cf6;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --card-bg: rgba(30, 41, 59, 0.8);
+            --border: rgba(255, 255, 255, 0.1);
+            --math: #10b981;
+            --econ: #3b82f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Navigation - Same as index.html */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
             color: white;
-            padding: 6rem 0 4rem;
+        }
+
+        .brand-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary);
+        }
+
+        .nav-link.active {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--primary);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .login-btn {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Section Header */
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        /* Schedule Hero */
+        .schedule-hero {
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.9) 0%, rgba(59, 130, 246, 0.9) 100%);
+            color: white;
+            padding: 8rem 0 4rem;
             text-align: center;
             position: relative;
             overflow: hidden;
+            margin-bottom: 4rem;
         }
-        
+
         .schedule-hero::before {
             content: '';
             position: absolute;
@@ -30,343 +212,105 @@
             background-size: cover;
             opacity: 0.1;
         }
-        
+
+        .schedule-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .schedule-hero .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Week Selector */
         .week-selector {
-            background: rgba(30, 41, 59, 0.8);
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 2rem auto;
-            max-width: 1000px;
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem auto 4rem;
+            border: 1px solid var(--border);
+            backdrop-filter: blur(10px);
         }
-        
+
         .week-tabs {
-            display: flex;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 1rem;
-            flex-wrap: wrap;
+            margin-top: 2rem;
         }
-        
+
         .week-tab {
-            padding: 1rem 2rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 2px solid transparent;
-            border-radius: 10px;
+            background: rgba(15, 23, 42, 0.6);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
             color: white;
-            font-weight: 600;
-            cursor: pointer;
+            text-decoration: none;
             transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-width: 120px;
+            text-align: center;
+            cursor: pointer;
+            position: relative;
         }
-        
+
         .week-tab:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: translateY(-2px);
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            background: rgba(59, 130, 246, 0.1);
         }
-        
+
         .week-tab.active {
-            background: linear-gradient(135deg, #059669, #10b981);
-            border-color: #34d399;
-            box-shadow: 0 10px 20px rgba(5, 150, 105, 0.3);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-color: transparent;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
         }
-        
+
         .week-tab.completed::after {
             content: '✓';
             position: absolute;
             top: -8px;
             right: -8px;
-            background: #10b981;
+            background: var(--secondary);
             color: white;
-            width: 24px;
-            height: 24px;
+            width: 28px;
+            height: 28px;
             border-radius: 50%;
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             display: flex;
             align-items: center;
             justify-content: center;
+            border: 2px solid var(--darker);
         }
-        
+
+        .week-tab span {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .week-tab small {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* Week Content */
         .week-content {
-            max-width: 1200px;
-            margin: 2rem auto;
             display: none;
             animation: fadeIn 0.5s ease;
         }
-        
+
         .week-content.active {
             display: block;
         }
-        
-        .week-overview {
-            background: rgba(30, 41, 59, 0.8);
-            border-radius: 15px;
-            padding: 2rem;
-            margin-bottom: 2rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .week-progress {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            margin: 1.5rem 0;
-        }
-        
-        .progress-circle {
-            width: 80px;
-            height: 80px;
-            position: relative;
-        }
-        
-        .progress-circle svg {
-            transform: rotate(-90deg);
-        }
-        
-        .progress-circle-bg {
-            fill: none;
-            stroke: rgba(255, 255, 255, 0.1);
-            stroke-width: 8;
-        }
-        
-        .progress-circle-fill {
-            fill: none;
-            stroke: #059669;
-            stroke-width: 8;
-            stroke-linecap: round;
-            stroke-dasharray: 251;
-            stroke-dashoffset: calc(251 - (251 * var(--week-progress)) / 100);
-            transition: stroke-dashoffset 1s ease;
-        }
-        
-        .progress-text {
-            text-align: center;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-weight: bold;
-            color: white;
-        }
-        
-        .schedule-days {
-            display: grid;
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-        
-        .day-schedule {
-            background: rgba(30, 41, 59, 0.6);
-            border-radius: 12px;
-            padding: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
-        }
-        
-        .day-schedule:hover {
-            border-color: rgba(5, 150, 105, 0.3);
-            transform: translateY(-2px);
-        }
-        
-        .day-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .day-title {
-            font-size: 1.25rem;
-            font-weight: 600;
-            color: white;
-        }
-        
-        .day-status {
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.875rem;
-            font-weight: 500;
-        }
-        
-        .day-status.completed {
-            background: rgba(16, 185, 129, 0.2);
-            color: #34d399;
-        }
-        
-        .day-status.in-progress {
-            background: rgba(245, 158, 11, 0.2);
-            color: #fbbf24;
-        }
-        
-        .day-status.upcoming {
-            background: rgba(100, 116, 139, 0.2);
-            color: #94a3b8;
-        }
-        
-        .schedule-items {
-            display: grid;
-            gap: 1rem;
-        }
-        
-        .schedule-item {
-            background: rgba(15, 23, 42, 0.5);
-            border-radius: 10px;
-            padding: 1.25rem;
-            display: grid;
-            grid-template-columns: 100px 1fr 150px;
-            gap: 1.5rem;
-            align-items: center;
-            border-left: 4px solid #059669;
-        }
-        
-        .time-slot {
-            font-weight: 600;
-            color: #059669;
-        }
-        
-        .item-content h4 {
-            margin: 0 0 0.5rem 0;
-            color: white;
-        }
-        
-        .item-content p {
-            margin: 0;
-            color: #94a3b8;
-            font-size: 0.9rem;
-        }
-        
-        .item-actions {
-            display: flex;
-            gap: 0.5rem;
-        }
-        
-        .resource-btn {
-            padding: 0.5rem 1rem;
-            background: rgba(5, 150, 105, 0.2);
-            border: 1px solid rgba(5, 150, 105, 0.3);
-            border-radius: 6px;
-            color: #34d399;
-            font-size: 0.875rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        
-        .resource-btn:hover {
-            background: rgba(5, 150, 105, 0.3);
-            transform: translateY(-2px);
-        }
-        
-        .chapter-breakdown {
-            background: rgba(30, 41, 59, 0.8);
-            border-radius: 15px;
-            padding: 2rem;
-            margin-top: 3rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .chapter-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-        
-        .chapter-item {
-            background: rgba(15, 23, 42, 0.5);
-            border-radius: 10px;
-            padding: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.3s ease;
-        }
-        
-        .chapter-item:hover {
-            border-color: rgba(5, 150, 105, 0.3);
-            transform: translateY(-2px);
-        }
-        
-        .chapter-item-header {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-        
-        .chapter-number {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #059669, #10b981);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: bold;
-            font-size: 1.1rem;
-        }
-        
-        .chapter-item h4 {
-            margin: 0;
-            color: white;
-        }
-        
-        .chapter-topics {
-            margin: 1rem 0;
-        }
-        
-        .chapter-topic {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            margin: 0.5rem 0;
-            color: #94a3b8;
-            font-size: 0.9rem;
-        }
-        
-        .chapter-topic i {
-            color: #059669;
-            font-size: 0.8rem;
-        }
-        
-        .chapter-actions {
-            display: flex;
-            gap: 0.75rem;
-            margin-top: 1.5rem;
-        }
-        
-        .action-btn {
-            flex: 1;
-            padding: 0.75rem;
-            border-radius: 8px;
-            font-size: 0.875rem;
-            font-weight: 500;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-        
-        .action-btn.primary {
-            background: linear-gradient(135deg, #059669, #10b981);
-            color: white;
-            border: none;
-        }
-        
-        .action-btn.secondary {
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        
-        .action-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        }
-        
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -377,34 +321,538 @@
                 transform: translateY(0);
             }
         }
-        
-        @media (max-width: 768px) {
-            .week-tabs {
-                flex-direction: column;
-                align-items: center;
+
+        /* Week Overview */
+        .week-overview {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 3rem;
+            border: 1px solid var(--border);
+        }
+
+        .week-overview h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .week-progress {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .progress-circle {
+            width: 100px;
+            height: 100px;
+            position: relative;
+        }
+
+        .progress-circle svg {
+            transform: rotate(-90deg);
+        }
+
+        .progress-circle-bg {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.1);
+            stroke-width: 8;
+        }
+
+        .progress-circle-fill {
+            fill: none;
+            stroke: var(--secondary);
+            stroke-width: 8;
+            stroke-linecap: round;
+            stroke-dasharray: 251;
+            stroke-dashoffset: calc(251 - (251 * var(--week-progress)) / 100);
+            transition: stroke-dashoffset 1s ease;
+        }
+
+        .progress-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: white;
+        }
+
+        .progress-details {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .progress-details h4 {
+            margin-bottom: 1rem;
+            font-size: 1.25rem;
+        }
+
+        .progress-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        .stat i {
+            color: var(--secondary);
+            font-size: 1.25rem;
+        }
+
+        /* Daily Schedule */
+        .schedule-days {
+            display: grid;
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .day-schedule {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .day-schedule:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .day-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .day-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        .day-status {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+
+        .day-status.completed {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--secondary);
+        }
+
+        .day-status.in-progress {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fbbf24;
+        }
+
+        .day-status.upcoming {
+            background: rgba(100, 116, 139, 0.2);
+            color: #94a3b8;
+        }
+
+        .schedule-items {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .schedule-item {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: grid;
+            grid-template-columns: 120px 1fr 150px;
+            gap: 2rem;
+            align-items: center;
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .schedule-item:hover {
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        .time-slot {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .item-content h4 {
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .item-content p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .resource-btn {
+            padding: 0.75rem 1.25rem;
+            background: rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 8px;
+            color: var(--primary);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .resource-btn:hover {
+            background: rgba(59, 130, 246, 0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Chapter Breakdown */
+        .chapter-breakdown {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 4rem 0;
+            border: 1px solid var(--border);
+        }
+
+        .chapter-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .chapter-item {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .chapter-item:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .chapter-item-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .chapter-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .chapter-item-header h4 {
+            font-size: 1.25rem;
+        }
+
+        .chapter-topics {
+            margin: 1.5rem 0;
+        }
+
+        .chapter-topic {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin: 0.75rem 0;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .chapter-topic i {
+            color: var(--secondary);
+        }
+
+        .chapter-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 1rem;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            text-decoration: none;
+            border: none;
+        }
+
+        .action-btn.primary {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+        }
+
+        .action-btn.primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .action-btn.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid var(--border);
+        }
+
+        .action-btn.secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(15, 23, 42, 0.95);
+            padding: 4rem 0 2rem;
+            margin-top: 6rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-section a {
+            color: var(--light);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            opacity: 1;
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            opacity: 0.7;
+        }
+
+        /* Back to Top */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: none;
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #1e293b;
+            border-left: 4px solid #3b82f6;
+            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            z-index: 10000;
+            animation: slideInRight 0.3s ease;
+            max-width: 400px;
+        }
+
+        .notification-success {
+            border-left-color: #10b981;
+        }
+
+        .notification-error {
+            border-left-color: #ef4444;
+        }
+
+        .notification-warning {
+            border-left-color: #f59e0b;
+        }
+
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex: 1;
+            color: white;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
             }
-            
-            .week-tab {
-                width: 100%;
-                max-width: 300px;
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        /* Animations */
+        .animate-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 1024px) {
+            .week-tabs {
+                grid-template-columns: repeat(3, 1fr);
             }
             
             .schedule-item {
                 grid-template-columns: 1fr;
                 gap: 1rem;
             }
-            
-            .time-slot {
-                order: 1;
+        }
+
+        @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--dark);
+                padding: 1rem;
+                flex-direction: column;
             }
             
-            .item-content {
-                order: 2;
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .schedule-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .week-tabs {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .week-overview, .week-selector, .chapter-breakdown {
+                padding: 2rem;
             }
             
             .item-actions {
-                order: 3;
                 justify-content: flex-start;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .week-tabs {
+                grid-template-columns: 1fr;
+            }
+            
+            .chapter-list {
+                grid-template-columns: 1fr;
+            }
+            
+            .chapter-actions {
+                flex-direction: column;
+            }
+            
+            .progress-stats {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -413,20 +861,21 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-brand">
+            <a href="index.html" class="nav-brand">
                 <div class="logo">
-                    <i class="fas fa-calculator"></i>
+                    <i class="fas fa-brain"></i>
                 </div>
-                <span class="brand-text">CBU MATH & ECON</span>
-            </div>
+                <span class="brand-text">CBU PREMIUM PROGRAM</span>
+            </a>
             <div class="nav-menu" id="navMenu">
                 <a href="index.html" class="nav-link"><i class="fas fa-home"></i> HOME</a>
                 <a href="overview.html" class="nav-link"><i class="fas fa-book-open"></i> OVERVIEW</a>
                 <a href="schedule.html" class="nav-link active"><i class="fas fa-calendar-alt"></i> SCHEDULE</a>
                 <a href="team.html" class="nav-link"><i class="fas fa-users"></i> TEAM</a>
-                <a href="#" class="login-btn" id="loginBtn">
-                    <i class="fas fa-user"></i>
-                    <span>LOGIN</span>
+                <a href="#resources" class="nav-link"><i class="fas fa-graduation-cap"></i> RESOURCES</a>
+                <a href="https://wa.me/260961234567" target="_blank" class="login-btn" onclick="showEnrollmentModal()">
+                    <i class="fas fa-crown"></i>
+                    <span>ENROLL NOW</span>
                 </a>
             </div>
             <button class="menu-toggle" id="menuToggle">
@@ -438,14 +887,15 @@
     <!-- Schedule Hero -->
     <section class="schedule-hero">
         <div class="container">
-            <h1>6-Week Program Schedule</h1>
-            <p class="subtitle">Detailed daily schedule with interactive learning resources</p>
+            <h1>Interactive Program Schedule</h1>
+            <p class="subtitle">Track your progress through our 6-week intensive program with daily resources and live sessions</p>
             
-            <div class="week-selector">
+            <div class="week-selector animate-in">
+                <h2 style="text-align: center; margin-bottom: 1.5rem; color: white;">Select Week</h2>
                 <div class="week-tabs">
                     <div class="week-tab completed active" data-week="1">
                         <span>Week 1</span>
-                        <small>Foundation</small>
+                        <small>Foundation Building</small>
                     </div>
                     <div class="week-tab in-progress" data-week="2">
                         <span>Week 2</span>
@@ -465,7 +915,7 @@
                     </div>
                     <div class="week-tab" data-week="6">
                         <span>Week 6</span>
-                        <small>Review & Exam</small>
+                        <small>Review & Exam Prep</small>
                     </div>
                 </div>
             </div>
@@ -477,13 +927,13 @@
         <div class="container">
             <div class="week-overview">
                 <h2>Week 1: Foundation Building</h2>
-                <p>Establish fundamental concepts in mathematics and economics, focusing on set theory, basic algebra, and economic principles.</p>
+                <p>Establish fundamental concepts in mathematics and economics. Focus on linear equations, set theory, and economic principles with practical applications.</p>
                 
                 <div class="week-progress">
                     <div class="progress-circle">
-                        <svg viewBox="0 0 80 80">
-                            <circle cx="40" cy="40" r="35" class="progress-circle-bg"></circle>
-                            <circle cx="40" cy="40" r="35" class="progress-circle-fill" style="--week-progress: 100"></circle>
+                        <svg viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="40" class="progress-circle-bg"></circle>
+                            <circle cx="50" cy="50" r="40" class="progress-circle-fill" style="--week-progress: 100"></circle>
                         </svg>
                         <div class="progress-text">100%</div>
                     </div>
@@ -500,7 +950,7 @@
                             </div>
                             <div class="stat">
                                 <i class="fas fa-trophy"></i>
-                                <span>Certificate Ready</span>
+                                <span>Week 1 Certificate Ready</span>
                             </div>
                         </div>
                     </div>
@@ -510,7 +960,7 @@
             <!-- Daily Schedule -->
             <div class="schedule-days">
                 <!-- Monday -->
-                <div class="day-schedule">
+                <div class="day-schedule animate-in">
                     <div class="day-header">
                         <div class="day-title">Monday: Set Theory & Economic Basics</div>
                         <div class="day-status completed">Completed</div>
@@ -518,54 +968,47 @@
                     
                     <div class="schedule-items">
                         <div class="schedule-item">
-                            <div class="time-slot">9:00 - 11:00</div>
+                            <div class="time-slot">12:00 - 13:45</div>
                             <div class="item-content">
-                                <h4>Ch 5: Equations & Inequalities</h4>
+                                <h4>Chapter 5: Equations & Inequalities</h4>
                                 <p>Linear equations review and solving techniques</p>
+                                <div class="subject-tag" style="display: inline-block; background: rgba(16, 185, 129, 0.2); color: var(--secondary); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.875rem; margin-top: 0.5rem;">
+                                    <i class="fas fa-calculator"></i> Mathematics
+                                </div>
                             </div>
                             <div class="item-actions">
-                                <button class="resource-btn" data-resource="notes">
+                                <a href="https://drive.google.com/file/d/1MATH_W1D1_LECTURE" target="_blank" class="resource-btn">
                                     <i class="fas fa-file-alt"></i> Notes
-                                </button>
-                                <button class="resource-btn" data-resource="problems">
+                                </a>
+                                <a href="https://drive.google.com/file/d/1MATH_W1D1_PROBLEMS" target="_blank" class="resource-btn">
                                     <i class="fas fa-tasks"></i> Problems
-                                </button>
+                                </a>
                             </div>
                         </div>
                         
                         <div class="schedule-item">
-                            <div class="time-slot">11:15 - 13:15</div>
+                            <div class="time-slot">17:00 - 18:45</div>
                             <div class="item-content">
-                                <h4>Ch 1.1-1.3: Nature of Economics</h4>
+                                <h4>Chapter 1.1-1.3: Nature of Economics</h4>
                                 <p>Defining economics and basic concepts</p>
+                                <div class="subject-tag" style="display: inline-block; background: rgba(59, 130, 246, 0.2); color: var(--primary); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.875rem; margin-top: 0.5rem;">
+                                    <i class="fas fa-chart-line"></i> Economics
+                                </div>
                             </div>
                             <div class="item-actions">
-                                <button class="resource-btn" data-resource="video">
+                                <a href="https://drive.google.com/file/d/1ECON_W1D1_NOTES" target="_blank" class="resource-btn">
                                     <i class="fas fa-video"></i> Lecture
-                                </button>
-                                <button class="resource-btn" data-resource="quiz">
+                                </a>
+                                <a href="https://drive.google.com/file/d/1ECON_W1D1_QUIZ" target="_blank" class="resource-btn">
                                     <i class="fas fa-question-circle"></i> Quiz
-                                </button>
-                            </div>
-                        </div>
-                        
-                        <div class="schedule-item">
-                            <div class="time-slot">14:00 - 16:00</div>
-                            <div class="item-content">
-                                <h4>Practice Session</h4>
-                                <p>Problem solving with faculty support</p>
-                            </div>
-                            <div class="item-actions">
-                                <button class="resource-btn" data-resource="practice">
-                                    <i class="fas fa-pencil-alt"></i> Practice
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Tuesday -->
-                <div class="day-schedule">
+                <div class="day-schedule animate-in">
                     <div class="day-header">
                         <div class="day-title">Tuesday: Algebraic Foundations</div>
                         <div class="day-status completed">Completed</div>
@@ -573,78 +1016,87 @@
                     
                     <div class="schedule-items">
                         <div class="schedule-item">
-                            <div class="time-slot">9:00 - 11:00</div>
+                            <div class="time-slot">12:00 - 13:45</div>
                             <div class="item-content">
-                                <h4>Ch 6: Quadratic Equations</h4>
+                                <h4>Chapter 6: Quadratic Equations</h4>
                                 <p>Factoring methods and quadratic formula</p>
+                                <div class="subject-tag" style="display: inline-block; background: rgba(16, 185, 129, 0.2); color: var(--secondary); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.875rem; margin-top: 0.5rem;">
+                                    <i class="fas fa-calculator"></i> Mathematics
+                                </div>
                             </div>
                             <div class="item-actions">
-                                <button class="resource-btn" data-resource="notes">
+                                <a href="https://drive.google.com/file/d/1MATH_W1D2_GUIDE" target="_blank" class="resource-btn">
                                     <i class="fas fa-file-alt"></i> Notes
-                                </button>
-                                <button class="resource-btn" data-resource="problems">
+                                </a>
+                                <a href="https://drive.google.com/file/d/1MATH_W1D2_PROBLEMS" target="_blank" class="resource-btn">
                                     <i class="fas fa-tasks"></i> Problems
-                                </button>
+                                </a>
                             </div>
                         </div>
                         
                         <div class="schedule-item">
-                            <div class="time-slot">11:15 - 13:15</div>
+                            <div class="time-slot">17:00 - 18:45</div>
                             <div class="item-content">
-                                <h4>Ch 1.4-1.5: Economic Problem</h4>
+                                <h4>Chapter 1.4-1.5: Economic Problem</h4>
                                 <p>Scarcity and opportunity cost</p>
+                                <div class="subject-tag" style="display: inline-block; background: rgba(59, 130, 246, 0.2); color: var(--primary); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.875rem; margin-top: 0.5rem;">
+                                    <i class="fas fa-chart-line"></i> Economics
+                                </div>
                             </div>
                             <div class="item-actions">
-                                <button class="resource-btn" data-resource="video">
+                                <a href="https://drive.google.com/file/d/1ECON_W1D2_VIDEO" target="_blank" class="resource-btn">
                                     <i class="fas fa-video"></i> Lecture
-                                </button>
-                                <button class="resource-btn" data-resource="simulation">
+                                </a>
+                                <a href="https://drive.google.com/file/d/1ECON_W1D2_SIM" target="_blank" class="resource-btn">
                                     <i class="fas fa-chart-line"></i> Simulation
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Add more days similarly... -->
+                <!-- Wednesday -->
+                <div class="day-schedule animate-in">
+                    <div class="day-header">
+                        <div class="day-title">Wednesday: Practice & Application</div>
+                        <div class="day-status completed">Completed</div>
+                    </div>
+                    
+                    <div class="schedule-items">
+                        <div class="schedule-item">
+                            <div class="time-slot">12:00 - 13:45</div>
+                            <div class="item-content">
+                                <h4>Practice Session: Linear & Quadratic</h4>
+                                <p>Problem solving with faculty support</p>
+                                <div class="subject-tag" style="display: inline-block; background: rgba(16, 185, 129, 0.2); color: var(--secondary); padding: 0.25rem 0.75rem; border-radius: 20px; font-size: 0.875rem; margin-top: 0.5rem;">
+                                    <i class="fas fa-calculator"></i> Mathematics
+                                </div>
+                            </div>
+                            <div class="item-actions">
+                                <a href="https://drive.google.com/file/d/1MATH_W1D3_PRACTICE" target="_blank" class="resource-btn">
+                                    <i class="fas fa-pencil-alt"></i> Practice
+                                </a>
+                                <a href="https://drive.google.com/file/d/1MATH_W1D3_SOLUTIONS" target="_blank" class="resource-btn">
+                                    <i class="fas fa-check-circle"></i> Solutions
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Thursday and Friday would follow similar pattern -->
             </div>
             
             <!-- Chapter Breakdown -->
             <div class="chapter-breakdown">
-                <h3>Week 1 Chapters</h3>
-                <p>Detailed breakdown of topics covered this week</p>
+                <h3>Week 1 Chapters Breakdown</h3>
+                <p>Detailed overview of topics covered this week with learning resources</p>
                 
                 <div class="chapter-list">
-                    <div class="chapter-item">
+                    <div class="chapter-item animate-in">
                         <div class="chapter-item-header">
-                            <div class="chapter-number">1.1</div>
-                            <h4>Set Theory Basics</h4>
-                        </div>
-                        <div class="chapter-topics">
-                            <div class="chapter-topic">
-                                <i class="fas fa-check"></i> Set operations (union, intersection)
-                            </div>
-                            <div class="chapter-topic">
-                                <i class="fas fa-check"></i> Venn diagrams
-                            </div>
-                            <div class="chapter-topic">
-                                <i class="fas fa-check"></i> De Morgan's laws
-                            </div>
-                        </div>
-                        <div class="chapter-actions">
-                            <button class="action-btn primary review-chapter">
-                                <i class="fas fa-redo"></i> Review
-                            </button>
-                            <button class="action-btn secondary view-resources">
-                                <i class="fas fa-folder-open"></i> Resources
-                            </button>
-                        </div>
-                    </div>
-                    
-                    <div class="chapter-item">
-                        <div class="chapter-item-header">
-                            <div class="chapter-number">1.2</div>
-                            <h4>Linear Equations</h4>
+                            <div class="chapter-number">5</div>
+                            <h4>Linear Equations Review</h4>
                         </div>
                         <div class="chapter-topics">
                             <div class="chapter-topic">
@@ -654,22 +1106,54 @@
                                 <i class="fas fa-check"></i> Graphical representation
                             </div>
                             <div class="chapter-topic">
-                                <i class="fas fa-check"></i> Word problems
+                                <i class="fas fa-check"></i> Word problems and applications
+                            </div>
+                            <div class="chapter-topic">
+                                <i class="fas fa-check"></i> Systems of equations
                             </div>
                         </div>
                         <div class="chapter-actions">
-                            <button class="action-btn primary review-chapter">
-                                <i class="fas fa-redo"></i> Review
-                            </button>
-                            <button class="action-btn secondary view-resources">
-                                <i class="fas fa-folder-open"></i> Resources
-                            </button>
+                            <a href="https://drive.google.com/drive/folders/1MATH_CH5" target="_blank" class="action-btn primary">
+                                <i class="fas fa-redo"></i> Review Chapter
+                            </a>
+                            <a href="https://drive.google.com/drive/folders/1MATH_CH5_RESOURCES" target="_blank" class="action-btn secondary">
+                                <i class="fas fa-folder-open"></i> All Resources
+                            </a>
                         </div>
                     </div>
                     
-                    <div class="chapter-item">
+                    <div class="chapter-item animate-in">
                         <div class="chapter-item-header">
-                            <div class="chapter-number">1.3</div>
+                            <div class="chapter-number">6</div>
+                            <h4>Quadratic Equations</h4>
+                        </div>
+                        <div class="chapter-topics">
+                            <div class="chapter-topic">
+                                <i class="fas fa-check"></i> Factoring methods
+                            </div>
+                            <div class="chapter-topic">
+                                <i class="fas fa-check"></i> Quadratic formula
+                            </div>
+                            <div class="chapter-topic">
+                                <i class="fas fa-check"></i> Discriminant analysis
+                            </div>
+                            <div class="chapter-topic">
+                                <i class="fas fa-check"></i> Real-world applications
+                            </div>
+                        </div>
+                        <div class="chapter-actions">
+                            <a href="https://drive.google.com/drive/folders/1MATH_CH6" target="_blank" class="action-btn primary">
+                                <i class="fas fa-redo"></i> Review Chapter
+                            </a>
+                            <a href="https://drive.google.com/drive/folders/1MATH_CH6_RESOURCES" target="_blank" class="action-btn secondary">
+                                <i class="fas fa-folder-open"></i> All Resources
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="chapter-item animate-in">
+                        <div class="chapter-item-header">
+                            <div class="chapter-number">1.1-1.5</div>
                             <h4>Economic Fundamentals</h4>
                         </div>
                         <div class="chapter-topics">
@@ -682,14 +1166,17 @@
                             <div class="chapter-topic">
                                 <i class="fas fa-check"></i> Production possibilities
                             </div>
+                            <div class="chapter-topic">
+                                <i class="fas fa-check"></i> Economic systems
+                            </div>
                         </div>
                         <div class="chapter-actions">
-                            <button class="action-btn primary review-chapter">
-                                <i class="fas fa-redo"></i> Review
-                            </button>
-                            <button class="action-btn secondary view-resources">
-                                <i class="fas fa-folder-open"></i> Resources
-                            </button>
+                            <a href="https://drive.google.com/drive/folders/1ECON_CH1" target="_blank" class="action-btn primary">
+                                <i class="fas fa-redo"></i> Review Chapter
+                            </a>
+                            <a href="https://drive.google.com/drive/folders/1ECON_CH1_RESOURCES" target="_blank" class="action-btn secondary">
+                                <i class="fas fa-folder-open"></i> All Resources
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -700,16 +1187,82 @@
     <!-- Week 2 Content (Hidden by default) -->
     <div class="week-content" id="week2">
         <div class="container">
-            <!-- Similar structure for week 2 -->
+            <div class="week-overview">
+                <h2>Week 2: Algebra & Market Analysis</h2>
+                <p>Deepen algebraic skills and explore market structures, demand, and supply analysis with practical case studies.</p>
+                
+                <div class="week-progress">
+                    <div class="progress-circle">
+                        <svg viewBox="0 0 100 100">
+                            <circle cx="50" cy="50" r="40" class="progress-circle-bg"></circle>
+                            <circle cx="50" cy="50" r="40" class="progress-circle-fill" style="--week-progress: 60"></circle>
+                        </svg>
+                        <div class="progress-text">60%</div>
+                    </div>
+                    <div class="progress-details">
+                        <h4>Progress Details</h4>
+                        <div class="progress-stats">
+                            <div class="stat">
+                                <i class="fas fa-calendar-check"></i>
+                                <span>3/5 Days Complete</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-book"></i>
+                                <span>6 Chapters in Progress</span>
+                            </div>
+                            <div class="stat">
+                                <i class="fas fa-clock"></i>
+                                <span>Live Sessions Ongoing</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Week 2 content would follow similar structure -->
+            <div style="text-align: center; padding: 4rem 0;">
+                <h3>Week 2 content loading...</h3>
+                <p style="margin-top: 1rem;">Detailed schedule for Week 2 will be displayed here</p>
+                <a href="overview.html#week2" class="action-btn primary" style="display: inline-flex; margin-top: 2rem;">
+                    <i class="fas fa-external-link-alt"></i> View Week 2 Overview
+                </a>
+            </div>
         </div>
     </div>
+
+    <!-- Weeks 3-6 would follow similar pattern -->
+
+    <!-- Quick Access to All Weeks -->
+    <section class="container" style="margin: 4rem 0;">
+        <div class="section-header">
+            <h2>Complete Program Access</h2>
+            <p>Access all weeks and resources in one place</p>
+        </div>
+
+        <div class="quick-access" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+            <a href="overview.html" class="access-card" style="background: linear-gradient(135deg, rgba(30, 64, 175, 0.9), rgba(59, 130, 246, 0.9)); border-radius: 15px; padding: 2.5rem; text-align: center; text-decoration: none; transition: all 0.3s ease;">
+                <h3><i class="fas fa-book-open"></i> Complete Program Overview</h3>
+                <p>View all 6 weeks with detailed curriculum</p>
+            </a>
+
+            <a href="https://drive.google.com/drive/folders/1ALL_RESOURCES" target="_blank" class="access-card" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.9), rgba(124, 58, 237, 0.9)); border-radius: 15px; padding: 2.5rem; text-align: center; text-decoration: none; transition: all 0.3s ease;">
+                <h3><i class="fab fa-google-drive"></i> All Google Drive Resources</h3>
+                <p>Complete materials library</p>
+            </a>
+
+            <a href="https://wa.me/260961234567" target="_blank" class="access-card" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.9), rgba(5, 150, 105, 0.9)); border-radius: 15px; padding: 2.5rem; text-align: center; text-decoration: none; transition: all 0.3s ease;">
+                <h3><i class="fas fa-crown"></i> Enroll for Full Access</h3>
+                <p>Get 6-week premium program</p>
+            </a>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>CBU MATH & ECON</h3>
+                    <h3>CBU PREMIUM PROGRAM</h3>
                     <p>The Copperbelt University<br>
                     School of Mathematics and Natural Sciences<br>
                     Department of Mathematics & Economics</p>
@@ -717,116 +1270,68 @@
                 <div class="footer-section">
                     <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="overview.html">Program Overview</a></li>
-                        <li><a href="schedule.html">Weekly Schedule</a></li>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="overview.html">Program Overview (All 6 Weeks)</a></li>
+                        <li><a href="schedule.html">Interactive Schedule</a></li>
                         <li><a href="team.html">Teaching Team</a></li>
-                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="#resources">Google Drive Resources</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3>Contact</h3>
-                    <p><i class="fas fa-envelope"></i> r.sichomba@cbu.ac.zm</p>
-                    <p><i class="fas fa-phone"></i> +260 XXX XXX XXX</p>
+                    <h3>Contact & Support</h3>
+                    <p><i class="fas fa-envelope"></i> premium@cbu-mathecon.com</p>
+                    <p><i class="fab fa-whatsapp"></i> +260 96 123 4567</p>
+                    <p><i class="fas fa-phone"></i> +260 211 123456</p>
+                    <p><i class="fab fa-google-drive"></i> <a href="https://drive.google.com/drive/folders/1ALL_RESOURCES" target="_blank">Access All Resources</a></p>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 CBU Mathematics & Economics Department. All rights reserved.</p>
+                <p>&copy; 2024 CBU Premium Academic Services. All rights reserved.</p>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">
+                    Designed for excellence in mathematical and economic education | 
+                    <a href="https://drive.google.com/drive/folders/1TERMS_CONDITIONS" target="_blank" style="color: var(--primary);">Terms & Conditions</a>
+                </p>
             </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
     <script>
-        // Schedule Page Functionality
-        document.addEventListener('DOMContentLoaded', function() {
-            // Week Tab Switching
-            const weekTabs = document.querySelectorAll('.week-tab');
-            const weekContents = document.querySelectorAll('.week-content');
-            
-            weekTabs.forEach(tab => {
-                tab.addEventListener('click', function() {
-                    const week = this.getAttribute('data-week');
-                    
-                    // Remove active class from all tabs and contents
-                    weekTabs.forEach(t => t.classList.remove('active'));
-                    weekContents.forEach(c => c.classList.remove('active'));
-                    
-                    // Add active class to clicked tab and corresponding content
-                    this.classList.add('active');
-                    document.getElementById(`week${week}`).classList.add('active');
-                    
-                    // Update URL hash
-                    history.pushState(null, null, `#week${week}`);
-                    
-                    // Show notification
-                    const weekTitle = this.querySelector('span').textContent;
-                    const weekSubtitle = this.querySelector('small').textContent;
-                    showNotification(`Viewing ${weekTitle}: ${weekSubtitle}`, 'info');
-                });
-            });
-            
-            // Check URL hash on load
-            const hash = window.location.hash;
-            if (hash) {
-                const weekTab = document.querySelector(`.week-tab[data-week="${hash.replace('#week', '')}"]`);
-                if (weekTab) {
-                    weekTab.click();
-                }
-            }
-            
-            // Resource Button Actions
-            document.querySelectorAll('.resource-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const resourceType = this.getAttribute('data-resource');
-                    const day = this.closest('.day-schedule').querySelector('.day-title').textContent;
-                    const time = this.closest('.schedule-item').querySelector('.time-slot').textContent;
-                    
-                    const resourceNames = {
-                        'notes': 'Lecture Notes',
-                        'problems': 'Problem Sets',
-                        'video': 'Video Lecture',
-                        'quiz': 'Practice Quiz',
-                        'practice': 'Practice Problems',
-                        'simulation': 'Economic Simulation'
-                    };
-                    
-                    showNotification(`Opening ${resourceNames[resourceType]} for ${time}`, 'info');
-                    
-                    // Simulate opening resource
-                    setTimeout(() => {
-                        showNotification(`${resourceNames[resourceType]} loaded successfully`, 'success');
-                    }, 1000);
-                });
-            });
-            
-            // Chapter Action Buttons
-            document.querySelectorAll('.review-chapter').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const chapter = this.closest('.chapter-item').querySelector('h4').textContent;
-                    showNotification(`Starting review of ${chapter}`, 'info');
-                });
-            });
-            
-            document.querySelectorAll('.view-resources').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const chapter = this.closest('.chapter-item').querySelector('h4').textContent;
-                    showNotification(`Opening resources for ${chapter}`, 'info');
-                });
-            });
-            
-            // Load saved progress
-            const savedProgress = JSON.parse(localStorage.getItem('cbuScheduleProgress') || '{}');
-            if (savedProgress.completedWeeks) {
-                savedProgress.completedWeeks.forEach(week => {
-                    const weekTab = document.querySelector(`.week-tab[data-week="${week}"]`);
-                    if (weekTab && !weekTab.classList.contains('completed')) {
-                        weekTab.classList.add('completed');
-                    }
-                });
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!navMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+                navMenu.classList.remove('active');
             }
         });
         
-        // Show notification
+        // Back to top button
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.style.display = 'flex';
+            } else {
+                backToTop.style.display = 'none';
+            }
+        });
+        
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Show notification function
         function showNotification(message, type = 'info') {
             const notification = document.createElement('div');
             notification.className = `notification notification-${type}`;
@@ -835,17 +1340,154 @@
                     <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
                     <span>${message}</span>
                 </div>
-                <button class="notification-close"><i class="fas fa-times"></i></button>
+                <button class="notification-close" onclick="this.parentElement.style.animation='slideOutRight 0.3s ease forwards'; setTimeout(()=>this.parentElement.remove(),300)"><i class="fas fa-times"></i></button>
             `;
             
             document.body.appendChild(notification);
             
-            // Auto-remove after 3 seconds
+            // Auto-remove after 5 seconds
             setTimeout(() => {
                 notification.style.animation = 'slideOutRight 0.3s ease forwards';
                 setTimeout(() => notification.remove(), 300);
-            }, 3000);
+            }, 5000);
         }
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href') === '#') return;
+                
+                const targetId = this.getAttribute('href');
+                if (targetId.startsWith('#')) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+        
+        // Animate elements on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+        
+        document.querySelectorAll('.animate-in').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Week Tab Switching
+        const weekTabs = document.querySelectorAll('.week-tab');
+        const weekContents = document.querySelectorAll('.week-content');
+        
+        weekTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const week = this.getAttribute('data-week');
+                
+                // Remove active class from all tabs and contents
+                weekTabs.forEach(t => t.classList.remove('active'));
+                weekContents.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                this.classList.add('active');
+                document.getElementById(`week${week}`).classList.add('active');
+                
+                // Update URL hash
+                history.pushState(null, null, `#week${week}`);
+                
+                // Show notification
+                const weekTitle = this.querySelector('span').textContent;
+                const weekSubtitle = this.querySelector('small').textContent;
+                showNotification(`Now viewing ${weekTitle}: ${weekSubtitle}`, 'info');
+            });
+        });
+        
+        // Check URL hash on load
+        const hash = window.location.hash;
+        if (hash && hash.startsWith('#week')) {
+            const weekNum = hash.replace('#week', '');
+            const weekTab = document.querySelector(`.week-tab[data-week="${weekNum}"]`);
+            if (weekTab) {
+                weekTab.click();
+            }
+        }
+        
+        // Resource Button Actions
+        document.querySelectorAll('.resource-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                if (this.getAttribute('href') === '#') {
+                    e.preventDefault();
+                    const resourceType = this.textContent.trim();
+                    const day = this.closest('.day-schedule').querySelector('.day-title').textContent;
+                    showNotification(`Opening ${resourceType} for ${day}`, 'info');
+                }
+            });
+        });
+        
+        // Chapter Action Buttons
+        document.querySelectorAll('.action-btn.primary').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                if (this.getAttribute('href') === '#') {
+                    e.preventDefault();
+                    const chapter = this.closest('.chapter-item').querySelector('h4').textContent;
+                    showNotification(`Starting review of ${chapter}`, 'info');
+                }
+            });
+        });
+        
+        // Google Drive link tracking
+        document.querySelectorAll('a[href*="drive.google.com"]').forEach(link => {
+            link.addEventListener('click', function() {
+                const resourceName = this.textContent.trim() || 'Google Drive Resource';
+                showNotification(`Opening ${resourceName}...`, 'info');
+                
+                // You can add analytics tracking here
+                console.log('Google Drive resource accessed:', this.href);
+            });
+        });
+        
+        // Enrollment modal
+        function showEnrollmentModal() {
+            showNotification('Opening WhatsApp for enrollment...', 'info');
+            // WhatsApp will open in new tab
+        }
+        
+        // Initialize MathJax
+        if (window.MathJax) {
+            MathJax.typesetPromise();
+        }
+        
+        // Mark completed weeks from localStorage
+        const completedWeeks = JSON.parse(localStorage.getItem('cbu_completed_weeks') || '[1]');
+        completedWeeks.forEach(week => {
+            const weekTab = document.querySelector(`.week-tab[data-week="${week}"]`);
+            if (weekTab && !weekTab.classList.contains('completed')) {
+                weekTab.classList.add('completed');
+            }
+        });
+        
+        // Save progress when clicking complete
+        document.querySelectorAll('.day-status').forEach(status => {
+            if (status.textContent === 'Mark Complete') {
+                status.addEventListener('click', function() {
+                    this.textContent = 'Completed';
+                    this.classList.remove('upcoming');
+                    this.classList.add('completed');
+                    showNotification('Day marked as completed!', 'success');
+                });
+            }
+        });
     </script>
 </body>
 </html>

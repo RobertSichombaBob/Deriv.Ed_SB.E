@@ -3,22 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teaching Team | CBU Math & Econ</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Our Work & Portfolio | CBU Math & Econ</title>
+    
+    <!-- PWA Meta -->
+    <meta name="theme-color" content="#8b5cf6">
+    <meta name="description" content="Explore our research projects, datasets, ongoing collaborations, and portfolio at CBU Mathematics & Economics Department.">
+    
+    <!-- Styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     
+    <!-- MathJax -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    
     <style>
-        /* Team Page Styles */
-        .team-hero {
-            background: linear-gradient(135deg, rgba(139, 92, 246, 0.9) 0%, rgba(168, 85, 247, 0.9) 100%);
+        /* Main Styles - Same as index.html */
+        :root {
+            --primary: #3b82f6;
+            --secondary: #10b981;
+            --accent: #8b5cf6;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --card-bg: rgba(30, 41, 59, 0.8);
+            --border: rgba(255, 255, 255, 0.1);
+            --math: #10b981;
+            --econ: #3b82f6;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Navigation - Same as index.html */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            text-decoration: none;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
             color: white;
-            padding: 6rem 0 4rem;
+        }
+
+        .brand-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background: rgba(139, 92, 246, 0.1);
+            color: var(--accent);
+        }
+
+        .nav-link.active {
+            background: rgba(139, 92, 246, 0.2);
+            color: var(--accent);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .login-btn {
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* Section Header */
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header h2 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-header p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+
+        /* Team Hero */
+        .team-hero {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.9) 0%, rgba(124, 58, 237, 0.9) 100%);
+            color: white;
+            padding: 8rem 0 4rem;
             text-align: center;
             position: relative;
             overflow: hidden;
+            margin-bottom: 4rem;
         }
-        
+
         .team-hero::before {
             content: '';
             position: absolute;
@@ -30,48 +212,101 @@
             background-size: cover;
             opacity: 0.1;
         }
-        
+
+        .team-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .team-hero .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
         .team-stats {
             display: flex;
             justify-content: center;
             gap: 3rem;
-            margin: 2rem 0;
+            margin-top: 3rem;
             flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
         }
-        
+
         .team-stat {
             text-align: center;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 1.5rem 2rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
-        
+
         .team-stat-number {
             font-size: 2.5rem;
             font-weight: bold;
             color: white;
             margin-bottom: 0.5rem;
         }
-        
+
         .team-stat-label {
             color: rgba(255, 255, 255, 0.8);
             font-size: 0.9rem;
         }
-        
-        .team-section {
-            padding: 4rem 0;
-        }
-        
-        .team-category {
+
+        /* Work Categories */
+        .work-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
             margin: 4rem 0;
         }
-        
-        .category-header {
+
+        .category-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 2.5rem;
             text-align: center;
-            margin-bottom: 3rem;
+            text-decoration: none;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
         }
-        
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--primary));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2);
+        }
+
+        .category-card:hover::before {
+            transform: scaleX(1);
+        }
+
         .category-icon {
             width: 80px;
             height: 80px;
-            background: linear-gradient(135deg, #8b5cf6, #a855f7);
+            background: linear-gradient(135deg, var(--accent), var(--primary));
             border-radius: 20px;
             display: flex;
             align-items: center;
@@ -80,228 +315,480 @@
             font-size: 2rem;
             margin: 0 auto 1.5rem;
         }
-        
-        .team-grid {
+
+        .category-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .category-card p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* Projects Grid */
+        .projects-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem;
-            margin-top: 2rem;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
         }
-        
-        .team-card {
-            background: rgba(30, 41, 59, 0.8);
-            border-radius: 20px;
-            padding: 2.5rem;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.4s ease;
-            position: relative;
+
+        .project-card {
+            background: var(--card-bg);
+            border-radius: 15px;
             overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
         }
-        
-        .team-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #8b5cf6, #a855f7);
-            transform: scaleX(0);
-            transition: transform 0.4s ease;
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+            box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2);
         }
-        
-        .team-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 25px 50px rgba(139, 92, 246, 0.2);
-            border-color: rgba(139, 92, 246, 0.3);
-        }
-        
-        .team-card:hover::before {
-            transform: scaleX(1);
-        }
-        
-        .team-avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            margin: 0 auto 1.5rem;
-            background: linear-gradient(135deg, #8b5cf6, #a855f7);
+
+        .project-image {
+            height: 200px;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(59, 130, 246, 0.3));
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-size: 3rem;
-            font-weight: bold;
-            border: 4px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
         }
-        
-        .team-card:hover .team-avatar {
-            transform: scale(1.1);
-            border-color: rgba(139, 92, 246, 0.3);
+
+        .project-content {
+            padding: 2rem;
         }
-        
-        .team-info h3 {
-            margin: 0.5rem 0;
-            color: white;
-        }
-        
-        .team-role {
-            color: #8b5cf6;
-            font-weight: 600;
-            margin-bottom: 1rem;
-        }
-        
-        .team-bio {
-            color: #94a3b8;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 1.5rem;
-        }
-        
-        .team-expertise {
+
+        .project-tags {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
-            justify-content: center;
             margin: 1rem 0;
         }
-        
-        .expertise-tag {
-            background: rgba(139, 92, 246, 0.1);
-            color: #a855f7;
+
+        .project-tag {
+            background: rgba(139, 92, 246, 0.2);
+            color: var(--accent);
             padding: 0.25rem 0.75rem;
-            border-radius: 15px;
-            font-size: 0.8rem;
-            border: 1px solid rgba(139, 92, 246, 0.2);
+            border-radius: 20px;
+            font-size: 0.875rem;
+            border: 1px solid rgba(139, 92, 246, 0.3);
         }
-        
-        .team-contact {
+
+        .project-links {
             display: flex;
-            justify-content: center;
             gap: 1rem;
             margin-top: 1.5rem;
         }
-        
-        .contact-btn {
+
+        .project-link {
+            flex: 1;
+            padding: 0.75rem;
+            border-radius: 8px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .project-link.primary {
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            color: white;
+        }
+
+        .project-link.secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid var(--border);
+        }
+
+        .project-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
+        }
+
+        /* Datasets Section */
+        .datasets-section {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 4rem 0;
+            border: 1px solid var(--border);
+        }
+
+        .datasets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .dataset-card {
+            background: rgba(15, 23, 42, 0.6);
+            border-radius: 15px;
+            padding: 2rem;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .dataset-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .dataset-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .dataset-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .dataset-stats {
+            display: flex;
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .dataset-stat {
+            text-align: center;
+        }
+
+        .dataset-stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        .dataset-stat-label {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Portfolio Section */
+        .portfolio-section {
+            margin: 4rem 0;
+        }
+
+        .portfolio-filter {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.75rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: var(--accent);
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            border-color: transparent;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .portfolio-item {
+            background: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .portfolio-item.hidden {
+            display: none;
+        }
+
+        .portfolio-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
+        }
+
+        .portfolio-image {
+            height: 200px;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(59, 130, 246, 0.2));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.5rem;
+        }
+
+        .portfolio-content {
+            padding: 1.5rem;
+        }
+
+        /* Team Section */
+        .team-section {
+            margin: 4rem 0;
+        }
+
+        .team-members {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .member-card {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .member-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-3px);
+        }
+
+        .member-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.5rem;
+            font-weight: bold;
+            border: 3px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .member-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .member-link {
             width: 40px;
             height: 40px;
             border-radius: 50%;
             background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
             color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .contact-btn:hover {
-            background: #8b5cf6;
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
-        }
-        
-        .team-modal {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 1000;
-            padding: 2rem;
-            opacity: 0;
-            visibility: hidden;
+            text-decoration: none;
             transition: all 0.3s ease;
         }
-        
-        .team-modal.active {
-            opacity: 1;
-            visibility: visible;
+
+        .member-link:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
         }
-        
-        .modal-content {
-            background: rgba(30, 41, 59, 0.95);
+
+        /* Collaboration Section */
+        .collaboration-section {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(59, 130, 246, 0.1));
             border-radius: 20px;
             padding: 3rem;
-            max-width: 600px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            position: relative;
-            transform: translateY(30px);
-            transition: transform 0.3s ease;
-            border: 1px solid rgba(139, 92, 246, 0.3);
-        }
-        
-        .team-modal.active .modal-content {
-            transform: translateY(0);
-        }
-        
-        .close-modal {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            background: none;
-            border: none;
-            color: #94a3b8;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
-        
-        .close-modal:hover {
-            color: white;
-        }
-        
-        .support-section {
-            background: linear-gradient(135deg, rgba(5, 150, 105, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
-            border-radius: 20px;
-            padding: 4rem;
             margin: 4rem 0;
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .collaborators {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        .collaborator {
             text-align: center;
-            border: 1px solid rgba(5, 150, 105, 0.2);
         }
-        
-        .support-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-        
-        .support-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        
-        .support-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.08);
-        }
-        
-        .support-icon {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, #059669, #10b981);
-            border-radius: 15px;
+
+        .collaborator-logo {
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
+            margin: 0 auto 1rem;
             color: white;
-            font-size: 1.5rem;
-            margin: 0 auto 1.5rem;
+            font-size: 2rem;
+            border: 2px solid rgba(255, 255, 255, 0.2);
         }
-        
+
+        /* Footer */
+        .footer {
+            background: rgba(15, 23, 42, 0.95);
+            padding: 4rem 0 2rem;
+            margin-top: 6rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.75rem;
+        }
+
+        .footer-section a {
+            color: var(--light);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-section a:hover {
+            opacity: 1;
+            color: var(--accent);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            opacity: 0.7;
+        }
+
+        /* Back to Top */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: none;
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3);
+        }
+
+        /* Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #1e293b;
+            border-left: 4px solid var(--accent);
+            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            z-index: 10000;
+            animation: slideInRight 0.3s ease;
+            max-width: 400px;
+        }
+
+        .notification-success {
+            border-left-color: #10b981;
+        }
+
+        .notification-error {
+            border-left-color: #ef4444;
+        }
+
+        .notification-warning {
+            border-left-color: #f59e0b;
+        }
+
+        .notification-content {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex: 1;
+            color: white;
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        /* Animations */
+        .animate-in {
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -312,23 +799,69 @@
                 transform: translateY(0);
             }
         }
-        
-        .animate-card {
-            animation: fadeInUp 0.6s ease forwards;
-        }
-        
+
+        /* Mobile Responsive */
         @media (max-width: 768px) {
-            .team-grid {
-                grid-template-columns: 1fr;
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--dark);
+                padding: 1rem;
+                flex-direction: column;
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .team-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .team-stats {
+                gap: 1rem;
             }
             
             .team-stat {
                 flex: 1;
-                min-width: 120px;
+                min-width: 140px;
             }
             
-            .modal-content {
-                padding: 2rem;
+            .projects-grid, .datasets-grid, .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .portfolio-filter {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .filter-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .team-stat {
+                min-width: 100%;
+            }
+            
+            .collaborators {
+                gap: 1.5rem;
+            }
+            
+            .collaborator-logo {
+                width: 80px;
+                height: 80px;
+                font-size: 1.5rem;
             }
         }
     </style>
@@ -337,20 +870,21 @@
     <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <div class="nav-brand">
+            <a href="index.html" class="nav-brand">
                 <div class="logo">
-                    <i class="fas fa-calculator"></i>
+                    <i class="fas fa-brain"></i>
                 </div>
-                <span class="brand-text">CBU MATH & ECON</span>
-            </div>
+                <span class="brand-text">CBU PREMIUM PROGRAM</span>
+            </a>
             <div class="nav-menu" id="navMenu">
                 <a href="index.html" class="nav-link"><i class="fas fa-home"></i> HOME</a>
                 <a href="overview.html" class="nav-link"><i class="fas fa-book-open"></i> OVERVIEW</a>
                 <a href="schedule.html" class="nav-link"><i class="fas fa-calendar-alt"></i> SCHEDULE</a>
-                <a href="team.html" class="nav-link active"><i class="fas fa-users"></i> TEAM</a>
-                <a href="#" class="login-btn" id="loginBtn">
-                    <i class="fas fa-user"></i>
-                    <span>LOGIN</span>
+                <a href="team.html" class="nav-link active"><i class="fas fa-users"></i> OUR WORK</a>
+                <a href="faq.html" class="nav-link"><i class="fas fa-question-circle"></i> FAQ</a>
+                <a href="https://wa.me/260961234567" target="_blank" class="login-btn" onclick="showEnrollmentModal()">
+                    <i class="fas fa-crown"></i>
+                    <span>ENROLL NOW</span>
                 </a>
             </div>
             <button class="menu-toggle" id="menuToggle">
@@ -362,230 +896,285 @@
     <!-- Team Hero -->
     <section class="team-hero">
         <div class="container">
-            <h1>Meet Our Teaching Team</h1>
-            <p class="subtitle">Learn from experienced faculty and dedicated teaching assistants</p>
+            <h1>Our Research & Portfolio</h1>
+            <p class="subtitle">Explore our projects, datasets, ongoing research, and collaborative work in mathematics and economics</p>
             
             <div class="team-stats">
-                <div class="team-stat">
-                    <div class="team-stat-number">8+</div>
-                    <div class="team-stat-label">Expert Faculty</div>
+                <div class="team-stat animate-in">
+                    <div class="team-stat-number">25+</div>
+                    <div class="team-stat-label">Active Projects</div>
                 </div>
-                <div class="team-stat">
-                    <div class="team-stat-number">15+</div>
-                    <div class="team-stat-label">Teaching Assistants</div>
-                </div>
-                <div class="team-stat">
+                <div class="team-stat animate-in">
                     <div class="team-stat-number">50+</div>
-                    <div class="team-stat-label">Years Experience</div>
+                    <div class="team-stat-label">Datasets</div>
                 </div>
-                <div class="team-stat">
-                    <div class="team-stat-number">24/7</div>
-                    <div class="team-stat-label">Support Available</div>
+                <div class="team-stat animate-in">
+                    <div class="team-stat-number">15+</div>
+                    <div class="team-stat-label">Collaborations</div>
+                </div>
+                <div class="team-stat animate-in">
+                    <div class="team-stat-number">100+</div>
+                    <div class="team-stat-label">Publications</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Faculty Section -->
-    <section class="team-section">
-        <div class="container">
-            <div class="team-category">
-                <div class="category-header">
-                    <div class="category-icon">
+    <!-- Quick Categories -->
+    <section class="container">
+        <div class="work-categories">
+            <a href="#projects" class="category-card animate-in">
+                <div class="category-icon">
+                    <i class="fas fa-project-diagram"></i>
+                </div>
+                <h3>Research Projects</h3>
+                <p>Explore our ongoing and completed research initiatives</p>
+            </a>
+            
+            <a href="#datasets" class="category-card animate-in">
+                <div class="category-icon">
+                    <i class="fas fa-database"></i>
+                </div>
+                <h3>Datasets</h3>
+                <p>Access curated datasets for academic research</p>
+            </a>
+            
+            <a href="#portfolio" class="category-card animate-in">
+                <div class="category-icon">
+                    <i class="fas fa-briefcase"></i>
+                </div>
+                <h3>Portfolio</h3>
+                <p>View our academic and professional work</p>
+            </a>
+            
+            <a href="#collaboration" class="category-card animate-in">
+                <div class="category-icon">
+                    <i class="fas fa-handshake"></i>
+                </div>
+                <h3>Collaborations</h3>
+                <p>Current partnerships and joint initiatives</p>
+            </a>
+        </div>
+    </section>
+
+    <!-- Featured Projects -->
+    <section id="projects" class="container">
+        <div class="section-header">
+            <h2>Featured Research Projects</h2>
+            <p>Our ongoing and completed research initiatives</p>
+        </div>
+
+        <div class="projects-grid">
+            <div class="project-card animate-in">
+                <div class="project-image">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <div class="project-content">
+                    <h3>Mathematical Modeling of Economic Systems</h3>
+                    <p>Developing predictive models for Zambian economic indicators using advanced mathematical techniques</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Mathematics</span>
+                        <span class="project-tag">Economics</span>
+                        <span class="project-tag">Modeling</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://drive.google.com/drive/folders/1PROJECT_ECON_MODEL" target="_blank" class="project-link primary">
+                            <i class="fab fa-google-drive"></i> View Project
+                        </a>
+                        <a href="https://github.com/cbu-mathecon/econ-model" target="_blank" class="project-link secondary">
+                            <i class="fab fa-github"></i> Code
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card animate-in">
+                <div class="project-image">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <div class="project-content">
+                    <h3>Optimization Algorithms for Resource Allocation</h3>
+                    <p>Research on efficient algorithms for optimal resource distribution in developing economies</p>
+                    <div class="project-tags">
+                        <span class="project-tag">Optimization</span>
+                        <span class="project-tag">Algorithms</span>
+                        <span class="project-tag">Operations Research</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://drive.google.com/drive/folders/1PROJECT_OPTIMIZATION" target="_blank" class="project-link primary">
+                            <i class="fab fa-google-drive"></i> View Project
+                        </a>
+                        <a href="https://github.com/cbu-mathecon/optimization-algos" target="_blank" class="project-link secondary">
+                            <i class="fab fa-github"></i> Code
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card animate-in">
+                <div class="project-image">
+                    <i class="fas fa-university"></i>
+                </div>
+                <div class="project-content">
+                    <h3>Education Technology Research</h3>
+                    <p>Developing innovative teaching methods and materials for mathematics education</p>
+                    <div class="project-tags">
+                        <span class="project-tag">EdTech</span>
+                        <span class="project-tag">Education</span>
+                        <span class="project-tag">Pedagogy</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://drive.google.com/drive/folders/1PROJECT_EDTECH" target="_blank" class="project-link primary">
+                            <i class="fab fa-google-drive"></i> View Project
+                        </a>
+                        <a href="#" class="project-link secondary">
+                            <i class="fas fa-file-pdf"></i> Paper
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Datasets Section -->
+    <section id="datasets" class="container">
+        <div class="datasets-section animate-in">
+            <div class="section-header" style="text-align: left;">
+                <h2>Research Datasets</h2>
+                <p>Curated datasets for academic research and analysis</p>
+            </div>
+
+            <div class="datasets-grid">
+                <div class="dataset-card">
+                    <div class="dataset-header">
+                        <div class="dataset-icon">
+                            <i class="fas fa-chart-bar"></i>
+                        </div>
+                        <div>
+                            <h3>Zambian Economic Indicators 2010-2023</h3>
+                            <p>Comprehensive economic data for Zambia</p>
+                        </div>
+                    </div>
+                    <div class="dataset-stats">
+                        <div class="dataset-stat">
+                            <div class="dataset-stat-number">14</div>
+                            <div class="dataset-stat-label">Years</div>
+                        </div>
+                        <div class="dataset-stat">
+                            <div class="dataset-stat-number">50+</div>
+                            <div class="dataset-stat-label">Variables</div>
+                        </div>
+                        <div class="dataset-stat">
+                            <div class="dataset-stat-number">CSV</div>
+                            <div class="dataset-stat-label">Format</div>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/drive/folders/1DATASET_ECON_INDICATORS" target="_blank" class="project-link primary" style="display: block; text-align: center; margin-top: 1rem;">
+                        <i class="fas fa-download"></i> Download Dataset
+                    </a>
+                </div>
+
+                <div class="dataset-card">
+                    <div class="dataset-header">
+                        <div class="dataset-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div>
+                            <h3>Student Performance Data</h3>
+                            <p>Academic performance metrics for CBU students</p>
+                        </div>
+                    </div>
+                    <div class="dataset-stats">
+                        <div class="dataset-stat">
+                            <div class="dataset-stat-number">5,000+</div>
+                            <div class="dataset-stat-label">Students</div>
+                        </div>
+                        <div class="dataset-stat">
+                            <div class="dataset-stat-number">10</div>
+                            <div class="dataset-stat-label">Years</div>
+                        </div>
+                        <div class="dataset-stat">
+                            <div class="dataset-stat-number">JSON</div>
+                            <div class="dataset-stat-label">Format</div>
+                        </div>
+                    </div>
+                    <a href="https://drive.google.com/drive/folders/1DATASET_STUDENT_PERF" target="_blank" class="project-link primary" style="display: block; text-align: center; margin-top: 1rem;">
+                        <i class="fas fa-download"></i> Download Dataset
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio" class="container">
+        <div class="portfolio-section">
+            <div class="section-header">
+                <h2>Our Portfolio</h2>
+                <p>Academic and professional work showcase</p>
+            </div>
+
+            <div class="portfolio-filter">
+                <button class="filter-btn active" data-filter="all">All Work</button>
+                <button class="filter-btn" data-filter="research">Research</button>
+                <button class="filter-btn" data-filter="publications">Publications</button>
+                <button class="filter-btn" data-filter="teaching">Teaching Materials</button>
+                <button class="filter-btn" data-filter="software">Software</button>
+            </div>
+
+            <div class="portfolio-grid">
+                <div class="portfolio-item" data-category="research">
+                    <div class="portfolio-image" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.3), rgba(16, 185, 129, 0.3));">
+                        <i class="fas fa-microscope"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Economic Resilience Research</h3>
+                        <p>Study on economic resilience in Southern Africa</p>
+                        <div class="project-tags" style="margin: 1rem 0;">
+                            <span class="project-tag">Research</span>
+                            <span class="project-tag">Economics</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="publications">
+                    <div class="portfolio-image" style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.3), rgba(139, 92, 246, 0.3));">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <div class="portfolio-content">
+                        <h3>Journal Publications</h3>
+                        <p>Collection of published academic papers</p>
+                        <div class="project-tags" style="margin: 1rem 0;">
+                            <span class="project-tag">Publications</span>
+                            <span class="project-tag">Academic</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="portfolio-item" data-category="teaching">
+                    <div class="portfolio-image" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.3), rgba(59, 130, 246, 0.3));">
                         <i class="fas fa-chalkboard-teacher"></i>
                     </div>
-                    <h2>Lead Faculty</h2>
-                    <p class="subtitle">Experienced professors guiding your learning journey</p>
-                </div>
-                
-                <div class="team-grid">
-                    <!-- Faculty Member 1 -->
-                    <div class="team-card animate-card" data-member="1">
-                        <div class="team-avatar">
-                            <span>RS</span>
-                        </div>
-                        <div class="team-info">
-                            <h3>Dr. Richard Sichomba</h3>
-                            <div class="team-role">Program Director & Lead Instructor</div>
-                            <div class="team-bio">
-                                PhD in Applied Mathematics with 15+ years of teaching experience. 
-                                Specializes in mathematical modeling and optimization techniques.
-                            </div>
-                            <div class="team-expertise">
-                                <span class="expertise-tag">Mathematical Modeling</span>
-                                <span class="expertise-tag">Optimization</span>
-                                <span class="expertise-tag">Numerical Analysis</span>
-                            </div>
-                            <div class="team-contact">
-                                <button class="contact-btn" title="Email">
-                                    <i class="fas fa-envelope"></i>
-                                </button>
-                                <button class="contact-btn" title="View Profile">
-                                    <i class="fas fa-user"></i>
-                                </button>
-                                <button class="contact-btn view-more" title="Learn More">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Faculty Member 2 -->
-                    <div class="team-card animate-card" data-member="2">
-                        <div class="team-avatar">
-                            <span>AM</span>
-                        </div>
-                        <div class="team-info">
-                            <h3>Dr. Alice Mwansa</h3>
-                            <div class="team-role">Economics Lead Instructor</div>
-                            <div class="team-bio">
-                                PhD in Economics with specialization in microeconomic theory. 
-                                Published researcher in market analysis and consumer behavior.
-                            </div>
-                            <div class="team-expertise">
-                                <span class="expertise-tag">Microeconomics</span>
-                                <span class="expertise-tag">Market Analysis</span>
-                                <span class="expertise-tag">Consumer Theory</span>
-                            </div>
-                            <div class="team-contact">
-                                <button class="contact-btn" title="Email">
-                                    <i class="fas fa-envelope"></i>
-                                </button>
-                                <button class="contact-btn" title="View Profile">
-                                    <i class="fas fa-user"></i>
-                                </button>
-                                <button class="contact-btn view-more" title="Learn More">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Faculty Member 3 -->
-                    <div class="team-card animate-card" data-member="3">
-                        <div class="team-avatar">
-                            <span>CK</span>
-                        </div>
-                        <div class="team-info">
-                            <h3>Prof. Charles Kapembwa</h3>
-                            <div class="team-role">Mathematics Instructor</div>
-                            <div class="team-bio">
-                                Professor of Mathematics with expertise in calculus and linear algebra. 
-                                Award-winning educator with 12+ years of university teaching.
-                            </div>
-                            <div class="team-expertise">
-                                <span class="expertise-tag">Calculus</span>
-                                <span class="expertise-tag">Linear Algebra</span>
-                                <span class="expertise-tag">Differential Equations</span>
-                            </div>
-                            <div class="team-contact">
-                                <button class="contact-btn" title="Email">
-                                    <i class="fas fa-envelope"></i>
-                                </button>
-                                <button class="contact-btn" title="View Profile">
-                                    <i class="fas fa-user"></i>
-                                </button>
-                                <button class="contact-btn view-more" title="Learn More">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            </div>
+                    <div class="portfolio-content">
+                        <h3>Course Materials</h3>
+                        <p>Complete teaching resources for 6-week program</p>
+                        <div class="project-tags" style="margin: 1rem 0;">
+                            <span class="project-tag">Teaching</span>
+                            <span class="project-tag">Education</span>
                         </div>
                     </div>
                 </div>
-            </div>
-            
-            <!-- Teaching Assistants Section -->
-            <div class="team-category">
-                <div class="category-header">
-                    <div class="category-icon">
-                        <i class="fas fa-user-graduate"></i>
+
+                <div class="portfolio-item" data-category="software">
+                    <div class="portfolio-image" style="background: linear-gradient(135deg, rgba(245, 158, 11, 0.3), rgba(139, 92, 246, 0.3));">
+                        <i class="fas fa-code"></i>
                     </div>
-                    <h2>Teaching Assistants</h2>
-                    <p class="subtitle">Dedicated graduate students providing personalized support</p>
-                </div>
-                
-                <div class="team-grid">
-                    <!-- TA 1 -->
-                    <div class="team-card animate-card" data-member="4">
-                        <div class="team-avatar">
-                            <span>JM</span>
-                        </div>
-                        <div class="team-info">
-                            <h3>James Mulenga</h3>
-                            <div class="team-role">Senior Teaching Assistant</div>
-                            <div class="team-bio">
-                                MSc Mathematics student specializing in applied mathematics. 
-                                Provides support in problem-solving sessions and assignments.
-                            </div>
-                            <div class="team-expertise">
-                                <span class="expertise-tag">Problem Solving</span>
-                                <span class="expertise-tag">Tutoring</span>
-                                <span class="expertise-tag">Office Hours</span>
-                            </div>
-                            <div class="team-contact">
-                                <button class="contact-btn" title="Schedule Session">
-                                    <i class="fas fa-calendar"></i>
-                                </button>
-                                <button class="contact-btn view-more" title="Learn More">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- TA 2 -->
-                    <div class="team-card animate-card" data-member="5">
-                        <div class="team-avatar">
-                            <span>SB</span>
-                        </div>
-                        <div class="team-info">
-                            <h3>Sarah Banda</h3>
-                            <div class="team-role">Economics TA</div>
-                            <div class="team-bio">
-                                MSc Economics candidate with focus on quantitative methods. 
-                                Assists with economic modeling and data analysis workshops.
-                            </div>
-                            <div class="team-expertise">
-                                <span class="expertise-tag">Economic Modeling</span>
-                                <span class="expertise-tag">Data Analysis</span>
-                                <span class="expertise-tag">Workshops</span>
-                            </div>
-                            <div class="team-contact">
-                                <button class="contact-btn" title="Schedule Session">
-                                    <i class="fas fa-calendar"></i>
-                                </button>
-                                <button class="contact-btn view-more" title="Learn More">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- TA 3 -->
-                    <div class="team-card animate-card" data-member="6">
-                        <div class="team-avatar">
-                            <span>PK</span>
-                        </div>
-                        <div class="team-info">
-                            <h3>Peter Kabwe</h3>
-                            <div class="team-role">Mathematics TA</div>
-                            <div class="team-bio">
-                                BSc Mathematics graduate assisting with calculus and algebra. 
-                                Leads weekly review sessions and practice problem workshops.
-                            </div>
-                            <div class="team-expertise">
-                                <span class="expertise-tag">Calculus</span>
-                                <span class="expertise-tag">Algebra</span>
-                                <span class="expertise-tag">Review Sessions</span>
-                            </div>
-                            <div class="team-contact">
-                                <button class="contact-btn" title="Schedule Session">
-                                    <i class="fas fa-calendar"></i>
-                                </button>
-                                <button class="contact-btn view-more" title="Learn More">
-                                    <i class="fas fa-plus"></i>
-                                </button>
-                            </div>
+                    <div class="portfolio-content">
+                        <h3>Educational Software</h3>
+                        <p>Tools for mathematical and economic analysis</p>
+                        <div class="project-tags" style="margin: 1rem 0;">
+                            <span class="project-tag">Software</span>
+                            <span class="project-tag">Tools</span>
                         </div>
                     </div>
                 </div>
@@ -593,433 +1182,335 @@
         </div>
     </section>
 
-    <!-- Support System -->
-    <section class="support-section">
-        <div class="container">
-            <h2>Comprehensive Support System</h2>
-            <p class="subtitle">We provide multiple layers of support to ensure your success</p>
-            
-            <div class="support-grid">
-                <div class="support-card">
-                    <div class="support-icon">
-                        <i class="fas fa-comments"></i>
+    <!-- Team Section -->
+    <section id="team" class="container">
+        <div class="team-section">
+            <div class="section-header">
+                <h2>Our Core Team</h2>
+                <p>The researchers and educators behind our work</p>
+            </div>
+
+            <div class="team-members">
+                <div class="member-card animate-in">
+                    <div class="member-avatar">
+                        RS
                     </div>
-                    <h4>Office Hours</h4>
-                    <p>Daily scheduled office hours with faculty and TAs for personalized help</p>
+                    <h3>Dr. Richard Sichomba</h3>
+                    <p>Principal Investigator & Program Director</p>
+                    <div class="project-tags" style="justify-content: center; margin: 1rem 0;">
+                        <span class="project-tag">Mathematics</span>
+                        <span class="project-tag">Research</span>
+                    </div>
+                    <div class="member-links">
+                        <a href="https://github.com/rsichomba" target="_blank" class="member-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://scholar.google.com" target="_blank" class="member-link">
+                            <i class="fas fa-graduation-cap"></i>
+                        </a>
+                        <a href="https://linkedin.com" target="_blank" class="member-link">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                    </div>
                 </div>
-                
-                <div class="support-card">
-                    <div class="support-icon">
-                        <i class="fas fa-users"></i>
+
+                <div class="member-card animate-in">
+                    <div class="member-avatar">
+                        AM
                     </div>
-                    <h4>Study Groups</h4>
-                    <p>Organized peer study groups facilitated by teaching assistants</p>
-                </div>
-                
-                <div class="support-card">
-                    <div class="support-icon">
-                        <i class="fas fa-question-circle"></i>
+                    <h3>Dr. Alice Mwansa</h3>
+                    <p>Lead Economist & Researcher</p>
+                    <div class="project-tags" style="justify-content: center; margin: 1rem 0;">
+                        <span class="project-tag">Economics</span>
+                        <span class="project-tag">Data Analysis</span>
                     </div>
-                    <h4>Q&A Forum</h4>
-                    <p>24/7 online forum for questions and discussion with quick responses</p>
-                </div>
-                
-                <div class="support-card">
-                    <div class="support-icon">
-                        <i class="fas fa-video"></i>
+                    <div class="member-links">
+                        <a href="#" class="member-link">
+                            <i class="fas fa-graduation-cap"></i>
+                        </a>
+                        <a href="#" class="member-link">
+                            <i class="fas fa-file-pdf"></i>
+                        </a>
+                        <a href="#" class="member-link">
+                            <i class="fab fa-researchgate"></i>
+                        </a>
                     </div>
-                    <h4>Video Tutorials</h4>
-                    <p>Recorded video solutions and explanations for all practice problems</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Team Modal -->
-    <div class="team-modal" id="teamModal">
-        <div class="modal-content">
-            <button class="close-modal" id="closeModal">
-                <i class="fas fa-times"></i>
-            </button>
-            <div id="modalContent">
-                <!-- Content loaded dynamically -->
+    <!-- Collaboration Section -->
+    <section id="collaboration" class="container">
+        <div class="collaboration-section animate-in">
+            <div class="section-header">
+                <h2>Our Collaborations</h2>
+                <p>Working together with leading institutions and organizations</p>
+            </div>
+
+            <div class="collaborators">
+                <div class="collaborator">
+                    <div class="collaborator-logo">
+                        <i class="fas fa-university"></i>
+                    </div>
+                    <h4>University of Zambia</h4>
+                    <p>Joint Research Program</p>
+                </div>
+
+                <div class="collaborator">
+                    <div class="collaborator-logo">
+                        <i class="fas fa-globe-africa"></i>
+                    </div>
+                    <h4>African Development Bank</h4>
+                    <p>Economic Research Partnership</p>
+                </div>
+
+                <div class="collaborator">
+                    <div class="collaborator-logo">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h4>Zambia Statistics Agency</h4>
+                    <p>Data Analysis Collaboration</p>
+                </div>
             </div>
         </div>
-    </div>
+    </section>
+
+    <!-- Get Involved CTA -->
+    <section class="container">
+        <div class="datasets-section" style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.9), rgba(124, 58, 237, 0.9));">
+            <div class="text-center" style="text-align: center; color: white;">
+                <h2>Get Involved in Our Research</h2>
+                <p style="margin: 1rem 0 2rem;">Join our research team or collaborate on projects</p>
+                
+                <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+                    <a href="mailto:research@cbu-mathecon.com" class="project-link primary" style="background: white; color: var(--accent);">
+                        <i class="fas fa-envelope"></i> Contact Research Team
+                    </a>
+                    <a href="https://github.com/cbu-mathecon" target="_blank" class="project-link secondary" style="background: rgba(255, 255, 255, 0.2); color: white;">
+                        <i class="fab fa-github"></i> View on GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>CBU MATH & ECON</h3>
+                    <h3>CBU PREMIUM PROGRAM</h3>
                     <p>The Copperbelt University<br>
                     School of Mathematics and Natural Sciences<br>
                     Department of Mathematics & Economics</p>
                 </div>
                 <div class="footer-section">
-                    <h3>Quick Links</h3>
+                    <h3>Research Links</h3>
                     <ul>
-                        <li><a href="overview.html">Program Overview</a></li>
-                        <li><a href="schedule.html">Weekly Schedule</a></li>
-                        <li><a href="team.html">Teaching Team</a></li>
-                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="#projects">Research Projects</a></li>
+                        <li><a href="#datasets">Datasets</a></li>
+                        <li><a href="#portfolio">Portfolio</a></li>
+                        <li><a href="#collaboration">Collaborations</a></li>
+                        <li><a href="https://github.com/cbu-mathecon" target="_blank">GitHub Repository</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3>Contact</h3>
-                    <p><i class="fas fa-envelope"></i> r.sichomba@cbu.ac.zm</p>
-                    <p><i class="fas fa-phone"></i> +260 XXX XXX XXX</p>
+                    <h3>Research Contact</h3>
+                    <p><i class="fas fa-envelope"></i> research@cbu-mathecon.com</p>
+                    <p><i class="fab fa-github"></i> github.com/cbu-mathecon</p>
+                    <p><i class="fas fa-graduation-cap"></i> Google Scholar Profile</p>
+                    <p><i class="fab fa-google-drive"></i> <a href="https://drive.google.com/drive/folders/1ALL_RESEARCH" target="_blank">All Research Materials</a></p>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 CBU Mathematics & Economics Department. All rights reserved.</p>
+                <p>&copy; 2024 CBU Premium Academic Services. All rights reserved.</p>
+                <p style="margin-top: 0.5rem; font-size: 0.9rem;">
+                    Research-focused mathematical and economic education | 
+                    <a href="https://drive.google.com/drive/folders/1RESEARCH_POLICY" target="_blank" style="color: var(--accent);">Research Policy</a>
+                </p>
             </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- Back to Top -->
+    <button class="back-to-top" id="backToTop">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
     <script>
-        // Team Page Interactivity
-        document.addEventListener('DOMContentLoaded', function() {
-            const teamModal = document.getElementById('teamModal');
-            const modalContent = document.getElementById('modalContent');
-            const closeModal = document.getElementById('closeModal');
-            
-            // Team member data
-            const teamMembers = {
-                1: {
-                    name: "Dr. Richard Sichomba",
-                    role: "Program Director & Lead Instructor",
-                    avatar: "RS",
-                    bio: "Dr. Richard Sichomba holds a PhD in Applied Mathematics from the University of Cambridge and has over 15 years of teaching experience at university level. His research focuses on mathematical modeling of economic systems and optimization techniques.",
-                    education: [
-                        "PhD in Applied Mathematics, University of Cambridge",
-                        "MSc in Mathematics, University of Oxford",
-                        "BSc in Mathematics, University of Zambia"
-                    ],
-                    expertise: [
-                        "Mathematical Modeling",
-                        "Optimization Techniques",
-                        "Numerical Analysis",
-                        "Economic Mathematics"
-                    ],
-                    contact: {
-                        email: "r.sichomba@cbu.ac.zm",
-                        office: "Mathematics Building, Room 305",
-                        hours: "Mon-Wed: 10:00-12:00, Thu: 14:00-16:00"
-                    },
-                    publications: 25,
-                    awards: 3
-                },
-                2: {
-                    name: "Dr. Alice Mwansa",
-                    role: "Economics Lead Instructor",
-                    avatar: "AM",
-                    bio: "Dr. Alice Mwansa specializes in microeconomic theory and applied econometrics. With 12 years of teaching experience, she brings real-world economic analysis to the classroom through case studies and practical applications.",
-                    education: [
-                        "PhD in Economics, London School of Economics",
-                        "MSc in Economic Policy, University of Cape Town",
-                        "BSc in Economics, University of Zambia"
-                    ],
-                    expertise: [
-                        "Microeconomic Theory",
-                        "Market Analysis",
-                        "Consumer Behavior",
-                        "Economic Policy"
-                    ],
-                    contact: {
-                        email: "a.mwansa@cbu.ac.zm",
-                        office: "Economics Building, Room 212",
-                        hours: "Tue-Thu: 9:00-11:00, Fri: 13:00-15:00"
-                    },
-                    publications: 18,
-                    awards: 2
-                },
-                // Add more team members as needed
-            };
-            
-            // View More buttons
-            document.querySelectorAll('.view-more').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const memberId = this.closest('.team-card').getAttribute('data-member');
-                    const member = teamMembers[memberId];
-                    
-                    if (member) {
-                        showMemberModal(member);
-                    }
-                });
-            });
-            
-            // Contact buttons
-            document.querySelectorAll('.contact-btn:not(.view-more)').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const memberCard = this.closest('.team-card');
-                    const memberName = memberCard.querySelector('h3').textContent;
-                    const action = this.getAttribute('title');
-                    
-                    if (action === 'Email') {
-                        showNotification(`Opening email composer for ${memberName}`, 'info');
-                    } else if (action === 'Schedule Session') {
-                        showNotification(`Opening scheduling calendar with ${memberName}`, 'info');
-                    } else if (action === 'View Profile') {
-                        const memberId = memberCard.getAttribute('data-member');
-                        const member = teamMembers[memberId];
-                        if (member) showMemberModal(member);
-                    }
-                });
-            });
-            
-            // Close modal
-            closeModal.addEventListener('click', function() {
-                teamModal.classList.remove('active');
-                document.body.style.overflow = 'auto';
-            });
-            
-            // Close modal when clicking outside
-            teamModal.addEventListener('click', function(e) {
-                if (e.target === teamModal) {
-                    teamModal.classList.remove('active');
-                    document.body.style.overflow = 'auto';
-                }
-            });
-            
-            // Show member modal
-            function showMemberModal(member) {
-                modalContent.innerHTML = `
-                    <div class="modal-header">
-                        <div class="modal-avatar">${member.avatar}</div>
-                        <div>
-                            <h2>${member.name}</h2>
-                            <div class="modal-role">${member.role}</div>
-                        </div>
-                    </div>
-                    
-                    <div class="modal-bio">
-                        <h4>About</h4>
-                        <p>${member.bio}</p>
-                    </div>
-                    
-                    <div class="modal-details">
-                        <div class="detail-section">
-                            <h4><i class="fas fa-graduation-cap"></i> Education</h4>
-                            <ul>
-                                ${member.education.map(item => `<li>${item}</li>`).join('')}
-                            </ul>
-                        </div>
-                        
-                        <div class="detail-section">
-                            <h4><i class="fas fa-star"></i> Expertise</h4>
-                            <div class="expertise-list">
-                                ${member.expertise.map(item => `<span class="expertise-tag">${item}</span>`).join('')}
-                            </div>
-                        </div>
-                        
-                        <div class="detail-section">
-                            <h4><i class="fas fa-id-card"></i> Contact Information</h4>
-                            <div class="contact-info">
-                                <p><i class="fas fa-envelope"></i> ${member.contact.email}</p>
-                                <p><i class="fas fa-building"></i> ${member.contact.office}</p>
-                                <p><i class="fas fa-clock"></i> ${member.contact.hours}</p>
-                            </div>
-                        </div>
-                        
-                        <div class="stats-grid">
-                            <div class="stat">
-                                <div class="stat-number">${member.publications}</div>
-                                <div class="stat-label">Publications</div>
-                            </div>
-                            <div class="stat">
-                                <div class="stat-number">${member.awards}</div>
-                                <div class="stat-label">Awards</div>
-                            </div>
-                            <div class="stat">
-                                <div class="stat-number">12+</div>
-                                <div class="stat-label">Years Experience</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="modal-actions">
-                        <button class="btn btn-primary">
-                            <i class="fas fa-envelope"></i> Send Message
-                        </button>
-                        <button class="btn btn-secondary">
-                            <i class="fas fa-calendar"></i> Schedule Meeting
-                        </button>
-                    </div>
-                `;
-                
-                teamModal.classList.add('active');
-                document.body.style.overflow = 'hidden';
-                
-                // Add modal styles
-                const style = document.createElement('style');
-                style.textContent = `
-                    .modal-header {
-                        display: flex;
-                        align-items: center;
-                        gap: 2rem;
-                        margin-bottom: 2rem;
-                    }
-                    
-                    .modal-avatar {
-                        width: 100px;
-                        height: 100px;
-                        background: linear-gradient(135deg, #8b5cf6, #a855f7);
-                        border-radius: 50%;
-                        display: flex;
-                        align-items: center;
-                        justify-content: center;
-                        color: white;
-                        font-size: 2.5rem;
-                        font-weight: bold;
-                        border: 4px solid rgba(255, 255, 255, 0.1);
-                    }
-                    
-                    .modal-role {
-                        color: #8b5cf6;
-                        font-weight: 600;
-                        font-size: 1.1rem;
-                        margin-top: 0.5rem;
-                    }
-                    
-                    .modal-bio {
-                        margin: 2rem 0;
-                        line-height: 1.8;
-                    }
-                    
-                    .modal-details {
-                        display: grid;
-                        gap: 2rem;
-                    }
-                    
-                    .detail-section h4 {
-                        display: flex;
-                        align-items: center;
-                        gap: 0.75rem;
-                        margin-bottom: 1rem;
-                        color: white;
-                    }
-                    
-                    .detail-section ul {
-                        list-style: none;
-                        padding-left: 0;
-                    }
-                    
-                    .detail-section li {
-                        margin: 0.5rem 0;
-                        padding-left: 1.5rem;
-                        position: relative;
-                    }
-                    
-                    .detail-section li::before {
-                        content: '•';
-                        color: #8b5cf6;
-                        position: absolute;
-                        left: 0;
-                    }
-                    
-                    .expertise-list {
-                        display: flex;
-                        flex-wrap: wrap;
-                        gap: 0.5rem;
-                    }
-                    
-                    .contact-info p {
-                        display: flex;
-                        align-items: center;
-                        gap: 0.75rem;
-                        margin: 0.75rem 0;
-                    }
-                    
-                    .stats-grid {
-                        display: grid;
-                        grid-template-columns: repeat(3, 1fr);
-                        gap: 1.5rem;
-                        margin: 2rem 0;
-                    }
-                    
-                    .stat {
-                        text-align: center;
-                        padding: 1.5rem;
-                        background: rgba(255, 255, 255, 0.05);
-                        border-radius: 10px;
-                    }
-                    
-                    .stat-number {
-                        font-size: 2rem;
-                        font-weight: bold;
-                        color: #8b5cf6;
-                        margin-bottom: 0.5rem;
-                    }
-                    
-                    .modal-actions {
-                        display: flex;
-                        gap: 1rem;
-                        margin-top: 2rem;
-                    }
-                    
-                    @media (max-width: 768px) {
-                        .modal-header {
-                            flex-direction: column;
-                            text-align: center;
-                        }
-                        
-                        .stats-grid {
-                            grid-template-columns: 1fr;
-                        }
-                        
-                        .modal-actions {
-                            flex-direction: column;
-                        }
-                    }
-                `;
-                
-                if (!document.querySelector('#modal-styles')) {
-                    style.id = 'modal-styles';
-                    document.head.appendChild(style);
-                }
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!navMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+                navMenu.classList.remove('active');
             }
+        });
+        
+        // Back to top button
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.style.display = 'flex';
+            } else {
+                backToTop.style.display = 'none';
+            }
+        });
+        
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // Show notification function
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            notification.className = `notification notification-${type}`;
+            notification.innerHTML = `
+                <div class="notification-content">
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
+                    <span>${message}</span>
+                </div>
+                <button class="notification-close" onclick="this.parentElement.style.animation='slideOutRight 0.3s ease forwards'; setTimeout(()=>this.parentElement.remove(),300)"><i class="fas fa-times"></i></button>
+            `;
             
-            // Animate cards on scroll
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach((entry, index) => {
-                    if (entry.isIntersecting) {
+            document.body.appendChild(notification);
+            
+            // Auto-remove after 5 seconds
+            setTimeout(() => {
+                notification.style.animation = 'slideOutRight 0.3s ease forwards';
+                setTimeout(() => notification.remove(), 300);
+            }, 5000);
+        }
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                if (this.getAttribute('href') === '#') return;
+                
+                const targetId = this.getAttribute('href');
+                if (targetId.startsWith('#')) {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
+        });
+        
+        // Animate elements on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('animate-in');
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+        
+        document.querySelectorAll('.animate-in').forEach(el => {
+            observer.observe(el);
+        });
+        
+        // Portfolio Filtering
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const portfolioItems = document.querySelectorAll('.portfolio-item');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                const filterValue = button.getAttribute('data-filter');
+                
+                // Filter portfolio items
+                portfolioItems.forEach(item => {
+                    if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                        item.classList.remove('hidden');
                         setTimeout(() => {
-                            entry.target.classList.add('animate-card');
-                        }, index * 100);
+                            item.style.opacity = '1';
+                            item.style.transform = 'scale(1)';
+                        }, 50);
+                    } else {
+                        item.style.opacity = '0';
+                        item.style.transform = 'scale(0.8)';
+                        setTimeout(() => {
+                            item.classList.add('hidden');
+                        }, 300);
                     }
                 });
-            }, {
-                threshold: 0.1,
-                rootMargin: '0px 0px -50px 0px'
             });
-            
-            document.querySelectorAll('.team-card').forEach(card => {
-                observer.observe(card);
+        });
+        
+        // Google Drive link tracking
+        document.querySelectorAll('a[href*="drive.google.com"]').forEach(link => {
+            link.addEventListener('click', function() {
+                const resourceName = this.textContent.trim() || 'Google Drive Resource';
+                showNotification(`Opening ${resourceName}...`, 'info');
+                
+                console.log('Google Drive resource accessed:', this.href);
             });
-            
-            // Show notification
-            function showNotification(message, type = 'info') {
-                const notification = document.createElement('div');
-                notification.className = `notification notification-${type}`;
-                notification.innerHTML = `
-                    <div class="notification-content">
-                        <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
-                        <span>${message}</span>
-                    </div>
-                    <button class="notification-close"><i class="fas fa-times"></i></button>
-                `;
-                
-                document.body.appendChild(notification);
-                
-                // Auto-remove after 3 seconds
+        });
+        
+        // GitHub link tracking
+        document.querySelectorAll('a[href*="github.com"]').forEach(link => {
+            link.addEventListener('click', function() {
+                showNotification('Opening GitHub repository...', 'info');
+            });
+        });
+        
+        // Enrollment modal
+        function showEnrollmentModal() {
+            showNotification('Opening WhatsApp for enrollment...', 'info');
+        }
+        
+        // Initialize MathJax
+        if (window.MathJax) {
+            MathJax.typesetPromise();
+        }
+        
+        // Auto-expand sections on page load based on URL hash
+        const hash = window.location.hash;
+        if (hash && hash.startsWith('#')) {
+            const targetElement = document.querySelector(hash);
+            if (targetElement) {
                 setTimeout(() => {
-                    notification.style.animation = 'slideOutRight 0.3s ease forwards';
-                    setTimeout(() => notification.remove(), 300);
-                }, 3000);
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }, 500);
             }
+        }
+        
+        // Add click animation to category cards
+        document.querySelectorAll('.category-card').forEach(card => {
+            card.addEventListener('click', function(e) {
+                if (this.getAttribute('href').startsWith('#')) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        targetElement.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                }
+            });
         });
     </script>
 </body>
