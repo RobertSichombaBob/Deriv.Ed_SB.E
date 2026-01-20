@@ -3,22 +3,172 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Program Overview | CBU Math & Econ</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Premium 6-Week Program | CBU Math & Econ</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css">
     
     <style>
-        /* Overview Specific Styles */
+        :root {
+            --primary: #3b82f6;
+            --secondary: #10b981;
+            --accent: #8b5cf6;
+            --dark: #0f172a;
+            --darker: #020617;
+            --light: #f8fafc;
+            --card-bg: rgba(30, 41, 59, 0.8);
+            --border: rgba(255, 255, 255, 0.1);
+            --math: #10b981;
+            --econ: #3b82f6;
+            --week1: #3b82f6;
+            --week2: #8b5cf6;
+            --week3: #10b981;
+            --week4: #f59e0b;
+            --week5: #ef4444;
+            --week6: #ec4899;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
+            color: var(--light);
+            line-height: 1.6;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-brand {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .brand-text {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-link:hover {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary);
+        }
+
+        .nav-link.active {
+            background: rgba(59, 130, 246, 0.2);
+            color: var(--primary);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .login-btn {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Hero Section */
         .overview-hero {
             background: linear-gradient(135deg, rgba(30, 64, 175, 0.9) 0%, rgba(59, 130, 246, 0.9) 100%);
             color: white;
-            padding: 6rem 0 4rem;
+            padding: 8rem 0 4rem;
             text-align: center;
             position: relative;
             overflow: hidden;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
         }
-        
+
         .overview-hero::before {
             content: '';
             position: absolute;
@@ -30,109 +180,191 @@
             background-size: cover;
             opacity: 0.1;
         }
-        
-        .learning-path {
-            background: rgba(30, 41, 59, 0.8);
-            border-radius: 20px;
-            padding: 3rem;
-            margin: 3rem auto;
-            max-width: 1200px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            position: relative;
+            z-index: 1;
         }
-        
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .stat {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, white, #e2e8f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Program Features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 4rem 0;
+        }
+
+        .feature {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 15px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .feature:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature i {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Learning Path */
+        .learning-path {
+            position: relative;
+            padding: 6rem 0;
+        }
+
         .path-timeline {
             position: relative;
-            margin: 3rem 0;
+            margin: 4rem 0;
+            padding-left: 100px;
         }
-        
+
         .path-timeline::before {
             content: '';
             position: absolute;
-            left: 50px;
+            left: 60px;
             top: 0;
             bottom: 0;
             width: 4px;
-            background: linear-gradient(to bottom, #059669, #3b82f6);
+            background: linear-gradient(to bottom, var(--week1), var(--week6));
             border-radius: 2px;
         }
-        
+
         .timeline-item {
             display: flex;
-            margin: 3rem 0;
+            margin: 4rem 0;
             position: relative;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.6s ease forwards;
         }
-        
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.4s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.6s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.8s; }
+        .timeline-item:nth-child(5) { animation-delay: 1s; }
+        .timeline-item:nth-child(6) { animation-delay: 1.2s; }
+
         .timeline-icon {
-            width: 100px;
-            height: 100px;
-            background: linear-gradient(135deg, #059669, #10b981);
+            position: absolute;
+            left: -40px;
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--week1), var(--week1));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 2rem;
-            margin-right: 2rem;
+            font-size: 1.5rem;
             z-index: 2;
-            flex-shrink: 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
-        
+
+        .timeline-item:nth-child(1) .timeline-icon { background: linear-gradient(135deg, var(--week1), #60a5fa); }
+        .timeline-item:nth-child(2) .timeline-icon { background: linear-gradient(135deg, var(--week2), #a78bfa); }
+        .timeline-item:nth-child(3) .timeline-icon { background: linear-gradient(135deg, var(--week3), #34d399); }
+        .timeline-item:nth-child(4) .timeline-icon { background: linear-gradient(135deg, var(--week4), #fbbf24); }
+        .timeline-item:nth-child(5) .timeline-icon { background: linear-gradient(135deg, var(--week5), #f87171); }
+        .timeline-item:nth-child(6) .timeline-icon { background: linear-gradient(135deg, var(--week6), #f472b6); }
+
         .timeline-content {
-            background: rgba(15, 23, 42, 0.6);
+            background: var(--card-bg);
             border-radius: 15px;
             padding: 2rem;
             flex: 1;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
             transition: all 0.3s ease;
+            margin-left: 2rem;
         }
-        
+
         .timeline-content:hover {
-            border-color: rgba(5, 150, 105, 0.3);
+            border-color: var(--primary);
             transform: translateX(10px);
         }
-        
-        .timeline-content h3 {
-            margin-top: 0;
-            color: white;
-        }
-        
+
         .timeline-topics {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            display: flex;
+            flex-wrap: wrap;
             gap: 1rem;
             margin: 1rem 0;
         }
-        
+
         .topic-item {
             background: rgba(255, 255, 255, 0.05);
-            padding: 0.75rem;
+            padding: 0.75rem 1.25rem;
             border-radius: 8px;
             display: flex;
             align-items: center;
             gap: 0.75rem;
+            font-size: 0.9rem;
         }
-        
+
         .topic-item i {
-            color: #059669;
+            color: var(--primary);
         }
-        
+
+        /* Curriculum */
         .curriculum-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 2rem;
-            margin: 3rem 0;
+            margin: 4rem 0;
         }
-        
+
         .course-card {
-            background: rgba(30, 41, 59, 0.8);
-            border-radius: 15px;
+            background: var(--card-bg);
+            border-radius: 20px;
             padding: 2.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+            border: 1px solid var(--border);
             position: relative;
             overflow: hidden;
+            transition: all 0.3s ease;
         }
-        
+
         .course-card::before {
             content: '';
             position: absolute;
@@ -140,22 +372,21 @@
             left: 0;
             right: 0;
             height: 4px;
-            background: linear-gradient(90deg, #059669, #10b981);
         }
-        
+
         .course-card.math::before {
-            background: linear-gradient(90deg, #059669, #10b981);
+            background: linear-gradient(90deg, var(--math), #34d399);
         }
-        
+
         .course-card.econ::before {
-            background: linear-gradient(90deg, #3b82f6, #6366f1);
+            background: linear-gradient(90deg, var(--econ), #60a5fa);
         }
-        
+
         .course-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
         }
-        
+
         .course-icon {
             width: 70px;
             height: 70px;
@@ -166,80 +397,104 @@
             font-size: 2rem;
             margin-bottom: 1.5rem;
         }
-        
+
         .course-icon.math {
-            background: rgba(5, 150, 105, 0.2);
-            color: #34d399;
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--math);
         }
-        
+
         .course-icon.econ {
             background: rgba(59, 130, 246, 0.2);
-            color: #60a5fa;
+            color: var(--econ);
         }
-        
+
         .chapter-list {
-            margin: 1.5rem 0;
+            margin: 2rem 0;
         }
-        
+
         .chapter-item {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
-            margin: 0.75rem 0;
-            padding: 0.5rem;
-            border-radius: 6px;
-            transition: background 0.3s ease;
+            gap: 1rem;
+            padding: 1rem;
+            margin: 0.5rem 0;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            transition: all 0.3s ease;
         }
-        
+
         .chapter-item:hover {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateX(5px);
         }
-        
+
         .chapter-number {
-            width: 30px;
-            height: 30px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 6px;
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.875rem;
-            font-weight: 600;
+            font-weight: 700;
             flex-shrink: 0;
         }
-        
-        .learning-outcomes {
-            background: linear-gradient(135deg, rgba(5, 150, 105, 0.1) 0%, rgba(16, 185, 129, 0.1) 100%);
-            border-radius: 15px;
-            padding: 3rem;
-            margin: 3rem 0;
-            border: 1px solid rgba(5, 150, 105, 0.2);
+
+        .drive-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-top: 2rem;
         }
-        
+
+        .drive-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary);
+            text-decoration: none;
+            border-radius: 8px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .drive-btn:hover {
+            background: rgba(59, 130, 246, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .drive-btn i {
+            color: #34a853;
+        }
+
+        /* Learning Outcomes */
         .outcomes-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 2rem;
-            margin-top: 2rem;
+            margin-top: 3rem;
         }
-        
+
         .outcome-card {
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 12px;
+            background: var(--card-bg);
+            border-radius: 15px;
             padding: 2rem;
             text-align: center;
+            border: 1px solid var(--border);
             transition: all 0.3s ease;
         }
-        
+
         .outcome-card:hover {
-            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--primary);
             transform: translateY(-5px);
         }
-        
+
         .outcome-icon {
             width: 60px;
             height: 60px;
-            background: linear-gradient(135deg, #059669, #10b981);
+            background: linear-gradient(135deg, var(--primary), var(--accent));
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -248,64 +503,265 @@
             font-size: 1.5rem;
             margin: 0 auto 1rem;
         }
-        
-        .assessment-structure {
-            background: rgba(30, 41, 59, 0.8);
-            border-radius: 15px;
-            padding: 3rem;
-            margin: 3rem 0;
-        }
-        
+
+        /* Assessment */
         .assessment-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
+            gap: 2rem;
+            margin-top: 3rem;
         }
-        
+
         .assessment-item {
             text-align: center;
-            padding: 1.5rem;
-            background: rgba(15, 23, 42, 0.6);
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 2rem;
+            background: var(--card-bg);
+            border-radius: 15px;
+            border: 1px solid var(--border);
         }
-        
+
         .assessment-percentage {
-            font-size: 2rem;
-            font-weight: bold;
-            color: #059669;
+            font-size: 3rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             margin-bottom: 0.5rem;
         }
-        
+
+        /* Schedule Modal */
+        .schedule-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 3rem;
+            max-width: 800px;
+            width: 100%;
+            max-height: 80vh;
+            overflow-y: auto;
+            border: 1px solid var(--border);
+        }
+
+        /* Footer */
+        .footer {
+            background: rgba(15, 23, 42, 0.95);
+            padding: 4rem 0 2rem;
+            margin-top: 6rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.9) 0%, rgba(59, 130, 246, 0.9) 100%);
+            padding: 6rem 0;
+            text-align: center;
+            border-radius: 30px;
+            margin: 6rem 2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .path-timeline {
+                padding-left: 80px;
+            }
+            
+            .timeline-icon {
+                width: 60px;
+                height: 60px;
+                left: -30px;
+            }
+        }
+
         @media (max-width: 768px) {
+            .nav-menu {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: var(--dark);
+                padding: 1rem;
+                flex-direction: column;
+            }
+            
+            .nav-menu.active {
+                display: flex;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .hero-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .path-timeline {
+                padding-left: 60px;
+            }
+            
             .path-timeline::before {
                 left: 40px;
             }
             
-            .timeline-item {
+            .timeline-icon {
+                width: 50px;
+                height: 50px;
+                left: -25px;
+            }
+            
+            .timeline-content {
+                margin-left: 1rem;
+            }
+            
+            .cta-section {
+                margin: 4rem 1rem;
+            }
+            
+            .curriculum-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 0 1rem;
+            }
+            
+            .cta-buttons {
                 flex-direction: column;
             }
             
-            .timeline-icon {
-                margin-right: 0;
-                margin-bottom: 1rem;
-                width: 80px;
-                height: 80px;
-            }
-            
-            .timeline-content:hover {
-                transform: translateY(-5px);
+            .assessment-grid {
+                grid-template-columns: 1fr;
             }
         }
-        
+
+        /* Animations */
         @keyframes float {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
         }
-        
+
         .floating {
             animation: float 3s ease-in-out infinite;
+        }
+
+        /* Utility Classes */
+        .section-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section-subtitle {
+            font-size: 1.2rem;
+            opacity: 0.8;
+            margin-bottom: 3rem;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-1 { margin-top: 1rem; }
+        .mt-2 { margin-top: 2rem; }
+        .mt-3 { margin-top: 3rem; }
+        .mt-4 { margin-top: 4rem; }
+        .mt-5 { margin-top: 5rem; }
+
+        .mb-1 { margin-bottom: 1rem; }
+        .mb-2 { margin-bottom: 2rem; }
+        .mb-3 { margin-bottom: 3rem; }
+        .mb-4 { margin-bottom: 4rem; }
+        .mb-5 { margin-bottom: 5rem; }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent);
         }
     </style>
 </head>
@@ -315,19 +771,20 @@
         <div class="nav-container">
             <div class="nav-brand">
                 <div class="logo">
-                    <i class="fas fa-calculator"></i>
+                    <i class="fas fa-brain"></i>
                 </div>
-                <span class="brand-text">CBU MATH & ECON</span>
+                <span class="brand-text">CBU PREMIUM PROGRAM</span>
             </div>
             <div class="nav-menu" id="navMenu">
                 <a href="index.html" class="nav-link"><i class="fas fa-home"></i> HOME</a>
                 <a href="overview.html" class="nav-link active"><i class="fas fa-book-open"></i> OVERVIEW</a>
                 <a href="schedule.html" class="nav-link"><i class="fas fa-calendar-alt"></i> SCHEDULE</a>
                 <a href="team.html" class="nav-link"><i class="fas fa-users"></i> TEAM</a>
-                <a href="#" class="login-btn" id="loginBtn">
-                    <i class="fas fa-user"></i>
-                    <span>LOGIN</span>
-                </a>
+                <a href="#" class="nav-link"><i class="fas fa-graduation-cap"></i> RESOURCES</a>
+                <button class="login-btn" onclick="showEnrollmentModal()">
+                    <i class="fas fa-crown"></i>
+                    <span>ENROLL NOW</span>
+                </button>
             </div>
             <button class="menu-toggle" id="menuToggle">
                 <i class="fas fa-bars"></i>
@@ -338,15 +795,16 @@
     <!-- Overview Hero -->
     <section class="overview-hero">
         <div class="container">
-            <h1>Program Overview</h1>
-            <p class="subtitle">Comprehensive 6-week intensive program in Mathematical Methods 1 & Economics 110</p>
+            <h1 class="section-title">Premium 6-Week Intensive Program</h1>
+            <p class="section-subtitle">Mathematical Methods 1 & Economics 110 | Complete Mastery Package</p>
+            
             <div class="hero-stats">
                 <div class="stat">
                     <div class="stat-number">6</div>
                     <div class="stat-label">Weeks</div>
                 </div>
                 <div class="stat">
-                    <div class="stat-number">40+</div>
+                    <div class="stat-number">40</div>
                     <div class="stat-label">Chapters</div>
                 </div>
                 <div class="stat">
@@ -362,34 +820,32 @@
     </section>
 
     <!-- Program Description -->
-    <section class="program-description">
-        <div class="container">
-            <div class="description-content">
-                <h2>About the Program</h2>
-                <p>The CBU 6-Week Intensive Program in Mathematical Methods 1 and Economics 110 is designed to provide students with a comprehensive understanding of fundamental mathematical techniques and economic principles through an accelerated, immersive learning experience.</p>
-                
-                <div class="features-grid">
-                    <div class="feature">
-                        <i class="fas fa-bolt"></i>
-                        <h4>Accelerated Learning</h4>
-                        <p>Complete two university-level courses in just 6 weeks through intensive daily sessions.</p>
-                    </div>
-                    <div class="feature">
-                        <i class="fas fa-hands-helping"></i>
-                        <h4>Expert Guidance</h4>
-                        <p>Learn from experienced faculty and teaching assistants with personalized support.</p>
-                    </div>
-                    <div class="feature">
-                        <i class="fas fa-chart-line"></i>
-                        <h4>Practical Application</h4>
-                        <p>Apply mathematical concepts to real-world economic problems and scenarios.</p>
-                    </div>
-                    <div class="feature">
-                        <i class="fas fa-trophy"></i>
-                        <h4>Certification</h4>
-                        <p>Earn a certificate of completion from The Copperbelt University.</p>
-                    </div>
-                </div>
+    <section class="container mt-5">
+        <div class="text-center">
+            <h2 class="section-title">Program Overview</h2>
+            <p class="section-subtitle">Daily 2-hour sessions (12:00-13:45 & 17:00-18:45) with integrated problem-solving labs</p>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature">
+                <i class="fas fa-calendar-check"></i>
+                <h4>Twice Daily Sessions</h4>
+                <p>Live interactive sessions: Morning theory (12:00-13:45) & Evening applications (17:00-18:45)</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-laptop-code"></i>
+                <h4>Problem-Solving Labs</h4>
+                <p>Weekly application labs with real-world economic problems and mathematical modeling</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-chalkboard-teacher"></i>
+                <h4>Expert Instruction</h4>
+                <p>Learn from experienced faculty with proven track records in both subjects</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-trophy"></i>
+                <h4>Guaranteed Results</h4>
+                <p>95%+ pass rate with grade improvement guarantee for premium students</p>
             </div>
         </div>
     </section>
@@ -397,78 +853,204 @@
     <!-- Learning Path -->
     <section class="learning-path">
         <div class="container">
-            <h2>Learning Path Structure</h2>
-            <p class="subtitle">Progressive journey through 6 weeks of intensive learning</p>
+            <h2 class="section-title text-center">6-Week Learning Journey</h2>
+            <p class="section-subtitle text-center">Progressive mastery from foundations to advanced applications</p>
             
             <div class="path-timeline">
-                <div class="timeline-item floating">
+                <!-- Week 1 -->
+                <div class="timeline-item">
                     <div class="timeline-icon">
                         <i class="fas fa-layer-group"></i>
                     </div>
                     <div class="timeline-content">
-                        <h3>Week 1-2: Foundation Building</h3>
-                        <p>Establish core concepts in algebra, set theory, and basic economic principles.</p>
+                        <h3>Week 1: Foundation Building</h3>
+                        <p><strong>Daily Schedule:</strong> 12:00-13:45 (Theory) | 17:00-18:45 (Applications)</p>
                         <div class="timeline-topics">
                             <div class="topic-item">
                                 <i class="fas fa-calculator"></i>
-                                <span>Algebraic Equations</span>
+                                <span>Equations & Inequalities</span>
                             </div>
                             <div class="topic-item">
-                                <i class="fas fa-project-diagram"></i>
-                                <span>Set Theory</span>
+                                <i class="fas fa-balance-scale"></i>
+                                <span>Nature of Economics</span>
                             </div>
                             <div class="topic-item">
-                                <i class="fas fa-chart-bar"></i>
-                                <span>Economic Basics</span>
+                                <i class="fas fa-flask"></i>
+                                <span>Lab: Basic Problem Sets</span>
                             </div>
+                        </div>
+                        <div class="drive-links">
+                            <a href="https://drive.google.com/drive/folders/1ABCDEFG_Week1_Math" target="_blank" class="drive-btn">
+                                <i class="fab fa-google-drive"></i> Math Week 1
+                            </a>
+                            <a href="https://drive.google.com/drive/folders/1HIJKLMN_Week1_Econ" target="_blank" class="drive-btn">
+                                <i class="fab fa-google-drive"></i> Econ Week 1
+                            </a>
                         </div>
                     </div>
                 </div>
                 
-                <div class="timeline-item floating" style="animation-delay: 0.5s;">
+                <!-- Week 2 -->
+                <div class="timeline-item">
                     <div class="timeline-icon">
                         <i class="fas fa-calculator"></i>
                     </div>
                     <div class="timeline-content">
-                        <h3>Week 3-4: Core Techniques</h3>
-                        <p>Master calculus fundamentals and their application to economic analysis.</p>
+                        <h3>Week 2: Core Concepts</h3>
+                        <p><strong>Daily Schedule:</strong> 12:00-13:45 (Theory) | 17:00-18:45 (Applications)</p>
                         <div class="timeline-topics">
                             <div class="topic-item">
-                                <i class="fas fa-infinity"></i>
-                                <span>Differential Calculus</span>
+                                <i class="fas fa-project-diagram"></i>
+                                <span>Functions & Graphs</span>
                             </div>
                             <div class="topic-item">
-                                <i class="fas fa-sum"></i>
-                                <span>Integral Calculus</span>
+                                <i class="fas fa-chart-line"></i>
+                                <span>Demand & Supply</span>
                             </div>
                             <div class="topic-item">
-                                <i class="fas fa-balance-scale"></i>
-                                <span>Market Analysis</span>
+                                <i class="fas fa-flask"></i>
+                                <span>Lab: Market Analysis</span>
                             </div>
+                        </div>
+                        <div class="drive-links">
+                            <a href="https://drive.google.com/drive/folders/1OPQRSTU_Week2_Math" target="_blank" class="drive-btn">
+                                <i class="fab fa-google-drive"></i> Math Week 2
+                            </a>
+                            <a href="https://drive.google.com/drive/folders/1VWXYZAB_Week2_Econ" target="_blank" class="drive-btn">
+                                <i class="fab fa-google-drive"></i> Econ Week 2
+                            </a>
                         </div>
                     </div>
                 </div>
                 
-                <div class="timeline-item floating" style="animation-delay: 1s;">
+                <!-- Week 3 -->
+                <div class="timeline-item">
                     <div class="timeline-icon">
                         <i class="fas fa-rocket"></i>
                     </div>
                     <div class="timeline-content">
-                        <h3>Week 5-6: Application & Review</h3>
-                        <p>Apply learned concepts to complex problems and prepare for final assessment.</p>
+                        <h3>Week 3: Advanced Applications</h3>
+                        <p><strong>Daily Schedule:</strong> 12:00-13:45 (Theory) | 17:00-18:45 (Applications)</p>
                         <div class="timeline-topics">
                             <div class="topic-item">
-                                <i class="fas fa-puzzle-piece"></i>
-                                <span>Problem Solving</span>
+                                <i class="fas fa-infinity"></i>
+                                <span>Sequences & Series</span>
                             </div>
                             <div class="topic-item">
-                                <i class="fas fa-chart-line"></i>
-                                <span>Economic Modeling</span>
+                                <i class="fas fa-shopping-cart"></i>
+                                <span>Consumer Theory</span>
                             </div>
                             <div class="topic-item">
-                                <i class="fas fa-tasks"></i>
+                                <i class="fas fa-flask"></i>
+                                <span>Lab: Utility Optimization</span>
+                            </div>
+                        </div>
+                        <div class="drive-links">
+                            <a href="https://drive.google.com/drive/folders/1CDEFGHI_Week3_Math" target="_blank" class="drive-btn">
+                                <i class="fab fa-google-drive"></i> Math Week 3
+                            </a>
+                            <a href="https://drive.google.com/drive/folders/1JKLMNOP_Week3_Econ" target="_blank" class="drive-btn">
+                                <i class="fab fa-google-drive"></i> Econ Week 3
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Week 4 -->
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-puzzle-piece"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Week 4: Integration</h3>
+                        <p><strong>Daily Schedule:</strong> 12:00-13:45 (Theory) | 17:00-18:45 (Applications)</p>
+                        <div class="timeline-topics">
+                            <div class="topic-item">
+                                <i class="fas fa-box"></i>
+                                <span>Combinatorics</span>
+                            </div>
+                            <div class="topic-item">
+                                <i class="fas fa-industry"></i>
+                                <span>Production Theory</span>
+                            </div>
+                            <div class="topic-item">
+                                <i class="fas fa-flask"></i>
+                                <span>Lab: Cost Optimization</span>
+                            </div>
+                        </div>
+                        <div class="drive-links">
+                            <a href="https://drive.google.com/drive/folders/1QRSTUVW_Week4_Math" target="_blank" class="drive-btn">
+                                <i class="fab fa-google-drive"></i> Math Week 4
+                            </a>
+                            <a href="https://drive.google.com/drive/folders/1XYZABCD_Week4_Econ" target="_blank" class="drive-btn">
+                                <i class="fab fa-google-drive"></i> Econ Week 4
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Week 5 -->
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Week 5: Advanced Analysis</h3>
+                        <p><strong>Daily Schedule:</strong> 12:00-13:45 (Theory) | 17:00-18:45 (Applications)</p>
+                        <div class="timeline-topics">
+                            <div class="topic-item">
+                                <i class="fas fa-table"></i>
+                                <span>Matrices</span>
+                            </div>
+                            <div class="topic-item">
+                                <i class="fas fa-gamepad"></i>
+                                <span>Game Theory</span>
+                            </div>
+                            <div class="topic-item">
+                                <i class="fas fa-flask"></i>
+                                <span>Lab: Strategic Analysis</span>
+                            </div>
+                        </div>
+                        <div class="drive-links">
+                            <a href="https://drive.google.com/drive/folders/1EFGHIJK_Week5_Math" target="_blank" class="drive-btn">
+                                <i class="fab fa-google-drive"></i> Math Week 5
+                            </a>
+                            <a href="https://drive.google.com/drive/folders/1LMNOPQR_Week5_Econ" target="_blank" class="drive-btn">
+                                <i class="fab fa-google-drive"></i> Econ Week 5
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Week 6 -->
+                <div class="timeline-item">
+                    <div class="timeline-icon">
+                        <i class="fas fa-trophy"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <h3>Week 6: Mastery & Review</h3>
+                        <p><strong>Daily Schedule:</strong> 12:00-13:45 (Review) | 17:00-18:45 (Practice)</p>
+                        <div class="timeline-topics">
+                            <div class="topic-item">
+                                <i class="fas fa-sync-alt"></i>
                                 <span>Comprehensive Review</span>
                             </div>
+                            <div class="topic-item">
+                                <i class="fas fa-file-alt"></i>
+                                <span>Exam Preparation</span>
+                            </div>
+                            <div class="topic-item">
+                                <i class="fas fa-flask"></i>
+                                <span>Lab: Final Project</span>
+                            </div>
+                        </div>
+                        <div class="drive-links">
+                            <a href="https://drive.google.com/drive/folders/1STUVWXY_Week6_Math" target="_blank" class="drive-btn">
+                                <i class="fab fa-google-drive"></i> Math Week 6
+                            </a>
+                            <a href="https://drive.google.com/drive/folders/1ZABCDEF_Week6_Econ" target="_blank" class="drive-btn">
+                                <i class="fab fa-google-drive"></i> Econ Week 6
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -477,199 +1059,219 @@
     </section>
 
     <!-- Course Curriculum -->
-    <section class="curriculum">
-        <div class="container">
-            <h2>Course Curriculum</h2>
-            <p class="subtitle">Detailed breakdown of Mathematical Methods 1 and Economics 110</p>
-            
-            <div class="curriculum-grid">
-                <div class="course-card math">
-                    <div class="course-icon math">
-                        <i class="fas fa-square-root-alt"></i>
-                    </div>
-                    <h3>Mathematical Methods 1</h3>
-                    <p>Comprehensive coverage of university-level mathematics fundamentals.</p>
-                    
-                    <div class="chapter-list">
-                        <div class="chapter-item">
-                            <div class="chapter-number">1-4</div>
-                            <div>
-                                <h5>Algebra & Equations</h5>
-                                <small>Linear, quadratic, and polynomial equations</small>
-                            </div>
-                        </div>
-                        <div class="chapter-item">
-                            <div class="chapter-number">5-8</div>
-                            <div>
-                                <h5>Functions & Graphs</h5>
-                                <small>Function properties and graphical analysis</small>
-                            </div>
-                        </div>
-                        <div class="chapter-item">
-                            <div class="chapter-number">9-12</div>
-                            <div>
-                                <h5>Differential Calculus</h5>
-                                <small>Derivatives and their applications</small>
-                            </div>
-                        </div>
-                        <div class="chapter-item">
-                            <div class="chapter-number">13-16</div>
-                            <div>
-                                <h5>Integral Calculus</h5>
-                                <small>Integration techniques and applications</small>
-                            </div>
+    <section class="container mt-5">
+        <h2 class="section-title text-center">Complete Course Curriculum</h2>
+        <p class="section-subtitle text-center">Access all materials via Google Drive links</p>
+        
+        <div class="curriculum-grid">
+            <!-- Mathematics Card -->
+            <div class="course-card math">
+                <div class="course-icon math">
+                    <i class="fas fa-square-root-alt"></i>
+                </div>
+                <h3>Mathematical Methods 1</h3>
+                <p>Complete coverage of all mathematical techniques with weekly problem sets</p>
+                
+                <div class="chapter-list">
+                    <div class="chapter-item">
+                        <div class="chapter-number">1-3</div>
+                        <div>
+                            <h5>Equations & Inequalities</h5>
+                            <small>Linear, quadratic, and systems</small>
                         </div>
                     </div>
-                    
-                    <button class="btn btn-primary btn-block">
-                        <i class="fas fa-book"></i> View Full Syllabus
-                    </button>
+                    <div class="chapter-item">
+                        <div class="chapter-number">4-6</div>
+                        <div>
+                            <h5>Functions</h5>
+                            <small>Quadratic, polynomial, and graphing</small>
+                        </div>
+                    </div>
+                    <div class="chapter-item">
+                        <div class="chapter-number">7-9</div>
+                        <div>
+                            <h5>Sequences & Series</h5>
+                            <small>Arithmetic, geometric, and convergence</small>
+                        </div>
+                    </div>
+                    <div class="chapter-item">
+                        <div class="chapter-number">10-12</div>
+                        <div>
+                            <h5>Advanced Algebra</h5>
+                            <small>Matrices, determinants, and systems</small>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="course-card econ">
-                    <div class="course-icon econ">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3>Economics 110</h3>
-                    <p>Introduction to microeconomic principles and market analysis.</p>
-                    
-                    <div class="chapter-list">
-                        <div class="chapter-item">
-                            <div class="chapter-number">1-3</div>
-                            <div>
-                                <h5>Economic Fundamentals</h5>
-                                <small>Scarcity, choice, and opportunity cost</small>
-                            </div>
-                        </div>
-                        <div class="chapter-item">
-                            <div class="chapter-number">4-7</div>
-                            <div>
-                                <h5>Market Analysis</h5>
-                                <small>Supply, demand, and equilibrium</small>
-                            </div>
-                        </div>
-                        <div class="chapter-item">
-                            <div class="chapter-number">8-11</div>
-                            <div>
-                                <h5>Consumer Behavior</h5>
-                                <small>Utility theory and consumer choice</small>
-                            </div>
-                        </div>
-                        <div class="chapter-item">
-                            <div class="chapter-number">12-15</div>
-                            <div>
-                                <h5>Production & Cost</h5>
-                                <small>Firm behavior and market structures</small>
-                            </div>
+                <div class="drive-links">
+                    <a href="https://drive.google.com/drive/folders/1MATH_COMPLETE_ALL_WEEKS" target="_blank" class="drive-btn">
+                        <i class="fab fa-google-drive"></i> Download All Math Materials
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Economics Card -->
+            <div class="course-card econ">
+                <div class="course-icon econ">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Economics 110</h3>
+                <p>Microeconomics fundamentals with real-world applications and case studies</p>
+                
+                <div class="chapter-list">
+                    <div class="chapter-item">
+                        <div class="chapter-number">1-3</div>
+                        <div>
+                            <h5>Economic Fundamentals</h5>
+                            <small>Scarcity, choice, and systems</small>
                         </div>
                     </div>
-                    
-                    <button class="btn btn-primary btn-block">
-                        <i class="fas fa-book"></i> View Full Syllabus
-                    </button>
+                    <div class="chapter-item">
+                        <div class="chapter-number">4-7</div>
+                        <div>
+                            <h5>Market Analysis</h5>
+                            <small>Demand, supply, and equilibrium</small>
+                        </div>
+                    </div>
+                    <div class="chapter-item">
+                        <div class="chapter-number">8-10</div>
+                        <div>
+                            <h5>Consumer Theory</h5>
+                            <small>Utility, budget, and choice</small>
+                        </div>
+                    </div>
+                    <div class="chapter-item">
+                        <div class="chapter-number">11-14</div>
+                        <div>
+                            <h5>Production & Costs</h5>
+                            <small>Firms, production, and market structures</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="drive-links">
+                    <a href="https://drive.google.com/drive/folders/1ECON_COMPLETE_ALL_WEEKS" target="_blank" class="drive-btn">
+                        <i class="fab fa-google-drive"></i> Download All Econ Materials
+                    </a>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Learning Outcomes -->
-    <section class="learning-outcomes">
-        <div class="container">
-            <h2>Learning Outcomes</h2>
-            <p class="subtitle">What you'll achieve by completing this program</p>
+    <section class="container mt-5">
+        <h2 class="section-title text-center">Learning Outcomes</h2>
+        <p class="section-subtitle text-center">What you'll achieve by completing this program</p>
+        
+        <div class="outcomes-grid">
+            <div class="outcome-card">
+                <div class="outcome-icon">
+                    <i class="fas fa-calculator"></i>
+                </div>
+                <h4>Mathematical Proficiency</h4>
+                <p>Master equations, functions, sequences, and advanced algebra techniques</p>
+            </div>
             
-            <div class="outcomes-grid">
-                <div class="outcome-card">
-                    <div class="outcome-icon">
-                        <i class="fas fa-calculator"></i>
-                    </div>
-                    <h4>Mathematical Proficiency</h4>
-                    <p>Solve complex mathematical problems using appropriate techniques</p>
+            <div class="outcome-card">
+                <div class="outcome-icon">
+                    <i class="fas fa-chart-line"></i>
                 </div>
-                
-                <div class="outcome-card">
-                    <div class="outcome-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h4>Economic Analysis</h4>
-                    <p>Analyze economic scenarios using fundamental principles</p>
+                <h4>Economic Analysis</h4>
+                <p>Analyze markets, consumer behavior, and production decisions</p>
+            </div>
+            
+            <div class="outcome-card">
+                <div class="outcome-icon">
+                    <i class="fas fa-lightbulb"></i>
                 </div>
-                
-                <div class="outcome-card">
-                    <div class="outcome-icon">
-                        <i class="fas fa-lightbulb"></i>
-                    </div>
-                    <h4>Critical Thinking</h4>
-                    <p>Apply logical reasoning to solve real-world problems</p>
+                <h4>Problem-Solving Skills</h4>
+                <p>Apply mathematical techniques to solve economic problems</p>
+            </div>
+            
+            <div class="outcome-card">
+                <div class="outcome-icon">
+                    <i class="fas fa-project-diagram"></i>
                 </div>
-                
-                <div class="outcome-card">
-                    <div class="outcome-icon">
-                        <i class="fas fa-project-diagram"></i>
-                    </div>
-                    <h4>Model Building</h4>
-                    <p>Construct and interpret mathematical and economic models</p>
-                </div>
+                <h4>Model Building</h4>
+                <p>Create and interpret economic and mathematical models</p>
             </div>
         </div>
     </section>
 
     <!-- Assessment Structure -->
-    <section class="assessment-structure">
-        <div class="container">
-            <h2>Assessment Structure</h2>
-            <p class="subtitle">Comprehensive evaluation throughout the program</p>
-            
-            <div class="assessment-grid">
-                <div class="assessment-item">
-                    <div class="assessment-percentage">40%</div>
-                    <h4>Weekly Tests</h4>
-                    <p>8 tests assessing weekly progress</p>
-                </div>
-                
-                <div class="assessment-item">
-                    <div class="assessment-percentage">30%</div>
-                    <h4>Assignments</h4>
-                    <p>Regular problem sets and projects</p>
-                </div>
-                
-                <div class="assessment-item">
-                    <div class="assessment-percentage">20%</div>
-                    <h4>Final Examination</h4>
-                    <p>Comprehensive end-of-program exam</p>
-                </div>
-                
-                <div class="assessment-item">
-                    <div class="assessment-percentage">10%</div>
-                    <h4>Participation</h4>
-                    <p>Class participation and engagement</p>
-                </div>
+    <section class="container mt-5">
+        <h2 class="section-title text-center">Assessment Structure</h2>
+        <p class="section-subtitle text-center">Comprehensive evaluation throughout the program</p>
+        
+        <div class="assessment-grid">
+            <div class="assessment-item">
+                <div class="assessment-percentage">30%</div>
+                <h4>Weekly Tests</h4>
+                <p>End-of-week comprehensive assessments</p>
             </div>
             
-            <div class="grading-scale">
-                <h4>Grading Scale</h4>
-                <div class="scale-grid">
-                    <div class="scale-item">
-                        <span class="grade">A+</span>
-                        <span class="range">90-100%</span>
-                        <span class="description">Outstanding</span>
-                    </div>
-                    <div class="scale-item">
-                        <span class="grade">A</span>
-                        <span class="range">80-89%</span>
-                        <span class="description">Excellent</span>
-                    </div>
-                    <div class="scale-item">
-                        <span class="grade">B+</span>
-                        <span class="range">70-79%</span>
-                        <span class="description">Very Good</span>
-                    </div>
-                    <div class="scale-item">
-                        <span class="grade">B</span>
-                        <span class="range">60-69%</span>
-                        <span class="description">Good</span>
-                    </div>
-                </div>
+            <div class="assessment-item">
+                <div class="assessment-percentage">25%</div>
+                <h4>Problem Sets</h4>
+                <p>Weekly application problems and labs</p>
+            </div>
+            
+            <div class="assessment-item">
+                <div class="assessment-percentage">25%</div>
+                <h4>Final Examination</h4>
+                <p>Comprehensive program exam</p>
+            </div>
+            
+            <div class="assessment-item">
+                <div class="assessment-percentage">20%</div>
+                <h4>Capstone Project</h4>
+                <p>Real-world application project</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lab Sessions -->
+    <section class="container mt-5">
+        <div class="text-center">
+            <h2 class="section-title">Weekly Lab Sessions</h2>
+            <p class="section-subtitle">Real-world problem solving and applications</p>
+        </div>
+        
+        <div class="features-grid">
+            <div class="feature">
+                <i class="fas fa-code"></i>
+                <h4>Math Lab Problems</h4>
+                <p>Weekly mathematical modeling problems with step-by-step solutions</p>
+                <a href="https://drive.google.com/drive/folders/1MATH_LABS_ALL" target="_blank" class="drive-btn mt-1">
+                    <i class="fab fa-google-drive"></i> Access Math Labs
+                </a>
+            </div>
+            
+            <div class="feature">
+                <i class="fas fa-chart-pie"></i>
+                <h4>Econ Case Studies</h4>
+                <p>Real economic data analysis and market simulations</p>
+                <a href="https://drive.google.com/drive/folders/1ECON_CASES_ALL" target="_blank" class="drive-btn mt-1">
+                    <i class="fab fa-google-drive"></i> Access Econ Cases
+                </a>
+            </div>
+            
+            <div class="feature">
+                <i class="fas fa-users"></i>
+                <h4>Group Projects</h4>
+                <p>Collaborative problem-solving sessions with peer feedback</p>
+                <a href="https://drive.google.com/drive/folders/1GROUP_PROJECTS" target="_blank" class="drive-btn mt-1">
+                    <i class="fab fa-google-drive"></i> Access Projects
+                </a>
+            </div>
+            
+            <div class="feature">
+                <i class="fas fa-video"></i>
+                <h4>Solution Videos</h4>
+                <p>Video walkthroughs of complex problems and solutions</p>
+                <a href="https://drive.google.com/drive/folders/1SOLUTION_VIDEOS" target="_blank" class="drive-btn mt-1">
+                    <i class="fab fa-google-drive"></i> Access Videos
+                </a>
             </div>
         </div>
     </section>
@@ -678,14 +1280,17 @@
     <section class="cta-section">
         <div class="container">
             <div class="cta-content">
-                <h2>Ready to Start Your Journey?</h2>
-                <p>Join our intensive program and transform your understanding of mathematics and economics</p>
+                <h2 class="section-title">Ready to Transform Your Learning?</h2>
+                <p class="section-subtitle">Join our premium program with guaranteed results</p>
                 <div class="cta-buttons">
                     <a href="schedule.html" class="btn btn-primary btn-lg">
-                        <i class="fas fa-calendar-alt"></i> View Schedule
+                        <i class="fas fa-calendar-alt"></i> View Full Schedule
                     </a>
-                    <a href="index.html#register" class="btn btn-secondary btn-lg">
-                        <i class="fas fa-user-plus"></i> Register Now
+                    <button class="btn btn-secondary btn-lg" onclick="showEnrollmentModal()">
+                        <i class="fas fa-crown"></i> Enroll Now (K 2,500)
+                    </button>
+                    <a href="https://drive.google.com/drive/folders/1SAMPLE_MATERIALS" target="_blank" class="btn btn-secondary btn-lg">
+                        <i class="fab fa-google-drive"></i> Sample Materials
                     </a>
                 </div>
             </div>
@@ -697,136 +1302,176 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>CBU MATH & ECON</h3>
+                    <h3>CBU PREMIUM PROGRAM</h3>
                     <p>The Copperbelt University<br>
                     School of Mathematics and Natural Sciences<br>
                     Department of Mathematics & Economics</p>
                 </div>
                 <div class="footer-section">
                     <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="overview.html">Program Overview</a></li>
-                        <li><a href="schedule.html">Weekly Schedule</a></li>
-                        <li><a href="team.html">Teaching Team</a></li>
-                        <li><a href="faq.html">FAQ</a></li>
+                    <ul style="list-style: none; padding: 0;">
+                        <li><a href="overview.html" style="color: var(--light); text-decoration: none;">Program Overview</a></li>
+                        <li><a href="schedule.html" style="color: var(--light); text-decoration: none;">Weekly Schedule</a></li>
+                        <li><a href="#" style="color: var(--light); text-decoration: none;" onclick="showResourcesModal()">All Resources</a></li>
+                        <li><a href="#" style="color: var(--light); text-decoration: none;" onclick="showEnrollmentModal()">Enrollment</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3>Contact</h3>
-                    <p><i class="fas fa-envelope"></i> r.sichomba@cbu.ac.zm</p>
-                    <p><i class="fas fa-phone"></i> +260 XXX XXX XXX</p>
+                    <h3>Contact & Support</h3>
+                    <p><i class="fas fa-envelope"></i> premium@cbu-mathecon.com</p>
+                    <p><i class="fab fa-whatsapp"></i> +260 96 123 4567</p>
+                    <p><i class="fas fa-phone"></i> +260 211 123456</p>
                 </div>
             </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 CBU Mathematics & Economics Department. All rights reserved.</p>
+            <div class="footer-bottom text-center mt-4">
+                <p>&copy; 2024 CBU Premium Academic Services. All rights reserved.</p>
+                <p class="mt-1">Designed for excellence in mathematical and economic education</p>
             </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- Schedule Modal -->
+    <div class="schedule-modal" id="scheduleModal">
+        <div class="modal-content">
+            <h2>Daily Schedule Details</h2>
+            <div class="schedule-details">
+                <h4>Morning Session (12:00-13:45)</h4>
+                <p>Theory and concept introduction with live examples</p>
+                
+                <h4 class="mt-2">Afternoon Break (13:45-17:00)</h4>
+                <p>Self-study, assignments, and preparation</p>
+                
+                <h4 class="mt-2">Evening Session (17:00-18:45)</h4>
+                <p>Applications, problem solving, and labs</p>
+                
+                <h4 class="mt-2">Q&A Session (18:45-19:00)</h4>
+                <p>Premium students only - personalized doubt clearance</p>
+            </div>
+            <button class="btn btn-primary mt-3" onclick="hideScheduleModal()">Close</button>
+        </div>
+    </div>
+
+    <!-- Enrollment Modal -->
+    <div class="schedule-modal" id="enrollmentModal">
+        <div class="modal-content">
+            <h2><i class="fas fa-crown"></i> Premium Enrollment</h2>
+            <div class="pricing-options">
+                <h4 class="mt-2">Basic Package: K 500</h4>
+                <p>PDF materials only</p>
+                
+                <h4 class="mt-2">Standard Package: K 1,200</h4>
+                <p>Materials + basic support</p>
+                
+                <h4 class="mt-2">Premium Package: K 2,500</h4>
+                <p>All features + live sessions + 24/7 support</p>
+                
+                <h4 class="mt-2">Platinum Package: K 4,000</h4>
+                <p>Premium + unlimited one-on-one tutoring</p>
+            </div>
+            <div class="cta-buttons mt-3">
+                <button class="btn btn-primary" onclick="processPayment()">
+                    <i class="fas fa-credit-card"></i> Pay Now
+                </button>
+                <button class="btn btn-secondary" onclick="hideEnrollmentModal()">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Overview Page Interactivity
-        document.addEventListener('DOMContentLoaded', function() {
-            // View Syllabus Buttons
-            document.querySelectorAll('.btn-primary').forEach(btn => {
-                btn.addEventListener('click', function(e) {
-                    if (this.textContent.includes('Syllabus')) {
-                        e.preventDefault();
-                        const course = this.closest('.course-card').querySelector('h3').textContent;
-                        showNotification(`Opening full syllabus for ${course}`, 'info');
-                        
-                        // Simulate loading
-                        const originalText = this.innerHTML;
-                        this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Loading...';
-                        
-                        setTimeout(() => {
-                            this.innerHTML = originalText;
-                            showNotification(`${course} syllabus loaded successfully`, 'success');
-                        }, 1500);
-                    }
-                });
-            });
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navMenu = document.getElementById('navMenu');
+        
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', (event) => {
+            if (!navMenu.contains(event.target) && !menuToggle.contains(event.target)) {
+                navMenu.classList.remove('active');
+            }
+        });
+        
+        // Show schedule modal
+        function showScheduleModal() {
+            document.getElementById('scheduleModal').style.display = 'flex';
+        }
+        
+        function hideScheduleModal() {
+            document.getElementById('scheduleModal').style.display = 'none';
+        }
+        
+        // Show enrollment modal
+        function showEnrollmentModal() {
+            document.getElementById('enrollmentModal').style.display = 'flex';
+        }
+        
+        function hideEnrollmentModal() {
+            document.getElementById('enrollmentModal').style.display = 'none';
+        }
+        
+        // Close modals when clicking outside
+        document.addEventListener('click', (event) => {
+            const scheduleModal = document.getElementById('scheduleModal');
+            const enrollmentModal = document.getElementById('enrollmentModal');
             
-            // Animate timeline items on scroll
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('floating');
-                    }
-                });
-            }, {
-                threshold: 0.1
-            });
-            
-            document.querySelectorAll('.timeline-item').forEach(item => {
-                observer.observe(item);
-            });
-            
-            // Course card hover effects
-            document.querySelectorAll('.course-card').forEach(card => {
-                card.addEventListener('mouseenter', function() {
-                    this.style.transform = 'translateY(-10px)';
-                    this.style.boxShadow = '0 25px 50px rgba(0, 0, 0, 0.4)';
-                });
-                
-                card.addEventListener('mouseleave', function() {
-                    this.style.transform = 'translateY(0)';
-                    this.style.boxShadow = '0 20px 40px rgba(0, 0, 0, 0.3)';
-                });
-            });
-            
-            // Interactive grading scale
-            document.querySelectorAll('.scale-item').forEach(item => {
-                item.addEventListener('mouseenter', function() {
-                    const grade = this.querySelector('.grade').textContent;
-                    const description = this.querySelector('.description').textContent;
-                    showTooltip(this, `${grade}: ${description}`);
-                });
-                
-                item.addEventListener('mouseleave', function() {
-                    hideTooltip();
-                });
-            });
-            
-            // Show notification
-            function showNotification(message, type = 'info') {
-                const notification = document.createElement('div');
-                notification.className = `notification notification-${type}`;
-                notification.innerHTML = `
-                    <div class="notification-content">
-                        <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'}"></i>
-                        <span>${message}</span>
-                    </div>
-                    <button class="notification-close"><i class="fas fa-times"></i></button>
-                `;
-                
-                document.body.appendChild(notification);
-                
-                // Auto-remove after 3 seconds
-                setTimeout(() => {
-                    notification.style.animation = 'slideOutRight 0.3s ease forwards';
-                    setTimeout(() => notification.remove(), 300);
-                }, 3000);
+            if (event.target === scheduleModal) {
+                hideScheduleModal();
             }
             
-            // Tooltip functions
-            function showTooltip(element, text) {
-                const tooltip = document.createElement('div');
-                tooltip.className = 'tooltip';
-                tooltip.textContent = text;
-                document.body.appendChild(tooltip);
-                
-                const rect = element.getBoundingClientRect();
-                tooltip.style.left = rect.left + rect.width / 2 - tooltip.offsetWidth / 2 + 'px';
-                tooltip.style.top = rect.top - tooltip.offsetHeight - 10 + 'px';
-                
-                element._tooltip = tooltip;
+            if (event.target === enrollmentModal) {
+                hideEnrollmentModal();
             }
+        });
+        
+        // Animate timeline items on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                }
+            });
+        }, {
+            threshold: 0.1
+        });
+        
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            observer.observe(item);
+        });
+        
+        // Process payment
+        function processPayment() {
+            const number = "260961234567";
+            const message = "I want to enroll in the Premium 6-Week Program (K 2,500)";
+            window.open(`https://wa.me/${number}?text=${encodeURIComponent(message)}`, '_blank');
+        }
+        
+        // Show resources modal
+        function showResourcesModal() {
+            alert('Complete Resource Access:\n\n' +
+                  'Mathematics: https://drive.google.com/drive/folders/1MATH_ALL\n' +
+                  'Economics: https://drive.google.com/drive/folders/1ECON_ALL\n' +
+                  'Labs: https://drive.google.com/drive/folders/1LABS_ALL\n' +
+                  'Solutions: https://drive.google.com/drive/folders/1SOLUTIONS_ALL');
+        }
+        
+        // Initialize animations
+        document.addEventListener('DOMContentLoaded', () => {
+            // Add floating animation to features
+            const features = document.querySelectorAll('.feature');
+            features.forEach((feature, index) => {
+                feature.style.animationDelay = `${index * 0.1}s`;
+            });
             
-            function hideTooltip() {
-                const tooltips = document.querySelectorAll('.tooltip');
-                tooltips.forEach(tooltip => tooltip.remove());
-            }
+            // Add scroll animation
+            window.addEventListener('scroll', () => {
+                const scrolled = window.pageYOffset;
+                const rate = scrolled * -0.5;
+                document.querySelector('.overview-hero').style.backgroundPosition = `center ${rate}px`;
+            });
         });
     </script>
 </body>
